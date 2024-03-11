@@ -1,7 +1,6 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   min-height: 100vh;
 }
@@ -202,28 +201,34 @@
   }
 }
 
-/* Tablet and Smaller Desktop */
-@media (min-width: 701px) and (max-width: 1120px) {
-  .grid {
-    grid-template-columns: repeat(2, 50%);
-  }
+
+.header {
+  display: flex;
+  justify-content: center;
+  background: green;
+  width: 100%;
+  padding: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  .vercelLogo {
-    filter: invert(1);
-  }
-
-  .logo {
-    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 98vw;
+  max-width: 50rem;
+  border: azure 1px solid;
+  margin-top: 1rem;
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
+.containerHeader {
+  width: 100%;
+  text-align: center;
+  border-bottom: azure 1px solid;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
