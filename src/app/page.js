@@ -5,26 +5,7 @@ import Link from "next/link";
 export default function Home() {
     return (
         <main className={styles.main}>
-            <div className={styles.header}>
-                <h1>Spärmen</h1>
-            </div>
-
-            <div className={styles.container}>
-                <div className={styles.containerHeader}>
-                    <h3>Top 10</h3>
-                </div>
-                <div className={styles.containerBody}>
-                    <ul>
-                        <li>
-                            Fyllehundarnas dryckesvisa
-                        </li>
-                        <li>
-                            Kolplett
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+            <input type="text" className={styles.searchBar} placeholder="Sök..."/>
             <div className={styles.container}>
                 <div className={styles.containerHeader}>
                     <h3>Spex</h3>

@@ -1,0 +1,36 @@
+.songContainer {
+    width: 100%;
+}
+
+.dropDown {
+    padding: 5px;
+
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--background-start-rgb), 1),
+      rgba(var(--callout-rgb), 0.5)
+    );
+}
+
+.songText {
+    margin-left: 1rem;
+}
+
+.tabContainer {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 1rem 0.5rem 1rem 0.5rem;
+
+    overflow-x: auto;
+}
+
+.tab {
+    border: azure 1px solid;
+    padding: 5px;
+}
+
+.selected {
+    background: green !important;
+}
+
