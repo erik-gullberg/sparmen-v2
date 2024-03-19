@@ -1,23 +1,23 @@
-CREATE DATABASE database;
 CREATE TABLE spex(
     spex_name   TEXT,
-    year        INT,
+    year        VARCHAR(255),
     context     TEXT,
-    PRIMARY KEY(name, year)
-)
-
-CREATE TABLE song(
-    song_name   TEXT UNIQUE;
+    PRIMARY KEY(year)
+);
+CREATE TABLE songs(
+	song_id		INT AUTO_INCREMENT,
+    song_name   TEXT,
     text        TEXT,
     context     TEXT,
-    PRIMARY KEY(song_name),
-    FOREIGN KEY(spex_id) REFERENCES spex(name, year)
-
-)
-CREATE TABLE retake(
-    retake_name TEXT UNIQUE;
+    year        VARCHAR(255),
+    PRIMARY KEY(song_id),
+    FOREIGN KEY(year) REFERENCES spex(year)
+);
+CREATE TABLE retakes(
+	retake_id	INT,
+    retake_name TEXT,
     text        TEXT,
-    song        TEXT,
-    PRIMARY KEY(retake_name),
-    FOREIGN KEY(song_id) REFERENCES song(song_name)
-)
+    song_id   	INT,
+    PRIMARY KEY(retake_id),
+    FOREIGN KEY(song_id) REFERENCES songs(song_id)
+);
