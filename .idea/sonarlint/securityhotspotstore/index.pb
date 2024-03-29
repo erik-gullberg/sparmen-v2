@@ -48,3 +48,5 @@ L
 src/utils/getSpexByNumber.js,6/1/61df454b264c0028f9b57cf301f7aa309c558422
 G
 resources/mockServer.js,6/2/62791f52ccad2de8de547daaf0c89d9d392ef83b
+I
+src/app/search/loading.js,c/5/c5398af6fdaf58ca837c7ec94b0e11e6c498feb2
