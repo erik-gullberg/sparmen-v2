@@ -1,30 +1,25 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
 
-export default function Page() {
-  const searchParams = useSearchParams();
-  const [data, setData] = useState(null);
+async function fetchData(query) {
+  const supabase = createClient();
+  const user = supabase.auth.getUser();
 
-  useEffect(() => {
-    const query = searchParams.get("q");
-    async function fetchData() {
-      const res = await fetch(`http://localhost:3001/search?q=${query}`);
-
-      if (!res.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const json = await res.json();
-      setData(json);
-    }
-
-    fetchData();
-  }, [searchParams]);
-
-  if (!data) {
-    return <p>Loading...</p>;
+  if (!user) {
+    return { text: "Unauthenticated" };
   }
 
-  return <p>{data.text}</p>;
+  // Replace spaces in the query with the & operator
+  const formattedQuery = query.split(" ").join("<->");
+
+  return supabase
+    .from("song")
+    .select("*")
+    .textSearch("search_text", formattedQuery);
+}
+
+export default async function Page({ params, searchParams }) {
+  const { q } = searchParams;
+  const data = await fetchData(q);
+
+  return <pre>{JSON.stringify(data.data, null, 2)}</pre>;
 }
