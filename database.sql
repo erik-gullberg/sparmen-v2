@@ -1,14 +1,14 @@
 
 CREATE TABLE spex(
     spex_id     INT AUTO_INCREMENT,
-    spex_name   TEXT,
+    spex_name   VARCHAR(100),
     context     TEXT,
     PRIMARY KEY(spex_id)
 );
 
 CREATE TABLE shows(
     show_id     INT AUTO_INCREMENT,   
-    year        VARCHAR(20),
+    year        VARCHAR(30),
     spex_id     INT,
     PRIMARY KEY(show_id),
     FOREIGN KEY(spex_id) REFERENCES spex(spex_id)
@@ -16,7 +16,7 @@ CREATE TABLE shows(
 
 CREATE TABLE songs(
 	song_id		INT AUTO_INCREMENT,
-    song_name   TEXT,
+    song_name   VARCHAR(100),
     text        TEXT,
     context     TEXT,
     show_id     INT,
@@ -26,7 +26,7 @@ CREATE TABLE songs(
 
 CREATE TABLE retakes(
 	retake_id	INT AUTO_INCREMENT,
-    retake_name TEXT,
+    retake_name VARCHAR(100),
     text        TEXT,
     song_id   	INT,
     PRIMARY KEY(retake_id),
