@@ -25,7 +25,7 @@ export default function LoginButton() {
               .signInWithOAuth({
                 provider: "google",
                 options: {
-                  redirectTo: "http://localhost:3000",
+                  redirectTo: "https://sparmen-v2.vercel.app",
                 },
               })
               .then(async (r) => {
