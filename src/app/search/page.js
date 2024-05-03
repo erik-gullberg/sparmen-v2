@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 
 async function fetchData(query) {
   const supabase = createClient();
@@ -13,7 +14,7 @@ async function fetchData(query) {
 
   return supabase
     .from("song")
-    .select("*")
+    .select("name, id, show_id")
     .textSearch("search_text", formattedQuery);
 }
 
@@ -21,5 +22,15 @@ export default async function Page({ params, searchParams }) {
   const { q } = searchParams;
   const data = await fetchData(q);
 
-  return <pre>{JSON.stringify(data.data, null, 2)}</pre>;
+  return data.data?.length === 0 ? (
+    <div>Inget hittat på `{q}`</div>
+  ) : (
+    <ul>
+      {data.data.map((song, i) => (
+        <li key={i}>
+          <Link href={`/song/${song.id}`}>{song.name}</Link>
+        </li>
+      ))}
+    </ul>
+  );
 }

@@ -4,17 +4,25 @@ import Link from "next/link";
 async function fetchData() {
   const supabase = createClient();
 
-  return supabase.from("spex").select("id, name").order("id");
+  const { data, error } = await supabase.rpc("get_top_10_songs");
+
+  if (error) {
+    console.error("Error fetching songs:", error);
+    return;
+  }
+
+  return data;
 }
 
 export default async function Page() {
   const data = await fetchData();
-
   return (
     <ul>
-      {data.data.map((spex, i) => (
+      {data.map((song, i) => (
         <li key={i}>
-          <Link href={`/spex/${spex.id}`}>{spex.name}</Link>
+          <Link href={`/song/${song.song_id}`}>
+            {song.vote_count} - {song.name}
+          </Link>
         </li>
       ))}
     </ul>

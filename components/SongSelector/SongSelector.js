@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import pageStyle from "@/app/spex/[id]/page.module.css";
 import createClient from "@/utils/supabase/browserClient";
+import SongContent from "../SongContent/page";
 
 const songCache = {};
 
@@ -20,10 +21,9 @@ export default function SongSelector({ showId }) {
       const supabase = createClient();
       const response = await supabase
         .from("song")
-        .select("name, lyrics")
+        .select("id, name, lyrics")
         .eq("show_id", showId);
 
-      // Store the fetched songs in the cache
       songCache[showId] = response.data;
 
       setSongs(response.data);
@@ -37,16 +37,8 @@ export default function SongSelector({ showId }) {
       {isLoading && <p>Loading songs...</p>}
 
       {!isLoading &&
-        songs?.map((song, index) => (
-          <details className={pageStyle.dropDown} key={index}>
-            <summary>{song.name}</summary>
-            <div
-              className={pageStyle.songText}
-              dangerouslySetInnerHTML={{
-                __html: song.lyrics.replace(/\n/g, "<br>"),
-              }}
-            />
-          </details>
+        songs?.map((song) => (
+          <SongContent key={song.id} song={song}></SongContent>
         ))}
     </div>
   );

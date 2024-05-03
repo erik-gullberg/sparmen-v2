@@ -1,10 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import styles from "@/app/page.module.css";
-import HamburgerIcon from "../../components/Icons/HamburgerIcon";
 import GithubIcon from "../../components/Icons/GithubIcon";
 import Link from "next/link";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import LoginButton from "../../components/LoginButton/LoginButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <div className={styles.navbar}>
-          <HamburgerIcon style={{ width: 35, height: 35 }} />
+          <LoginButton></LoginButton>
           <Link href="/">
             <h1>Spärmen</h1>
           </Link>

@@ -32,10 +32,6 @@ F
 .prettierrc,2/0/20137a9e94744624390b6748bc96df5ca1579b71
 F
 src/app/search/page.js,a/7/a7a5166dcd57ffd6e0af9e7475d3bf407b6bd0d6
-L
-src/utils/getSpexByNumber.js,6/1/61df454b264c0028f9b57cf301f7aa309c558422
-G
-resources/mockServer.js,6/2/62791f52ccad2de8de547daaf0c89d9d392ef83b
 I
 src/app/search/loading.js,c/5/c5398af6fdaf58ca837c7ec94b0e11e6c498feb2
 :
@@ -43,16 +39,12 @@ I
 .env.local,1/f/1fa30fea3e9ae270a3c38a6113a3689d8987d108
 L
 src/utils/supabase/server.js,8/e/8ecf4e9816620e5d37876d537fe7e65f0b9ec2dd
-D
-src/app/test/page.js,4/b/4bc0ec261d12c5887ab16427fda2f4d533706955
 q
 Anode_modules/@supabase/postgrest-js/src/PostgrestFilterBuilder.ts,a/4/a4fc7ad8fb2be6e9cdb7416bbb219cb6de0f43c8
 ?
 public/next.svg,0/f/0f0d3de08f3cde5481ae7a36082cdc12c93b0f89
 O
 components/SpexList/SpexList.js,3/a/3ad9e4af81d6a4f38e7b278aadb8ee88021fe860
-N
-components/SpexList/loading.js,a/c/ac2f913e4cf712482756a609ba147865a6d13940
 W
 'components/SongSelector/SongSelector.js,1/a/1a97e4cb0cb3eb37b08184dc0e6e0728f5c2b186
 Q
@@ -63,13 +55,21 @@ S
 #src/utils/supabase/browserClient.js,4/2/426c960965457c465e52a42918b202e00268f246
 L
 src/app/spex/[id]/loading.js,1/b/1b53a1b0654a02f55d6bd4bcb79b66bf748e2a2f
-Y
-)components/ShowAndSongSelector/loading.js,f/6/f657117175c284714939050dc196c407c0f3b806
-R
-"components/SongSelector/loading.js,d/1/d1998100f9ab154867c58f1a4cfec74589069e76
 Q
 !components/Icons/HamburgerIcon.js,d/9/d9716622dfe427e4494436ba42c276a13fb8c7dd
 N
 components/Icons/GithubIcon.js,e/1/e132e45ba3b382d3f61a01af87f732b8b4dd7e5b
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+U
+%components/LoginButton/LoginButton.js,c/1/c13c834b7f41cf3bede50b2ee321cef9223dc4e4
+N
+components/SongContent/page.js,7/b/7b8561378fa181e1eac3b2ee0f69de2249e856a1
+M
+components/TopList/TopList.js,4/8/487acc2b6280fc466881b27f984fdbc1cdc8acb9
+h
+8node_modules/@supabase/supabase-js/src/SupabaseClient.ts,f/a/fab24c61df43894f1310f2703e7d2d60e7e0a576
+_
+/node_modules/@supabase/supabase-js/src/index.ts,c/c/cc512068129a35f1a25bf4fc7695052db699311f
+I
+src/app/song/[id]/page.js,5/1/51572b305858af0de7787e106813b37d5090bb76
