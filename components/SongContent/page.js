@@ -2,12 +2,12 @@
 import pageStyle from "@/app/spex/[id]/page.module.css";
 import createClient from "@/utils/supabase/browserClient";
 import { useState } from "react";
+import Editor from "../Editor/Editor";
 
-export default function SongContent({ song }) {
+export default function SongContent({ song, user }) {
   const supabase = createClient();
   const [count, setCount] = useState(0);
   const [hasVoted, setHasVoted] = useState(false);
-  const [user, setUser] = useState(null);
   const formattedLyrics = song.lyrics.replace(/\n/g, "<br>");
 
   async function getVoteCount(songId) {
@@ -21,10 +21,6 @@ export default function SongContent({ song }) {
     }
 
     return count;
-  }
-
-  async function getUser() {
-    return await supabase.auth.getUser();
   }
 
   async function hasUserVoted(songId, userId) {
@@ -49,22 +45,17 @@ export default function SongContent({ song }) {
           });
       }
 
-      getUser().then((user) => {
-        if (!user) {
-          return false;
-        }
+      if (!user) {
+        return false;
+      }
 
-        setUser(user);
-        hasUserVoted(song.id, user.data.user.id).then((hasVoted) => {
-          setHasVoted(hasVoted);
-        });
+      hasUserVoted(song.id, user.data.user.id).then((hasVoted) => {
+        setHasVoted(hasVoted);
       });
     }
   };
 
   const handleVote = (songId) => async () => {
-    const user = await getUser();
-
     const { error } = await supabase.from("vote").insert({
       song_id: songId,
       user_id: user.data.user.id,
@@ -100,20 +91,26 @@ export default function SongContent({ song }) {
   return (
     <details className={pageStyle.dropDown} onToggle={handleToggle(song)}>
       <summary>{song.name}</summary>
-      <div>
-        {count}
-        {hasVoted && user ? (
-          <button onClick={handleUnvote(song.id)}>-</button>
-        ) : (
-          <button onClick={handleVote(song.id)}>+</button>
-        )}
+      <div className={pageStyle.statusBar}>
+        <div>
+          {count}
+          {hasVoted && user ? (
+            <button onClick={handleUnvote(song.id)}>-</button>
+          ) : (
+            <button onClick={handleVote(song.id)}>+</button>
+          )}
+        </div>
       </div>
-      <div
-        className={pageStyle.songText}
-        dangerouslySetInnerHTML={{
-          __html: formattedLyrics,
-        }}
-      />
+      {user.roles?.is_editor ? (
+        <Editor songId={song.id} formattedLyrics={formattedLyrics} />
+      ) : (
+        <div
+          className={pageStyle.songText}
+          dangerouslySetInnerHTML={{
+            __html: formattedLyrics,
+          }}
+        />
+      )}
     </details>
   );
 }

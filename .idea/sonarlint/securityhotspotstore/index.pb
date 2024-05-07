@@ -73,3 +73,21 @@ _
 /node_modules/@supabase/supabase-js/src/index.ts,c/c/cc512068129a35f1a25bf4fc7695052db699311f
 I
 src/app/song/[id]/page.js,5/1/51572b305858af0de7787e106813b37d5090bb76
+L
+src/app/song/[id]/loading.js,5/e/5e1ace69ec2ef57a58a11b7502bc1cbda2f9a5c7
+K
+components/Editor/Editor.js,5/4/5451f26477bffe04e7d2689e90491dddd2a8b6ff
+P
+ src/utils/context/userContext.js,e/5/e50dd8361c847e2362dcbc046789e32b41d0e468
+Q
+!src/utils/context/UserProvider.js,2/9/297e3196de49f5469c6240b582352bbb851a1c89
+=
+middleware.ts,3/0/306298667dd8f63c95afc94693a7bfe5a20f54f5
+S
+#src/utils/supabase/updateSession.js,b/c/bc657bca4ff8f5ecd99d6ea6cd9b40402f18f034
+A
+package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47
+N
+src/utils/fetchUserAndRoles.js,3/0/30f5f084d31bf13f5754991cfa57f2fa7d019260
+E
+src/app/admin/page.js,d/c/dcf4eb00a5d40da49b3c759b07752dc8981a3836

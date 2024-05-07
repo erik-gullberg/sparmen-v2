@@ -2,6 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import pageStyle from "@/app/spex/[id]/page.module.css";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
+import Editor from "../../../../components/Editor/Editor";
+import fetchUser from "@/utils/fetchUserAndRoles";
 
 async function fetchSong(id) {
   const supabase = createClient();
@@ -28,6 +30,8 @@ async function fetchShow(id) {
 }
 
 export default async function Page({ params }) {
+  const user = await fetchUser();
+
   const song = await fetchSong(params.id);
   const show = await fetchShow(song.data.show_id);
   if (!song.data) {
@@ -47,12 +51,17 @@ export default async function Page({ params }) {
           </Link>
         </h3>
       </div>
-      <div
-        className={pageStyle.songText}
-        dangerouslySetInnerHTML={{
-          __html: formattedLyrics,
-        }}
-      />
+
+      {user.roles?.is_editor ? (
+        <Editor songId={params.id} formattedLyrics={formattedLyrics} />
+      ) : (
+        <div
+          className={pageStyle.songText}
+          dangerouslySetInnerHTML={{
+            __html: formattedLyrics,
+          }}
+        />
+      )}
     </div>
   );
 }

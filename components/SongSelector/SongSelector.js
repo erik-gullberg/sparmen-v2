@@ -6,7 +6,7 @@ import SongContent from "../SongContent/page";
 
 const songCache = {};
 
-export default function SongSelector({ showId }) {
+export default function SongSelector({ showId, user }) {
   const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -38,7 +38,7 @@ export default function SongSelector({ showId }) {
 
       {!isLoading &&
         songs?.map((song) => (
-          <SongContent key={song.id} song={song}></SongContent>
+          <SongContent key={song.id} song={song} user={user}></SongContent>
         ))}
     </div>
   );
