@@ -49,7 +49,7 @@ export default function SongContent({ song, user }) {
         return false;
       }
 
-      hasUserVoted(song.id, user.data.user.id).then((hasVoted) => {
+      hasUserVoted(song.id, user.user.id).then((hasVoted) => {
         setHasVoted(hasVoted);
       });
     }
@@ -58,7 +58,7 @@ export default function SongContent({ song, user }) {
   const handleVote = (songId) => async () => {
     const { error } = await supabase.from("vote").insert({
       song_id: songId,
-      user_id: user.data.user.id,
+      user_id: user.user.id,
     });
 
     if (error) {
@@ -71,13 +71,11 @@ export default function SongContent({ song, user }) {
   };
 
   const handleUnvote = (songId) => async () => {
-    const user = await getUser();
-
     const { error } = await supabase
       .from("vote")
       .delete()
       .eq("song_id", songId)
-      .eq("user_id", user.data.user.id);
+      .eq("user_id", user.user.id);
 
     if (error) {
       console.error("Error unvoting: " + error.message);
@@ -101,11 +99,27 @@ export default function SongContent({ song, user }) {
           )}
         </div>
       </div>
-      {user.roles?.is_editor ? (
-        <Editor songId={song.id} formattedLyrics={formattedLyrics} />
+
+      <div>
+        {song.show_warning && (
+          <div className={pageStyle.warningBar}>
+            ⚠️ Denna låt kan vara olämplig för sittning ⚠️
+          </div>
+        )}
+      </div>
+      {!user.roles?.is_editor ? (
+        <Editor
+          songId={song.id}
+          formattedLyrics={formattedLyrics}
+          className={
+            song.show_warning ? pageStyle.warningSongText : pageStyle.songText
+          }
+        />
       ) : (
         <div
-          className={pageStyle.songText}
+          className={
+            song.show_warning ? pageStyle.warningSongText : pageStyle.songText
+          }
           dangerouslySetInnerHTML={{
             __html: formattedLyrics,
           }}

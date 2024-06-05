@@ -21,7 +21,7 @@ export default function SongSelector({ showId, user }) {
       const supabase = createClient();
       const response = await supabase
         .from("song")
-        .select("id, name, lyrics")
+        .select("id, name, lyrics, show_warning")
         .eq("show_id", showId);
 
       songCache[showId] = response.data;

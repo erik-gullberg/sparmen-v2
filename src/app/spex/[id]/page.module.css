@@ -16,6 +16,11 @@
     margin-left: 1rem;
 }
 
+.warningSongText {
+    background: oklch(33.53% 0.128 23.29);
+    margin-left: 1rem;
+}
+
 .tabContainer {
     display: flex;
     justify-content: flex-start;
@@ -38,4 +43,18 @@
     width: 100%;
     padding: 5px;
     border-radius: 5px;
+
+    border: 1px white solid;
+}
+
+.warningBar {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+
+    border: 1px white solid;
+    background: #ca0d0d;
 }

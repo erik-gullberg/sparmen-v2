@@ -18,7 +18,7 @@ export default async function Page() {
   const data = await fetchData();
   return (
     <ul>
-      {data.map((song, i) => (
+      {data?.map((song, i) => (
         <li key={i}>
           <Link href={`/song/${song.song_id}`}>
             {song.vote_count} - {song.name}

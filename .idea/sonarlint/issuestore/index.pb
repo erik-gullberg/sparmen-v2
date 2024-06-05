@@ -77,10 +77,6 @@ L
 src/app/song/[id]/loading.js,5/e/5e1ace69ec2ef57a58a11b7502bc1cbda2f9a5c7
 K
 components/Editor/Editor.js,5/4/5451f26477bffe04e7d2689e90491dddd2a8b6ff
-P
- src/utils/context/userContext.js,e/5/e50dd8361c847e2362dcbc046789e32b41d0e468
-Q
-!src/utils/context/UserProvider.js,2/9/297e3196de49f5469c6240b582352bbb851a1c89
 =
 middleware.ts,3/0/306298667dd8f63c95afc94693a7bfe5a20f54f5
 S
@@ -89,5 +85,7 @@ A
 package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47
 N
 src/utils/fetchUserAndRoles.js,3/0/30f5f084d31bf13f5754991cfa57f2fa7d019260
-E
-src/app/admin/page.js,d/c/dcf4eb00a5d40da49b3c759b07752dc8981a3836
+F
+src/app/manage/page.js,c/8/c8141e27702d620e7d30cc1a5d959f9b64af61e2
+B
+src/app/loading.js,4/c/4c62849ef605c31f2e3b6eb0eb7743603eca4aee
