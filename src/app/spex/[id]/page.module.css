@@ -13,12 +13,15 @@
 }
 
 .songText {
+    margin-top: 1rem;
     margin-left: 1rem;
+    padding: 1rem;
 }
 
 .warningSongText {
-    background: oklch(33.53% 0.128 23.29);
+    background: oklch(0.314 0.128 26.655);
     margin-left: 1rem;
+    padding: 5rem;
 }
 
 .tabContainer {
@@ -40,8 +43,13 @@
 }
 
 .statusBar {
+    display: flex;
+    gap: 1rem;
+
     width: 100%;
     padding: 5px;
+    margin-top: 8px;
+
     border-radius: 5px;
 
     border: 1px white solid;
@@ -57,4 +65,9 @@
 
     border: 1px white solid;
     background: #ca0d0d;
+}
+
+.triggerCheck {
+    margin-right: 5px;
+    padding: 1rem;
 }

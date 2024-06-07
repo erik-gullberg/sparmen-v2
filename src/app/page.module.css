@@ -25,9 +25,16 @@
 }
 
 .containerHeader {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+
   width: 100%;
-  text-align: center;
   border-bottom: azure 1px solid;
+}
+
+.addButton {
+  padding: 2px;
 }
 
 .flex {

@@ -8,6 +8,7 @@ export default function SongContent({ song, user }) {
   const supabase = createClient();
   const [count, setCount] = useState(0);
   const [hasVoted, setHasVoted] = useState(false);
+  const [showWarning, setShowWarning] = useState(song.show_warning);
   const formattedLyrics = song.lyrics.replace(/\n/g, "<br>");
 
   async function getVoteCount(songId) {
@@ -86,11 +87,27 @@ export default function SongContent({ song, user }) {
     setHasVoted(false);
   };
 
+  const toggleWarning = (songId) => async () => {
+    const { error } = await supabase
+      .from("song")
+      .update({ show_warning: !song.show_warning })
+      .eq("id", songId);
+
+    if (error) {
+      console.error("Error toggling warning: " + error.message);
+      return;
+    }
+
+    setShowWarning(!showWarning);
+  };
+
   return (
     <details className={pageStyle.dropDown} onToggle={handleToggle(song)}>
       <summary>{song.name}</summary>
       <div className={pageStyle.statusBar}>
         <div>
+          Röster:
+          {"  "}
           {count}
           {hasVoted && user ? (
             <button onClick={handleUnvote(song.id)}>-</button>
@@ -100,25 +117,40 @@ export default function SongContent({ song, user }) {
         </div>
       </div>
 
+      {user.roles?.is_editor && (
+        <div className={pageStyle.statusBar}>
+          <div>
+            <input
+              checked={showWarning}
+              className={pageStyle.triggerCheck}
+              id="trigger"
+              type="checkbox"
+              onClick={toggleWarning(song.id)}
+            />
+            <label htmlFor={"trigger"}>Olämplig för sittning</label>
+          </div>
+        </div>
+      )}
+
       <div>
-        {song.show_warning && (
+        {showWarning && (
           <div className={pageStyle.warningBar}>
-            ⚠️ Denna låt kan vara olämplig för sittning ⚠️
+            ⚠️ Denna låt är olämplig för sittning ⚠️
           </div>
         )}
       </div>
-      {!user.roles?.is_editor ? (
+      {user.roles?.is_editor ? (
         <Editor
           songId={song.id}
           formattedLyrics={formattedLyrics}
           className={
-            song.show_warning ? pageStyle.warningSongText : pageStyle.songText
+            showWarning ? pageStyle.warningSongText : pageStyle.songText
           }
         />
       ) : (
         <div
           className={
-            song.show_warning ? pageStyle.warningSongText : pageStyle.songText
+            showWarning ? pageStyle.warningSongText : pageStyle.songText
           }
           dangerouslySetInnerHTML={{
             __html: formattedLyrics,
