@@ -46,7 +46,10 @@ export default async function Page({ params }) {
         <h3>
           {song.data?.name}
           {" - "}
-          <Link href={`/spex/${show.data.spex.id}`}>
+          <Link
+            className={pageStyle.spexLink}
+            href={`/spex/${show.data.spex.id}`}
+          >
             {show.data.spex.name} {show.data.year}
           </Link>
         </h3>

@@ -103,3 +103,55 @@
 .mt5 {
   margin-top: 5rem;
 }
+
+/* Define the skeleton element */
+.skeleton {
+  min-height: 15px;
+  height: 100%;
+  width: 40%;
+  background: #ccc;
+  overflow: hidden;
+  position: relative;
+}
+
+.bigSkeleton {
+  margin-top: 1rem;
+  min-height: 1rem;
+  height: 5rem;
+  width: 40%;
+  background: #ccc;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+}
+
+/* Create the shimmer effect */
+.skeleton::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+  position: absolute;
+  top: 0;
+  left: -100%;
+  animation: shimmer 0.5s infinite;
+}
+
+.bigSkeleton::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+  position: absolute;
+  top: 0;
+  left: -100%;
+  animation: shimmer 1s infinite;
+}
+
+/* Define the animation */
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}

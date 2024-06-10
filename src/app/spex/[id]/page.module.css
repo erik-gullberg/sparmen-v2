@@ -18,10 +18,26 @@
     padding: 1rem;
 }
 
+.placeHolderText {
+    height: 100vh;
+}
+
+.voteButton {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.copyLink {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
 .warningSongText {
     background: oklch(0.314 0.128 26.655);
     margin-left: 1rem;
-    padding: 5rem;
+    padding: 2rem;
 }
 
 .tabContainer {
@@ -36,6 +52,8 @@
 .tab {
     border: azure 1px solid;
     padding: 5px;
+    background: var(--main-button-color);
+    color: white;
 }
 
 .selected {
@@ -44,6 +62,8 @@
 
 .statusBar {
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     gap: 1rem;
 
     width: 100%;
@@ -70,4 +90,9 @@
 .triggerCheck {
     margin-right: 5px;
     padding: 1rem;
+}
+
+.spexLink {
+    color: #164fea;
+    text-decoration: underline;
 }

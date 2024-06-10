@@ -3,6 +3,7 @@ import pageStyle from "@/app/spex/[id]/page.module.css";
 import createClient from "@/utils/supabase/browserClient";
 import { useState } from "react";
 import Editor from "../Editor/Editor";
+import toast from "react-hot-toast";
 
 export default function SongContent({ song, user }) {
   const supabase = createClient();
@@ -106,14 +107,36 @@ export default function SongContent({ song, user }) {
       <summary>{song.name}</summary>
       <div className={pageStyle.statusBar}>
         <div>
-          Röster:
+          Rating:
           {"  "}
           {count}
           {hasVoted && user ? (
-            <button onClick={handleUnvote(song.id)}>-</button>
+            <button
+              className={pageStyle.voteButton}
+              onClick={handleUnvote(song.id)}
+            >
+              -1
+            </button>
           ) : (
-            <button onClick={handleVote(song.id)}>+</button>
+            <button
+              className={pageStyle.voteButton}
+              onClick={handleVote(song.id)}
+            >
+              +1
+            </button>
           )}
+        </div>
+        <div>
+          <button
+            className={pageStyle.copyLink}
+            onClick={() =>
+              navigator.clipboard
+                .writeText(`https://sparmen-v2.vercel.app/song/${song.id}`)
+                .then(() => toast.success("Länk kopierad till urklipp"))
+            }
+          >
+            Kopiera Länk
+          </button>
         </div>
       </div>
 

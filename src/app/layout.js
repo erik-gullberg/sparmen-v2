@@ -5,6 +5,7 @@ import GithubIcon from "../../components/Icons/GithubIcon";
 import Link from "next/link";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import LoginButton from "../../components/LoginButton/LoginButton";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
         <title>Spärmen</title>
       </head>
       <body className={inter.className}>
+        <Toaster position="bottom-right" />
         <div className={styles.navbar}>
           <LoginButton></LoginButton>
           <Link href="/">
