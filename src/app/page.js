@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import SpexList from "../../components/SpexList/SpexList";
 import TopList from "../../components/TopList/TopList";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -10,7 +11,9 @@ export default function Home() {
           <h3>Top 10</h3>
         </div>
         <div>
-          <TopList></TopList>
+          <Suspense fallback={<div>Laddar top 10...</div>}>
+            <TopList></TopList>
+          </Suspense>
         </div>
       </div>
       <div className={styles.container}>
@@ -19,7 +22,9 @@ export default function Home() {
           <button className={styles.addButton}>+</button>
         </div>
         <div>
-          <SpexList></SpexList>
+          <Suspense fallback={<div>Laddar spex...</div>}>
+            <SpexList></SpexList>
+          </Suspense>
         </div>
       </div>
     </div>
