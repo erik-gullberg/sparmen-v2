@@ -33,6 +33,10 @@
   border-bottom: azure 1px solid;
 }
 
+.synopsis {
+  padding: 1rem;
+}
+
 .addButton {
   padding: 2px;
 }

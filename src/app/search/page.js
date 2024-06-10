@@ -38,7 +38,21 @@ export default async function Page({ params, searchParams }) {
   }
 
   return results.songs?.length === 0 && results.spex?.length === 0 ? (
-    <div>Inget hittat på `{q}`</div>
+    <div>
+      <p>Inget hittat på `{q}`</p>
+      <br />
+      <p>
+        Kolla så du stavat rätt. Söken fungerar bara på exakta ord tillsvidare
+      </p>
+      <br />
+      <p>Du kan söka på</p>
+      <ul>
+        <li>Låtnamn</li>
+        <li>Låttext</li>
+        <li>Orginallåt</li>
+        <li>Spexnamn</li>
+      </ul>
+    </div>
   ) : (
     <div>
       <ul>

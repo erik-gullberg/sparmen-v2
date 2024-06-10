@@ -31,6 +31,15 @@ export default async function Page({ params }) {
         <div className={styles.containerHeader}>
           <h3>{spex.data[0].name}</h3>
         </div>
+        {spex.data[0].name === "Sista Sidan" && (
+          <div className={styles.containerHeader}>
+            <p className={styles.synopsis}>
+              Sista sidan var just sista sidan i den fysiska spärmen. Här hittar
+              du låtar som inte kommer från spex men som ändå är roliga att
+              sjunga.
+            </p>
+          </div>
+        )}
         <ShowAndSongSelector
           shows={shows.data}
           user={user}
