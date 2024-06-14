@@ -19,7 +19,6 @@ export default function Home() {
       <div className={styles.container}>
         <div className={styles.containerHeader}>
           <h3>Spex</h3>
-          <button className={styles.addButton}>+</button>
         </div>
         <div>
           <Suspense fallback={<div>Laddar spex...</div>}>

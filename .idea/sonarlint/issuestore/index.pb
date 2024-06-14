@@ -85,3 +85,9 @@ A
 package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47
 N
 src/utils/fetchUserAndRoles.js,3/0/30f5f084d31bf13f5754991cfa57f2fa7d019260
+P
+ src/utils/supabase/middleware.js,d/4/d499da01d2b155e8f2da6126b299e6e12d2da491
+b
+2node_modules/@supabase/auth-js/src/GoTrueClient.ts,4/0/40395f886dfece4fbe2969de3a617e3fa1e28eda
+_
+/node_modules/@supabase/auth-js/src/lib/types.ts,c/b/cb18376340ef42493c78b344fff7135348a9b559
