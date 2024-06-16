@@ -7,8 +7,7 @@ async function fetchData() {
   const { data, error } = await supabase.rpc("get_top_10_songs");
 
   if (error) {
-    console.error("Error fetching songs:", error);
-    return;
+    return [];
   }
 
   return data;
@@ -21,7 +20,7 @@ export default async function Page() {
       {data?.map((song, i) => (
         <li key={i}>
           <Link href={`/song/${song.song_id}`}>
-            {song.vote_count} - {song.name}
+            {song.vote_count} {song.name}
           </Link>
         </li>
       ))}

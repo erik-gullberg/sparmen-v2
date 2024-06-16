@@ -1,5 +1,6 @@
 .songContainer {
     width: 100%;
+    min-width: 350px;
 }
 
 .dropDown {
@@ -16,6 +17,12 @@
     margin-top: 1rem;
     margin-left: 1rem;
     padding: 1rem;
+}
+
+.warningSongText {
+    background: oklch(0.314 0.128 26.655);
+    margin-left: 1rem;
+    padding: 2rem;
 }
 
 .placeHolderText {

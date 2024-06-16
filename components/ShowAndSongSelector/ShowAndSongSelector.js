@@ -3,9 +3,10 @@ import { useState } from "react";
 import SongSelector from "../SongSelector/SongSelector";
 import pageStyle from "@/app/spex/[id]/page.module.css";
 
-export default function ShowAndSongSelector({ shows, user }) {
-  const lastShowId = shows[shows.length - 1].id;
-  const [selectedShowId, setSelectedShowId] = useState(lastShowId);
+export default function ShowAndSongSelector({ shows, user, defaultShowId }) {
+  const [selectedShowId, setSelectedShowId] = useState(
+    parseInt(defaultShowId) || shows[shows.length - 1].id,
+  );
 
   return (
     <div>
