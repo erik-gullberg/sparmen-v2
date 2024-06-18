@@ -91,3 +91,5 @@ b
 2node_modules/@supabase/auth-js/src/GoTrueClient.ts,4/0/40395f886dfece4fbe2969de3a617e3fa1e28eda
 _
 /node_modules/@supabase/auth-js/src/lib/types.ts,c/b/cb18376340ef42493c78b344fff7135348a9b559
+L
+components/Editor/styles.css,7/2/726fa3a20bd77b1ce46fcec4d3f66f486c2cbaee

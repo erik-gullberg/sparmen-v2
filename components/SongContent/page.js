@@ -51,7 +51,7 @@ export default function SongContent({ song, user }) {
         return false;
       }
 
-      hasUserVoted(song.id, user.user.id).then((hasVoted) => {
+      hasUserVoted(song.id, user.user?.id).then((hasVoted) => {
         setHasVoted(hasVoted);
       });
     }
@@ -166,6 +166,7 @@ export default function SongContent({ song, user }) {
         <Editor
           songId={song.id}
           formattedLyrics={formattedLyrics}
+          userId={user.user.id}
           className={
             showWarning ? pageStyle.warningSongText : pageStyle.songText
           }

@@ -20,7 +20,7 @@ export default async function Page() {
       {data?.map((song, i) => (
         <li key={i}>
           <Link href={`/song/${song.song_id}`}>
-            {song.vote_count} {song.name}
+            {song.vote_count} - {song.name}
           </Link>
         </li>
       ))}
