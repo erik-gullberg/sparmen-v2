@@ -159,3 +159,9 @@
   0% { left: -100%; }
   100% { left: 100%; }
 }
+
+.saveButton {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+}

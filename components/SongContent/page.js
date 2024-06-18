@@ -110,20 +110,24 @@ export default function SongContent({ song, user }) {
           Rating:
           {"  "}
           {count}
-          {hasVoted && user ? (
-            <button
-              className={pageStyle.voteButton}
-              onClick={handleUnvote(song.id)}
-            >
-              -1
-            </button>
-          ) : (
-            <button
-              className={pageStyle.voteButton}
-              onClick={handleVote(song.id)}
-            >
-              +1
-            </button>
+          {user.user && (
+            <>
+              {hasVoted ? (
+                <button
+                  className={pageStyle.voteButton}
+                  onClick={handleUnvote(song.id)}
+                >
+                  -1
+                </button>
+              ) : (
+                <button
+                  className={pageStyle.voteButton}
+                  onClick={handleVote(song.id)}
+                >
+                  +1
+                </button>
+              )}
+            </>
           )}
         </div>
         <div>

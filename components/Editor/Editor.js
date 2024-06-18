@@ -4,7 +4,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import styles from "./styles.css";
+import styles from "@/app/page.module.css";
 
 async function updateSong(songId, lyrics, originalLyrics, userId) {
   const supabase = createClient();
@@ -53,6 +53,7 @@ const Editor = ({ songId, formattedLyrics, userId }) => {
               },
             );
           }}
+          className={styles.saveButton}
         >
           Spara
         </button>

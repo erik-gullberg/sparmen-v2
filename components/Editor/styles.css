@@ -1,3 +1,11 @@
 .tiptap p {
     padding: 5px;
 }
+
+.saveButton {
+    margin-top: 100px;
+    margin-bottom: 10px;
+    padding: 1rem;
+    color: #164fea;
+    background: #164fea;
+}
