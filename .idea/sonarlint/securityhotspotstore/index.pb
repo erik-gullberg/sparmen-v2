@@ -93,3 +93,7 @@ _
 /node_modules/@supabase/auth-js/src/lib/types.ts,c/b/cb18376340ef42493c78b344fff7135348a9b559
 L
 components/Editor/styles.css,7/2/726fa3a20bd77b1ce46fcec4d3f66f486c2cbaee
+S
+#node_modules/next/types/global.d.ts,d/2/d2de89a1b29f5f38586313e9deb8f787577554a8
+`
+0node_modules/@tiptap/react/src/EditorContent.tsx,4/a/4a5152aef82389067e7a4ae062ab84bc946bfc9b

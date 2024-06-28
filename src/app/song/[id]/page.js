@@ -1,16 +1,14 @@
-import { createClient } from "@/utils/supabase/server";
 import pageStyle from "@/app/spex/[id]/page.module.css";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
+import { createClient } from "@supabase/supabase-js";
 
-async function fetchSong(id) {
-  const supabase = createClient();
-  return supabase.from("song").select("*").eq("id", id).single();
+async function fetchSong(client, id) {
+  return client.from("song").select("*").eq("id", id).single();
 }
 
-async function fetchShow(id) {
-  const supabase = createClient();
-  return supabase
+async function fetchShow(client, id) {
+  return client
     .from("show")
     .select("id, year, spex(name, id)")
     .eq("id", id)
@@ -18,8 +16,10 @@ async function fetchShow(id) {
 }
 
 export default async function Page({ params }) {
-  const song = await fetchSong(params.id);
-  const show = await fetchShow(song.data?.show_id);
+  const client = createClient();
+  const song = await fetchSong(client, params.id);
+  const show = await fetchShow(client, song.data?.show_id);
+
   if (!song.data || !show.data) {
     return <div>Den låten hittade vi inte. id: {params.id}</div>;
   }
