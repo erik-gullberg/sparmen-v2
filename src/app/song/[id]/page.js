@@ -1,7 +1,7 @@
 import pageStyle from "@/app/spex/[id]/page.module.css";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "@/utils/supabase/server";
 
 async function fetchSong(client, id) {
   return client.from("song").select("*").eq("id", id).single();
