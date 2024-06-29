@@ -4,17 +4,13 @@ import { redirect } from "next/navigation";
 
 async function fetchData(query) {
   const supabase = createClient();
-  const user = supabase.auth.getUser();
-
-  if (!user) {
-    return { text: "Unauthenticated" };
-  }
 
   const [songs, spex] = await Promise.all([
     supabase
       .from("song")
       .select("name, id, show_id")
-      .or(`name.ilike.%${query}%, lyrics.ilike.%${query}%`),
+      .or(`name.ilike.%${query}%, lyrics.ilike.%${query}%`)
+      .order("name", { ascending: false }), // Order by name (ascending) first
 
     supabase.from("spex").select("name, id").ilike("name", `%${query}%`),
   ]);
