@@ -2,6 +2,14 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+function noSongsInResults(results) {
+  return results.songs?.length === 0;
+}
+
+function noSpexInResults(results) {
+  return results.spex?.length === 0;
+}
+
 async function fetchData(query) {
   const supabase = createClient();
 
@@ -22,15 +30,15 @@ export default async function Page({ params, searchParams }) {
   const { q } = searchParams;
   const results = await fetchData(q);
 
-  if (results.songs?.length === 1 && results.spex?.length === 0) {
+  if (results.songs?.length === 1 && noSpexInResults(results)) {
     redirect(`/song/${results.songs[0].id}`);
   }
 
-  if (results.spex?.length === 1 && results.songs?.length === 0) {
+  if (results.spex?.length === 1 && noSongsInResults(results)) {
     redirect(`/spex/${results.spex[0].id}`);
   }
 
-  return results.songs?.length === 0 && results.spex?.length === 0 ? (
+  return noSongsInResults(results) && noSpexInResults(results) ? (
     <div>
       <p>Inget hittat på `{q}`</p>
       <br />
