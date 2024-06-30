@@ -38,8 +38,15 @@ export default function SongSelector({ showId, user }) {
       {isLoading && <p>Loading songs...</p>}
 
       {!isLoading &&
-        songs?.map((song) => (
-          <SongContent key={song.id} song={song} user={user}></SongContent>
+        songs?.map((song, index) => (
+          <>
+            <SongContent
+              key={song.id}
+              song={song}
+              user={user}
+              songNr={index + 1}
+            ></SongContent>
+          </>
         ))}
     </div>
   );

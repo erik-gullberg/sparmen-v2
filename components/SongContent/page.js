@@ -5,7 +5,7 @@ import { useState } from "react";
 import Editor from "../Editor/Editor";
 import toast from "react-hot-toast";
 
-export default function SongContent({ song, user }) {
+export default function SongContent({ song, user, songNr }) {
   const supabase = createClient();
   const [count, setCount] = useState(0);
   const [hasVoted, setHasVoted] = useState(false);
@@ -104,7 +104,9 @@ export default function SongContent({ song, user }) {
 
   return (
     <details className={pageStyle.dropDown} onToggle={handleToggle(song)}>
-      <summary>{song.name}</summary>
+      <summary>
+        {songNr + "."} {song.name}
+      </summary>
       <div className={pageStyle.statusBar}>
         <div>
           Rating:
