@@ -19,7 +19,7 @@ function SearchBar() {
       <input
         type="text"
         className={styles.searchBar}
-        placeholder="Sök spex..."
+        placeholder="Sök sång, spex, melodi..."
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
       />

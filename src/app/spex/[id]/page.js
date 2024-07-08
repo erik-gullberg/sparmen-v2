@@ -3,26 +3,24 @@ import { createClient } from "@/utils/supabase/server";
 import ShowAndSongSelector from "../../../../components/ShowAndSongSelector/ShowAndSongSelector";
 import fetchUser from "@/utils/fetchUserAndRoles";
 
-async function fetchShows(query) {
-  const supabase = createClient();
-  return supabase.from("show").select("*").eq("spex_id", query);
+async function fetchShows(client, query) {
+  return client
+    .from("show")
+    .select("*")
+    .eq("spex_id", query)
+    .order("id", { ascending: true });
 }
 
-async function fetchSpexName(query) {
-  const supabase = createClient();
-  const user = supabase.auth.getUser();
-
-  if (!user) {
-    return { text: "Unauthenticated" };
-  }
-  return supabase.from("spex").select("name").eq("id", query);
+async function fetchSpexName(client, query) {
+  return client.from("spex").select("name").eq("id", query);
 }
 
 export default async function Page({ params, searchParams }) {
+  const supabase = createClient();
   const [user, spex, shows] = await Promise.all([
-    fetchUser(),
-    fetchSpexName(params.id),
-    fetchShows(params.id),
+    fetchUser(supabase),
+    fetchSpexName(supabase, params.id),
+    fetchShows(supabase, params.id),
   ]);
 
   if (spex.data.length === 0) {

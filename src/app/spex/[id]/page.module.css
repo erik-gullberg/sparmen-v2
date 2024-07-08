@@ -27,6 +27,11 @@
     line-height: 1.5;
 }
 
+.songText a {
+    color: #FF9900;
+    text-decoration: underline;
+}
+
 .warningSongText {
     background: oklch(0.314 0.128 26.655);
 }
@@ -114,7 +119,7 @@
 }
 
 .spexLink {
-    color: #164fea;
+    color: #FF9900;
     text-decoration: underline;
 }
 

@@ -1,6 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
+import style from "./page.module.css";
+
 async function fetchData() {
   const supabase = createClient();
 
@@ -16,6 +18,7 @@ async function fetchData() {
 export default async function Page() {
   const data = await fetchData();
   return (
+
     <ul className={styles.spexList}>
       {data?.map((song, i) => (
         <li key={i} className={styles['song-container']}> 
@@ -28,5 +31,6 @@ export default async function Page() {
         </li>
       ))}
     </ul>
+
   );
 }

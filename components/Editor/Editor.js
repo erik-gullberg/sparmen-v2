@@ -1,23 +1,50 @@
 "use client";
 import createClient from "@/utils/supabase/browserClient";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import styles from "@/app/page.module.css";
 
+function rewriteEncodedAnchors(inputString) {
+  const regex = /&lt;a (.*?)&gt;(.*?)&lt;\/a&gt;/g;
+
+  function replaceEncodedTag(match, attributes, content) {
+    const decodedAttributes = attributes.replace(/&quot;/g, '"');
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(
+      `<a ${decodedAttributes}>${content}</a>`,
+      "text/html",
+    );
+
+    const linkElement = doc.body.firstChild;
+
+    if (linkElement.href && !linkElement.href.startsWith("http")) {
+      return match;
+    }
+
+    return linkElement.outerHTML;
+  }
+
+  const resultString = inputString.replace(regex, replaceEncodedTag);
+  return resultString;
+}
+
 async function updateSong(songId, lyrics, originalLyrics, userId) {
   const supabase = createClient();
 
+  const rewrittenLyrics = rewriteEncodedAnchors(lyrics);
+
   const updatePromise = supabase
     .from("song")
-    .update({ lyrics: lyrics })
+    .update({ lyrics: rewrittenLyrics })
     .eq("id", songId);
 
   const insertPromise = supabase.from("changelog").insert({
     song_id: songId,
     original_content: originalLyrics,
-    updated_content: lyrics,
+    updated_content: rewrittenLyrics,
     user_id: userId,
   });
 

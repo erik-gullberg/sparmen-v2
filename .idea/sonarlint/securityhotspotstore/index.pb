@@ -93,3 +93,17 @@ _
 /node_modules/@supabase/auth-js/src/lib/types.ts,c/b/cb18376340ef42493c78b344fff7135348a9b559
 L
 components/Editor/styles.css,7/2/726fa3a20bd77b1ce46fcec4d3f66f486c2cbaee
+S
+#node_modules/next/types/global.d.ts,d/2/d2de89a1b29f5f38586313e9deb8f787577554a8
+`
+0node_modules/@tiptap/react/src/EditorContent.tsx,4/a/4a5152aef82389067e7a4ae062ab84bc946bfc9b
+H
+src/app/profile/page.tsx,9/9/99236b1e94a960d35ccea2acb1100d6b5149e4ec
+G
+src/app/profile/page.js,f/8/f8704282117aea8c7f7c409b25113af46ebea707
+I
+src/app/profile/style.css,d/a/da7b59d6bbe8a129aca641cd1a336a41d61d95a7
+O
+src/app/profile/page.module.css,d/6/d605ade8b686efcf5632f67bcc8c53a8bbaaa356
+R
+"components/TopList/page.module.css,7/a/7a26d7890d24f04dfc04c892d3c24f55d87ec5e9
