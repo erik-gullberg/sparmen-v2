@@ -11,12 +11,12 @@ export default async function Page() {
   const data = await fetchData();
 
   return (
-    <ul>
+    <ol start={0}>
       {data.data.map((spex, i) => (
         <li key={i}>
           <Link href={`/spex/${spex.id}`}>{spex.name}</Link>
         </li>
       ))}
-    </ul>
+    </ol>
   );
 }

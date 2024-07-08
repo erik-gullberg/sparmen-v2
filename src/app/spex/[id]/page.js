@@ -4,7 +4,11 @@ import ShowAndSongSelector from "../../../../components/ShowAndSongSelector/Show
 import fetchUser from "@/utils/fetchUserAndRoles";
 
 async function fetchShows(client, query) {
-  return client.from("show").select("*").eq("spex_id", query);
+  return client
+    .from("show")
+    .select("*")
+    .eq("spex_id", query)
+    .order("id", { ascending: true });
 }
 
 async function fetchSpexName(client, query) {

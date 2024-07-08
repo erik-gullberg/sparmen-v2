@@ -2,6 +2,7 @@
 import createClient from "@/utils/supabase/browserClient";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LoginButton() {
   const [user, setUser] = useState(null);
@@ -39,12 +40,14 @@ export default function LoginButton() {
           Logga in
         </button>
       ) : (
-        <Image
-          src={user.user_metadata.avatar_url}
-          alt={"User avatar"}
-          width={35}
-          height={35}
-        ></Image>
+        <Link href="/profile">
+          <Image
+            src={user.user_metadata.avatar_url}
+            alt={"User avatar"}
+            width={35}
+            height={35}
+          ></Image>
+        </Link>
       )}
     </div>
   );

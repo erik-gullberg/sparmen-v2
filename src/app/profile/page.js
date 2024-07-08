@@ -1,0 +1,63 @@
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import style from "./page.module.css";
+import Image from "next/image";
+import fetchUser from "@/utils/fetchUserAndRoles";
+
+async function getVotedSongs(supabase, userId) {
+  const { data, error } = await supabase.rpc("get_voted_songs", {
+    user_id: userId,
+  });
+
+  if (error) {
+    console.error("Error fetching voted songs:", error);
+    return [];
+  }
+
+  return data;
+}
+
+export default async function ProfilePage() {
+  const supabase = createClient();
+  const userData = await fetchUser(supabase);
+
+  if (userData.user === null) {
+    redirect("/");
+  }
+
+  const votedSongs = await getVotedSongs(supabase, userData.user.id);
+
+  return (
+    <>
+      <div className={style.profileHeader}>
+        <Image
+          src={userData.user.user_metadata.picture}
+          alt={"User avatar"}
+          width={100}
+          height={100}
+        />
+        <h1>{userData.user.user_metadata.name}</h1>
+        <p>Användare sedan: {userData.user.created_at.split("T")[0]}</p>
+
+        {userData.roles?.is_editor && (
+          <div className={style.roleBadge}>
+            <p>Regissör</p>
+            <div className={style.tooltip}>Kan redigera låtar</div>
+          </div>
+        )}
+      </div>
+      <hr className={style.solidLine} />
+      <div>
+        <h2>Dina Favoriter</h2>
+        <ul>
+          {votedSongs.map((song) => (
+            <Link key={song.id} href={`/song/${song.id}`}>
+              <li key={song.id}>{song.name}</li>
+            </Link>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+}

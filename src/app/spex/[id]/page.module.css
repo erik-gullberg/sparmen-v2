@@ -19,6 +19,11 @@
     padding: 1rem;
 }
 
+.songText a {
+    color: #FF9900;
+    text-decoration: underline;
+}
+
 .warningSongText {
     background: oklch(0.314 0.128 26.655);
     margin-left: 1rem;
@@ -100,6 +105,6 @@
 }
 
 .spexLink {
-    color: #164fea;
+    color: #FF9900;
     text-decoration: underline;
 }
