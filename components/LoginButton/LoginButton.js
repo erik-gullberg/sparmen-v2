@@ -1,7 +1,9 @@
 "use client";
 import createClient from "@/utils/supabase/browserClient";
+import styles from "@/app/page.module.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+
 
 export default function LoginButton() {
   const [user, setUser] = useState(null);
@@ -19,6 +21,8 @@ export default function LoginButton() {
     <div>
       {!user ? (
         <button
+          className={styles.button}
+          role="button"
           onClick={() => {
             const supabase = createClient();
             supabase.auth

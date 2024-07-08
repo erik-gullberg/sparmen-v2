@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
+import styles from "@/app/page.module.css";
 async function fetchData(query) {
   const supabase = createClient();
   const user = supabase.auth.getUser();
@@ -55,10 +55,12 @@ export default async function Page({ params, searchParams }) {
     </div>
   ) : (
     <div>
-      <ul>
+      <ul className={styles.spexList}>
         {results.songs.map((song, i) => (
           <li key={i}>
-            <Link href={`/song/${song.id}`}>{song.name}</Link>
+            <div className={styles.song}>
+              <Link href={`/song/${song.id}`}>{song.name}</Link>
+            </div>
           </li>
         ))}
       </ul>

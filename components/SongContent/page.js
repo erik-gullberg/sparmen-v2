@@ -36,6 +36,8 @@ export default function SongContent({ song, user }) {
   }
 
   const handleToggle = (song) => (event) => {
+    const statusBar = document.querySelector('.' + pageStyle.statusBar);
+  
     if (event.target.open) {
       if (count === 0) {
         getVoteCount(song.id)
@@ -46,14 +48,18 @@ export default function SongContent({ song, user }) {
             console.error(e);
           });
       }
-
+  
       if (!user) {
         return false;
       }
-
+  
       hasUserVoted(song.id, user.user?.id).then((hasVoted) => {
         setHasVoted(hasVoted);
       });
+  
+      statusBar.classList.add(pageStyle.floatingStatusBar);
+    } else {
+      statusBar.classList.remove(pageStyle.floatingStatusBar);
     }
   };
 
@@ -107,9 +113,8 @@ export default function SongContent({ song, user }) {
       <summary>{song.name}</summary>
       <div className={pageStyle.statusBar}>
         <div>
-          Rating:
-          {"  "}
-          {count}
+ 
+          
           {user.user && (
             <>
               {hasVoted ? (
@@ -117,18 +122,22 @@ export default function SongContent({ song, user }) {
                   className={pageStyle.voteButton}
                   onClick={handleUnvote(song.id)}
                 >
-                  -1
+                  Av-rösta
                 </button>
               ) : (
                 <button
                   className={pageStyle.voteButton}
                   onClick={handleVote(song.id)}
                 >
-                  +1
+                  Rösta
                 </button>
               )}
+
             </>
           )}
+        </div>
+        <div className={pageStyle.voteCount}>
+          {count}
         </div>
         <div>
           <button
@@ -139,7 +148,7 @@ export default function SongContent({ song, user }) {
                 .then(() => toast.success("Länk kopierad till urklipp"))
             }
           >
-            Kopiera Länk
+            Länk
           </button>
         </div>
       </div>
