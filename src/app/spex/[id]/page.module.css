@@ -85,16 +85,15 @@
 
 .statusBar {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 90%; 
     padding: 10px;
     margin: auto;
     margin-top: 10px;
     border-radius: 20px; 
-    border: 1px solid #000000; 
-    background-color: #dbb300;
-    color: black;
+    background-color: #dbb30000;
+    color: #ffffff;
 }
 
 .warningBar {
@@ -122,4 +121,11 @@
     border: 1px solid #000000;
     border-radius: 10px;
     padding: 10px;
+    color: #000000;
+
+}
+.voteContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
