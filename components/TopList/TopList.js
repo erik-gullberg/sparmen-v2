@@ -22,11 +22,13 @@ export default async function Page() {
     <ul className={styles.spexList}>
       {data?.map((song, i) => (
         <li key={i} className={styles['song-container']}> 
-          <div className={styles.song}>
-            <Link href={`/song/${song.song_id}`}>
-              {song.name}
-            </Link>
-          </div>
+          <Link href={`/song/${song.song_id}`} passHref>
+            <div className={styles.song}>
+        
+                {song.name}
+              
+            </div>
+          </Link>
           <div className={styles['vote-count']}>{song.vote_count}</div>
         </li>
       ))}

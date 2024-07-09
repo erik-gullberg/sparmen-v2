@@ -5,6 +5,8 @@ import StarterKit from "@tiptap/starter-kit";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import styles from "@/app/page.module.css";
+import pageStyle from "@/app/spex/[id]/page.module.css";
+
 
 function rewriteEncodedAnchors(inputString) {
   const regex = /&lt;a (.*?)&gt;(.*?)&lt;\/a&gt;/g;
@@ -69,7 +71,7 @@ const Editor = ({ songId, formattedLyrics, userId }) => {
   });
 
   return (
-    <div>
+    <div className={pageStyle.songText}>
       {showButton && (
         <button
           onClick={() => {

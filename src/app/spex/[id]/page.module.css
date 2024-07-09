@@ -89,15 +89,10 @@
     align-items: center;
     width: 90%; 
     padding: 10px;
+    margin: auto;
     margin-top: 10px;
-    margin-bottom: 0.6rem;
     border-radius: 20px; 
     border: 1px solid #000000; 
-    position: fixed;
-    bottom: 0;
-    left: 50%; 
-    transform: translateX(-50%);
-    z-index: 1000; 
     background-color: #dbb300;
     color: black;
 }

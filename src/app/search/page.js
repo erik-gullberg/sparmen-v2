@@ -3,10 +3,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import styles from "@/app/page.module.css";
-async function fetchData(query) {
-  const supabase = createClient();
-  const user = supabase.auth.getUser();
-
+function noSongsInResults(results) {
+  return results.songs?.length === 0;
+}
 function noSpexInResults(results) {
   return results.spex?.length === 0;
 }
@@ -58,9 +57,11 @@ export default async function Page({ params, searchParams }) {
       <ul className={styles.spexList}>
         {results.songs.map((song, i) => (
           <li key={i}>
-            <div className={styles.song}>
-              <Link href={`/song/${song.id}`}>{song.name}</Link>
-            </div>
+            <Link href={`/song/${song.id}`} passHref>
+              <div className={styles.song}>
+                {song.name}
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
