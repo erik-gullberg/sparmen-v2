@@ -1,131 +1,111 @@
 .songContainer {
-    width: 100%;
-    min-width: 350px;
+  width: 100%;
+  min-width: 350px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .dropDown {
-    padding: 10px;
-    background: rgb(66, 66, 66);
-    overflow: hidden;
-    margin-bottom: 10px;
-    width: 95%;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 10px;
+  background: rgb(66, 66, 66);
+  overflow: hidden;
+  margin-bottom: 10px;
+  width: 95%;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.songText, .warningSongText {
-    padding: 20px;
-    margin: 10px 0;
-    width: calc(100% - 40px);
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    font-size: 16px;
-    line-height: 1.5;
+.songText,
+.warningSongText {
+  padding: 20px;
+  margin: 10px 0;
+  width: calc(100% - 40px);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .songText a {
-    color: #FF9900;
-    text-decoration: underline;
+  color: #ff9900;
+  text-decoration: underline;
 }
 
 .warningSongText {
-    background: oklch(0.314 0.128 26.655);
+  background: oklch(0.314 0.128 26.655);
 }
 
 .placeHolderText {
-    height: 100vh;
+  height: 100vh;
 }
 
-.voteButton, .copyLink {
-    padding: 10px 0px;
-    margin: 5px;
-    border-radius: 5px;
-    background: green;
-    color: #000000;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    border: 1px solid #000000;
-    width: 5rem;
+.voteButton {
+  padding: 2px;
+  margin-left: 5px;
 }
 
-.voteButton:hover, .copyLink:hover {
-    background: #e5e900;
+.copyLink {
+  padding: 3px;
 }
 
 .tabContainer {
-    display: inline-block;
-    justify-content: flex-start;
-    width: 100%;
-    margin: 0 10px;
-    padding: 10px 0;
-    overflow-x: auto;
+  display: inline-block;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0 10px;
+  padding: 10px 0;
+  overflow-x: auto;
 }
 
 .tab {
-    border: none;
-    padding: 10px 15px;
-    background: var(--main-button-color);
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    margin-right: 10px;
-    border-radius: 5px;
-    margin: 2px;
+  border: none;
+  padding: 10px 15px;
+  background: var(--main-button-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 5px;
+  margin: 2px;
 }
 
-
 .selected {
-    background: green;
+  background: green;
 }
 
 .statusBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%; 
-    padding: 10px;
-    margin: auto;
-    margin-top: 10px;
-    border-radius: 20px; 
-    background-color: #dbb30000;
-    color: #ffffff;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1rem;
+
+  width: 100%;
+  padding: 5px;
+  margin-top: 8px;
+
+  border-radius: 5px;
+
+  border: 1px white solid;
 }
 
 .warningBar {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    background: #ca0d0d;
-    color: #fff;
-    font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  background: #ca0d0d;
+  color: #fff;
+  font-weight: bold;
 }
 
 .triggerCheck {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .spexLink {
-    color: #FF9900;
-    text-decoration: underline;
-}
-
-.voteCount {
-    border: 1px solid #000000;
-    border-radius: 10px;
-    padding: 10px;
-    color: #000000;
-
-}
-.voteContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  color: #ff9900;
+  text-decoration: underline;
 }

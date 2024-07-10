@@ -58,18 +58,18 @@ export default async function Page({ params, searchParams }) {
         {results.songs.map((song, i) => (
           <li key={i}>
             <Link href={`/song/${song.id}`} passHref>
-              <div className={styles.song}>
-                {song.name}
-              </div>
+              <div className={styles.song}>{song.name}</div>
             </Link>
           </li>
         ))}
       </ul>
       <br></br>
-      <ul>
+      <ul className={styles.spexList}>
         {results.spex.map((spex, i) => (
           <li key={i}>
-            <Link href={`/spex/${spex.id}`}>{spex.name}</Link>
+            <Link href={`/spex/${spex.id}`}>
+              <div className={styles.song}>{spex.name}</div>
+            </Link>
           </li>
         ))}
       </ul>

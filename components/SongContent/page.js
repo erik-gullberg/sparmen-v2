@@ -36,8 +36,6 @@ export default function SongContent({ song, user, songNr }) {
   }
 
   const handleToggle = (song) => (event) => {
-    const statusBar = document.querySelector('.' + pageStyle.statusBar);
-
     if (event.target.open) {
       if (count === 0) {
         getVoteCount(song.id)
@@ -56,10 +54,6 @@ export default function SongContent({ song, user, songNr }) {
       hasUserVoted(song.id, user.user?.id).then((hasVoted) => {
         setHasVoted(hasVoted);
       });
-
-      statusBar.classList.add(pageStyle.floatingStatusBar);
-    } else {
-      statusBar.classList.remove(pageStyle.floatingStatusBar);
     }
   };
 
@@ -114,35 +108,30 @@ export default function SongContent({ song, user, songNr }) {
         {songNr + "."} {song.name}
       </summary>
       <div className={pageStyle.statusBar}>
-
-
-
-        {user.user && (
-          <>
-            <div className={pageStyle.voteContainer}>
+        <div>
+          Rating:
+          {"  "}
+          {count}
+          {user.user && (
+            <>
               {hasVoted ? (
                 <button
                   className={pageStyle.voteButton}
                   onClick={handleUnvote(song.id)}
                 >
-                  Av-rösta
+                  -1
                 </button>
               ) : (
                 <button
                   className={pageStyle.voteButton}
                   onClick={handleVote(song.id)}
                 >
-                  Rösta
+                  +1
                 </button>
               )}
-              <div className={pageStyle.voteCount}>
-                {count}
-              </div>
-            </div>
-          </>
-        )}
-
-
+            </>
+          )}
+        </div>
         <div>
           <button
             className={pageStyle.copyLink}
@@ -152,7 +141,7 @@ export default function SongContent({ song, user, songNr }) {
                 .then(() => toast.success("Länk kopierad till urklipp"))
             }
           >
-            Länk
+            Kopiera Länk
           </button>
         </div>
       </div>

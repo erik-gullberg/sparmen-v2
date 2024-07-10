@@ -1,55 +1,71 @@
 .solidLine {
-    border-top: 1px solid white;
-    margin: 1rem;
-    width: 25%;
+  border-top: 1px solid white;
+  margin: 1rem;
+  width: 25%;
 }
 
 .profileHeader {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .roleBadge {
-    margin-top: 1rem;
-    padding: 8px;
-    border-radius: 5px;
-    color: white;
-    border: 2px solid white;
-    user-select: none;
+  margin-top: 1rem;
+  padding: 8px;
+  border-radius: 5px;
+  color: white;
+  border: 2px solid white;
+  user-select: none;
 }
 
 .roleBadge:hover {
-    border-image: linear-gradient(to right, red, orange, green, blue, indigo, violet) 1;
-    animation: rainbow-animation 1s linear infinite alternate-reverse;
-    border-radius: 5px;
-
+  border-image: linear-gradient(
+      to right,
+      red,
+      orange,
+      green,
+      blue,
+      indigo,
+      violet
+    )
+    1;
+  animation: rainbow-animation 1s linear infinite alternate-reverse;
+  border-radius: 5px;
 }
 
 @keyframes rainbow-animation {
-    to {
-        border-image-source: linear-gradient(to right, blue, green, orange, red, violet, indigo);
-    }
+  to {
+    border-image-source: linear-gradient(
+      to right,
+      blue,
+      green,
+      orange,
+      red,
+      violet,
+      indigo
+    );
+  }
 }
 
 .roleBadge .tooltip {
-    visibility: hidden;
-    position: absolute;
-    background-color: #333;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.3s;
+  visibility: hidden;
+  position: absolute;
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .roleBadge:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(15px) translateX(-43px);
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(15px) translateX(-43px);
 }
