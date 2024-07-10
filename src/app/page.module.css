@@ -17,10 +17,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 98vw;
   max-width: 40rem;
-  border: azure 1px solid;
   margin-top: 1rem;
 }
 
@@ -28,9 +26,11 @@
   display: flex;
   justify-content: center;
   gap: 5px;
-
   width: 100%;
-  border-bottom: azure 1px solid;
+  border-top: rgb(147, 180, 0) 1px solid;
+}
+.containerHeader h3 {
+  margin-top: 10px;
 }
 
 .synopsis {
@@ -76,11 +76,6 @@
   color: black;
   background: whitesmoke;
   border-radius: 10px;
-}
-
-.songContainer {
-  width: 100%;
-  background: aqua;
 }
 
 .burger {
@@ -131,11 +126,16 @@
 
 /* Create the shimmer effect */
 .skeleton::after {
-  content: '';
+  content: "";
   display: block;
   height: 100%;
   width: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
   position: absolute;
   top: 0;
   left: -100%;
@@ -143,11 +143,16 @@
 }
 
 .bigSkeleton::after {
-  content: '';
+  content: "";
   display: block;
   height: 100%;
   width: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
   position: absolute;
   top: 0;
   left: -100%;
@@ -156,12 +161,76 @@
 
 /* Define the animation */
 @keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 .saveButton {
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 5px;
+}
+.spexList {
+  list-style: none;
+  padding: 0;
+  margin: 10px;
+}
+.song-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+.song-container a {
+  width: 100%;
+}
+.spexList li {
+  padding: 3px;
+}
+.song {
+  width: 100%;
+  transition: all 250ms;
+}
+.vote-count,
+.song {
+  margin-left: 3px;
+  padding: 5px;
+  border: 1px solid #838383;
+  border-radius: 3px;
+}
+/* CSS */
+.button {
+  align-items: center;
+  background-color: #008f1f;
+  border: 1px solid #000000;
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.7rem;
+  position: relative;
+  transition: all 250ms;
+}
+
+.button:hover,
+.button:active,
+.song:active,
+.song:hover {
+  color: #000000;
+  background-color: #dbb300;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  border-color: #000000;
+}
+.song:hover {
+  transform: translateY(-7px);
+}
+.button:hover {
+  transform: translateY(-1px);
 }

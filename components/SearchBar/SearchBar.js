@@ -23,7 +23,7 @@ function SearchBar() {
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
       />
-      <button className={styles.searchButton}>
+      <button className={styles.button}>
         <Link
           href={{
             pathname: "/search",

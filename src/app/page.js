@@ -10,7 +10,7 @@ export default function Home() {
         <div className={styles.containerHeader}>
           <h3>Top 10</h3>
         </div>
-        <div>
+        <div className={styles.containerBody}>
           <Suspense fallback={<div>Laddar top 10...</div>}>
             <TopList></TopList>
           </Suspense>

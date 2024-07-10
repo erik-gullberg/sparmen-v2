@@ -2,10 +2,10 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import styles from "@/app/page.module.css";
 function noSongsInResults(results) {
   return results.songs?.length === 0;
 }
-
 function noSpexInResults(results) {
   return results.spex?.length === 0;
 }
@@ -54,18 +54,22 @@ export default async function Page({ params, searchParams }) {
     </div>
   ) : (
     <div>
-      <ul>
+      <ul className={styles.spexList}>
         {results.songs.map((song, i) => (
           <li key={i}>
-            <Link href={`/song/${song.id}`}>{song.name}</Link>
+            <Link href={`/song/${song.id}`} passHref>
+              <div className={styles.song}>{song.name}</div>
+            </Link>
           </li>
         ))}
       </ul>
       <br></br>
-      <ul>
+      <ul className={styles.spexList}>
         {results.spex.map((spex, i) => (
           <li key={i}>
-            <Link href={`/spex/${spex.id}`}>{spex.name}</Link>
+            <Link href={`/spex/${spex.id}`}>
+              <div className={styles.song}>{spex.name}</div>
+            </Link>
           </li>
         ))}
       </ul>
