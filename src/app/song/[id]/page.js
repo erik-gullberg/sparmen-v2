@@ -6,6 +6,16 @@ import { createClient } from "@/utils/supabase/server";
 async function fetchSong(client, id) {
   const [spexId, songNumber] = id.split(".");
 
+  if (spexId && !songNumber) {
+    const { data } = await client
+      .from("song")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    return data;
+  }
+
   const { data } = await client.rpc("get_song_with_show_and_spex", {
     spex_id: spexId,
     song_number: songNumber,
@@ -46,7 +56,7 @@ export default async function Page({ params }) {
     <div className={styles.container}>
       <div className={styles.containerHeader}>
         <h3>
-          {song.title}
+          {song.title ?? song.name}
           {" - "}
           <Link
             className={pageStyle.spexLink}
