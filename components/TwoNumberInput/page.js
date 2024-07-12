@@ -2,21 +2,38 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
 import styles from "@/app/page.module.css";
+import { useRouter } from "next/navigation";
 
 export function TwoNumberInput() {
+  const router = useRouter();
+
   const [firstNum, setFirstNum] = useState("");
   const [secondNum, setSecondNum] = useState("");
 
-  // Create a reference to the second input
+  const firstInputRef = useRef(null);
   const secondInputRef = useRef(null);
 
   const handleFirstNumChange = (e) => {
     const value = e.target.value;
     setFirstNum(value);
 
-    // If the first input has two digits, focus the second input
     if (value.length === 2) {
       secondInputRef.current.focus();
+    }
+  };
+
+  const handleSecondNumChange = (e) => {
+    const value = e.target.value;
+    setSecondNum(value);
+
+    if (value.length === 0) {
+      firstInputRef.current.focus();
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      router.push(`/song/${firstNum}.${secondNum}`);
     }
   };
 
@@ -28,15 +45,17 @@ export function TwoNumberInput() {
         value={firstNum}
         onChange={handleFirstNumChange}
         placeholder="Spexnr"
+        ref={firstInputRef}
       />
       <span> . </span>
       <input
         className={styles.smallSearchBar}
         type="number"
         value={secondNum}
-        onChange={(e) => setSecondNum(e.target.value)}
+        onChange={handleSecondNumChange}
+        onKeyDown={handleKeyDown}
         placeholder="Låtnr"
-        ref={secondInputRef} // Attach the ref to the second input
+        ref={secondInputRef}
       />
 
       <button className={styles.button} id={styles.smallButton}>
