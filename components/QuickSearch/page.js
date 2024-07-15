@@ -7,33 +7,28 @@ import { useRouter } from "next/navigation";
 export function TwoNumberInput() {
   const router = useRouter();
 
-  const [firstNum, setFirstNum] = useState("");
-  const [secondNum, setSecondNum] = useState("");
+  const [spexNr, setSpexNr] = useState("");
+  const [songNr, setSongNr] = useState("");
 
-  const firstInputRef = useRef(null);
-  const secondInputRef = useRef(null);
+  const spexNrInput = useRef(null);
+  const songNrInput = useRef(null);
 
-  const handleFirstNumChange = (e) => {
+  const handleSpexNrChange = (e) => {
     const value = e.target.value;
-    setFirstNum(value);
+    setSpexNr(value);
 
     if (value.length === 2) {
-      secondInputRef.current.focus();
-    }
-  };
-
-  const handleSecondNumChange = (e) => {
-    const value = e.target.value;
-    setSecondNum(value);
-
-    if (value.length === 0) {
-      firstInputRef.current.focus();
+      songNrInput.current.focus();
     }
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      router.push(`/song/${firstNum}.${secondNum}`);
+    if (event.key === "Enter" && spexNr && songNr) {
+      router.push(`/song/${spexNr}.${songNr}`);
+    }
+
+    if (event.key === "Backspace" && songNr === "") {
+      spexNrInput.current.focus();
     }
   };
 
@@ -42,26 +37,26 @@ export function TwoNumberInput() {
       <input
         className={styles.smallSearchBar}
         type="number"
-        value={firstNum}
-        onChange={handleFirstNumChange}
+        value={spexNr}
+        onChange={handleSpexNrChange}
         placeholder="Spexnr"
-        ref={firstInputRef}
+        ref={spexNrInput}
       />
       <span> . </span>
       <input
         className={styles.smallSearchBar}
         type="number"
-        value={secondNum}
-        onChange={handleSecondNumChange}
+        value={songNr}
+        onChange={(e) => setSongNr(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Låtnr"
-        ref={secondInputRef}
+        ref={songNrInput}
       />
 
       <button className={styles.button} id={styles.smallButton}>
         <Link
           href={{
-            pathname: `/song/${firstNum}.${secondNum}`,
+            pathname: `/song/${spexNr}.${songNr}`,
           }}
         >
           Direktsök

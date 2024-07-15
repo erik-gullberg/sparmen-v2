@@ -6,7 +6,7 @@ import Link from "next/link";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import LoginButton from "../../components/LoginButton/LoginButton";
 import { Toaster } from "react-hot-toast";
-import { TwoNumberInput } from "../../components/TwoNumberInput/page";
+import { TwoNumberInput } from "../../components/QuickSearch/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
