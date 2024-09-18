@@ -20,7 +20,7 @@
     "@tiptap/starter-kit": "^2.3.1",
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "next": "^14.2.4",
+    "next": "^14.2.10",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1"
