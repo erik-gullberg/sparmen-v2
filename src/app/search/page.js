@@ -47,6 +47,7 @@ export default async function Page({ params, searchParams }) {
       <p>Du kan söka på</p>
       <ul>
         <li>Låtnamn</li>
+        <li>Låtnummer (ex. 38.5)</li>
         <li>Låttext</li>
         <li>Orginallåt</li>
         <li>Spexnamn</li>
@@ -58,7 +59,9 @@ export default async function Page({ params, searchParams }) {
         {results.songs.map((song, i) => (
           <li key={i}>
             <Link href={`/song/${song.id}`} passHref>
-              <div className={styles.song}>{song.name}</div>
+              <div className={styles.song}>
+                {song.name} {song.showId}
+              </div>
             </Link>
           </li>
         ))}

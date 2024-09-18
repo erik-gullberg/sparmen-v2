@@ -1,6 +1,6 @@
 import styles from "@/app/page.module.css";
 import { createClient } from "@/utils/supabase/server";
-import ShowAndSongSelector from "../../../../components/ShowAndSongSelector/ShowAndSongSelector";
+import ShowAndSongSelector from "../../../components/ShowAndSongSelector/ShowAndSongSelector";
 import fetchUser from "@/utils/fetchUserAndRoles";
 
 async function fetchShows(client, query) {
@@ -35,12 +35,15 @@ export default async function Page({ params, searchParams }) {
     <div className={styles.flex}>
       <div className={styles.container}>
         <div className={styles.containerHeader}>
-          <h3>{spex.data[0].name}</h3>
+          <h3>
+            {params.id}. {spex.data[0].name}
+          </h3>
         </div>
         <ShowAndSongSelector
           shows={shows.data}
           user={user}
           defaultShowId={searchParams.show}
+          spexId={params.id}
         ></ShowAndSongSelector>
       </div>
     </div>

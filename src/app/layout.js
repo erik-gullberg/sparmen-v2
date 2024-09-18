@@ -1,10 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import styles from "@/app/page.module.css";
-import GithubIcon from "../../components/Icons/GithubIcon";
+import GithubIcon from "../components/Icons/GithubIcon";
 import Link from "next/link";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import LoginButton from "../../components/LoginButton/LoginButton";
+import SearchBar from "../components/SearchBar/SearchBar";
+import LoginButton from "../components/LoginButton/LoginButton";
 import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
