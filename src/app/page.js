@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
-import SpexList from "../../components/SpexList/SpexList";
-import TopList from "../../components/TopList/TopList";
+import SpexList from "../components/SpexList/SpexList";
+import TopList from "../components/TopList/TopList";
 import { Suspense } from "react";
 
 export default function Home() {

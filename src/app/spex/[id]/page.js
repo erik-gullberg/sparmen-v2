@@ -1,6 +1,6 @@
 import styles from "@/app/page.module.css";
 import { createClient } from "@/utils/supabase/server";
-import ShowAndSongSelector from "../../../../components/ShowAndSongSelector/ShowAndSongSelector";
+import ShowAndSongSelector from "../../../components/ShowAndSongSelector/ShowAndSongSelector";
 import fetchUser from "@/utils/fetchUserAndRoles";
 
 async function fetchShows(client, query) {

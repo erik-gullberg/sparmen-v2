@@ -10,8 +10,21 @@ function SearchBar() {
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
+      search();
+    }
+  };
+
+  const search = () => {
+    if (inputValue.match(/^\d+\.\d+$/)) {
+      const [spexNr, songNr] = inputValue.split(".");
+      quickSearch(spexNr, songNr);
+    } else {
       router.push(`/search?q=${inputValue}`);
     }
+  };
+
+  const quickSearch = (spexNr, songNr) => {
+    router.push(`/song/${spexNr}.${songNr}`);
   };
 
   return (
