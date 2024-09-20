@@ -109,3 +109,7 @@
   color: #ff9900;
   text-decoration: underline;
 }
+
+.summary {
+  cursor: pointer;
+}

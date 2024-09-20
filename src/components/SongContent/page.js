@@ -104,7 +104,7 @@ export default function SongContent({ song, user, spexId }) {
 
   return (
     <details className={pageStyle.dropDown} onToggle={handleToggle(song)}>
-      <summary>
+      <summary className={pageStyle.summary}>
         {song.number + "."} {song.name}
       </summary>
       <div className={pageStyle.statusBar}>
