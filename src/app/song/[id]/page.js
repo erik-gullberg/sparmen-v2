@@ -2,7 +2,7 @@ import pageStyle from "@/app/spex/[id]/page.module.css";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
-import StatusBar from "@/components/StatusBar/StatusBar";
+import StatusBar from "../../../../components/StatusBar/StatusBar";
 import fetchUser from "@/utils/fetchUserAndRoles";
 
 
