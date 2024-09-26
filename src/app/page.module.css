@@ -191,18 +191,20 @@
 .spexList li {
   padding: 3px;
 }
-.song {
-  width: 100%;
-  transition: all 250ms;
-}
+
 .vote-count,
 .song {
+  transition: all 250ms;
   margin-left: 3px;
-  padding: 5px;
+  padding: 8px;
   border: 1px solid #838383;
   border-radius: 3px;
+  
 }
-/* CSS */
+.songDesc{
+  color: #838383;
+  font-size: 0.7rem;
+}
 .button {
   align-items: center;
   background-color: #008f1f;
@@ -233,4 +235,8 @@
 }
 .button:hover {
   transform: translateY(-1px);
+}
+
+.songStatusBar {
+  margin-left: 5%;
 }

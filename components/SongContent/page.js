@@ -1,150 +1,44 @@
 "use client";
 import pageStyle from "@/app/spex/[id]/page.module.css";
 import createClient from "@/utils/supabase/browserClient";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Editor from "../Editor/Editor";
+import StatusBar from "../StatusBar/StatusBar"; // Importera StatusBar
 import toast from "react-hot-toast";
 
 export default function SongContent({ song, user, songNr }) {
   const supabase = createClient();
-  const [count, setCount] = useState(0);
-  const [hasVoted, setHasVoted] = useState(false);
   const [showWarning, setShowWarning] = useState(song.show_warning);
   const formattedLyrics = song.lyrics.replace(/\n/g, "<br>");
+  const [isOpen, setIsOpen] = useState(false);
 
-  async function getVoteCount(songId) {
-    const { count, error } = await supabase
-      .from("vote")
-      .select("*", { count: "exact", head: true })
-      .eq("song_id", songId);
-
-    if (error) {
-      throw Error("Error fetching votes: " + error.message);
-    }
-
-    return count;
-  }
-
-  async function hasUserVoted(songId, userId) {
-    const { count, error } = await supabase
-      .from("vote")
-      .select("*", { count: "exact", head: true })
-      .eq("song_id", songId)
-      .eq("user_id", userId);
-
-    return !!(count > 0 || error);
-  }
-
-  const handleToggle = (song) => (event) => {
-    if (event.target.open) {
-      if (count === 0) {
-        getVoteCount(song.id)
-          .then((count) => {
-            setCount(count);
-          })
-          .catch((e) => {
-            console.error(e);
-          });
-      }
-
-      if (!user) {
-        return false;
-      }
-
-      hasUserVoted(song.id, user.user?.id).then((hasVoted) => {
-        setHasVoted(hasVoted);
-      });
+  const openDropdown = (id) => {
+    if (song.id === id) {
+      setIsOpen(true);
     }
   };
 
-  const handleVote = (songId) => async () => {
-    const { error } = await supabase.from("vote").insert({
-      song_id: songId,
-      user_id: user.user.id,
-    });
-
-    if (error) {
-      console.error("Error voting: " + error.message);
-      return;
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("id")) {
+      openDropdown(urlParams.get("id"));
     }
-
-    setCount(count + 1);
-    setHasVoted(true);
-  };
-
-  const handleUnvote = (songId) => async () => {
-    const { error } = await supabase
-      .from("vote")
-      .delete()
-      .eq("song_id", songId)
-      .eq("user_id", user.user.id);
-
-    if (error) {
-      console.error("Error unvoting: " + error.message);
-      return;
-    }
-
-    setCount(count - 1);
-    setHasVoted(false);
-  };
-
-  const toggleWarning = (songId) => async () => {
-    const { error } = await supabase
-      .from("song")
-      .update({ show_warning: !song.show_warning })
-      .eq("id", songId);
-
-    if (error) {
-      console.error("Error toggling warning: " + error.message);
-      return;
-    }
-
-    setShowWarning(!showWarning);
-  };
+  }, []);
 
   return (
-    <details className={pageStyle.dropDown} onToggle={handleToggle(song)}>
+    <details className={pageStyle.dropDown} open={isOpen}>
       <summary>
         {songNr + "."} {song.name}
       </summary>
-      <div className={pageStyle.statusBar}>
-        <div>
-          Rating:
-          {"  "}
-          {count}
-          {user.user && (
-            <>
-              {hasVoted ? (
-                <button
-                  className={pageStyle.voteButton}
-                  onClick={handleUnvote(song.id)}
-                >
-                  -1
-                </button>
-              ) : (
-                <button
-                  className={pageStyle.voteButton}
-                  onClick={handleVote(song.id)}
-                >
-                  +1
-                </button>
-              )}
-            </>
-          )}
-        </div>
-        <div>
-          <button
-            className={pageStyle.copyLink}
-            onClick={() =>
-              navigator.clipboard
-                .writeText(`https://sparmen-v2.vercel.app/song/${song.id}`)
-                .then(() => toast.success("Länk kopierad till urklipp"))
-            }
-          >
-            Kopiera Länk
-          </button>
-        </div>
-      </div>
+
+      {!showWarning && (
+        <StatusBar
+          song={song}
+          user={user}
+          showWarning={showWarning}
+          setShowWarning={setShowWarning}
+        />
+      )}
 
       {user.roles?.is_editor && (
         <div className={pageStyle.statusBar}>
@@ -154,7 +48,7 @@ export default function SongContent({ song, user, songNr }) {
               className={pageStyle.triggerCheck}
               id="trigger"
               type="checkbox"
-              onClick={toggleWarning(song.id)}
+              onClick={() => setShowWarning(!showWarning)}
             />
             <label htmlFor={"trigger"}>Olämplig för sittning</label>
           </div>

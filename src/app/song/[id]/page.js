@@ -2,6 +2,9 @@ import pageStyle from "@/app/spex/[id]/page.module.css";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
+import StatusBar from "@/components/StatusBar/StatusBar";
+import fetchUser from "@/utils/fetchUserAndRoles";
+
 
 async function fetchSong(client, id) {
   return client.from("song").select("*").eq("id", id).single();
@@ -19,6 +22,7 @@ export default async function Page({ params }) {
   const client = createClient();
   const song = await fetchSong(client, params.id);
   const show = await fetchShow(client, song.data?.show_id);
+  const user = await fetchUser(client);
 
   if (!song.data || !show.data) {
     return <div>Den låten hittade vi inte. id: {params.id}</div>;
@@ -39,6 +43,9 @@ export default async function Page({ params }) {
             {show.data.spex.name} {show.data.year}
           </Link>
         </h3>
+      </div>
+      <div className={styles.songStatusBar}>
+        <StatusBar song={song.data} user={user}/>
       </div>
       <div>
         {song.data.show_warning && (
