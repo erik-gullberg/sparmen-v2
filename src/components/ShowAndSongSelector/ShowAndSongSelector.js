@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import SongSelector from "../SongSelector/SongSelector";
-import pageStyle from "@/app/spex/[id]/page.module.css";
+import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
 
 export default function ShowAndSongSelector({
   shows,

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import pageStyle from "@/app/spex/[id]/page.module.css";
+import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
 import createClient from "@/utils/supabase/browserClient";
 import SongContent from "../SongContent/page";
 

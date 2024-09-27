@@ -25,20 +25,29 @@
 .containerHeader {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 5px;
   width: 100%;
   border-top: rgb(147, 180, 0) 1px solid;
+  position: relative;
 }
+
+.addButton {
+  padding: 5px;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  border-radius: 50%;
+}
+
 .containerHeader h3 {
   margin-top: 10px;
 }
 
 .synopsis {
   padding: 1rem;
-}
-
-.addButton {
-  padding: 2px;
 }
 
 .flex {

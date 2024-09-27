@@ -1,5 +1,5 @@
 "use client";
-import pageStyle from "@/app/spex/[id]/page.module.css";
+import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
 import createClient from "@/utils/supabase/browserClient";
 import { useState } from "react";
 import Editor from "../Editor/Editor";

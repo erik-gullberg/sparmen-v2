@@ -34,10 +34,7 @@ export default function RootLayout({ children }) {
             <GithubIcon style={{ width: 35, height: 35 }} />
           </a>
         </div>
-        <main className={styles.main}>
-          <SearchBar></SearchBar>
-          {children}
-        </main>
+        <main className={styles.main}>{children}</main>
       </body>
     </html>
   );
