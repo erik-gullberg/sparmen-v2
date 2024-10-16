@@ -233,7 +233,10 @@
   padding: 0.3rem;
   margin-left: 0.5rem;
 }
-
+.songDesc{
+  color: #838383;
+  font-size: 0.7rem;
+}
 .button:hover,
 .button:active,
 .song:active,
