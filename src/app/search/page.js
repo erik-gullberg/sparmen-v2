@@ -1,40 +1,56 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
 import styles from "@/app/page.module.css";
+
 function noSongsInResults(results) {
   return results.songs?.length === 0;
 }
+
 function noSpexInResults(results) {
   return results.spex?.length === 0;
 }
 
-async function fetchData(query) {
-  const supabase = createClient();
-
-  const [songs, spex] = await Promise.all([
+async function fetchData(query, supabase) {
+  let [songs, spex] = await Promise.all([
     supabase
       .from("song")
-      .select("name, id, show_id")
+      .select(`
+        name,
+        id,
+        show_id,
+        show (
+          year_short,
+          year,
+          spex_id,
+          spex (
+            name
+          )
+        )
+      `)
       .or(`name.ilike.%${query}%, lyrics.ilike.%${query}%`)
-      .order("name", { ascending: false }), // Order by name (ascending) first
-
-    supabase.from("spex").select("name, id").ilike("name", `%${query}%`),
+      .order("name", { ascending: true }), 
+    supabase.from("spex").select("name, id").ilike("name", `%${query}%`)
   ]);
 
-  return { songs: [...songs.data], spex: [...spex.data] };
+
+  songs = songs.data;
+  spex = spex.data;
+
+  return { songs, spex };
 }
 
 export default async function Page({ params, searchParams }) {
   const { q } = searchParams;
-  const results = await fetchData(q);
+  const supabase = createClient();
 
-  if (results.songs?.length === 1 && noSpexInResults(results)) {
+  const results = await fetchData(q, supabase);
+
+  if (results.songs.length === 1 && noSpexInResults(results)) {
     redirect(`/song/${results.songs[0].id}`);
   }
 
-  if (results.spex?.length === 1 && noSongsInResults(results)) {
+  if (results.spex.length === 1 && noSongsInResults(results)) {
     redirect(`/spex/${results.spex[0].id}`);
   }
 
@@ -60,7 +76,9 @@ export default async function Page({ params, searchParams }) {
           <li key={i}>
             <Link href={`/song/${song.id}`} passHref>
               <div className={styles.song}>
-                {song.name} {song.showId}
+                {song.name} 
+                <br/>
+                <div className={styles.songDesc}>{song.show.spex.name} - {song.show.year_short}</div>
               </div>
             </Link>
           </li>
