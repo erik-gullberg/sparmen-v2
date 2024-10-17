@@ -23,7 +23,7 @@ export default async function Page({ params, searchParams }) {
     fetchShows(supabase, params.id),
   ]);
 
-  if (spex.data.length === 0) {
+  if (spex.data?.length === 0) {
     return (
       <div>
         <p>Inget spex hittat med id: {params.id}</p>
@@ -36,11 +36,11 @@ export default async function Page({ params, searchParams }) {
       <div className={styles.container}>
         <div className={styles.containerHeader}>
           <h3>
-            {params.id}. {spex.data[0].name}
+            {params.id}. {spex.data ? spex.data[0].name : ""}
           </h3>
         </div>
         <ShowAndSongSelector
-          shows={shows.data}
+          shows={shows.data ?? []}
           user={user}
           defaultShowId={searchParams.show}
           spexId={params.id}

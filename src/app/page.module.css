@@ -34,12 +34,11 @@
 
 .addButton {
   padding: 5px;
-  width: 2rem;
   height: 2rem;
   position: absolute;
   right: 10px;
   top: 5px;
-  border-radius: 50%;
+  border-radius: 5px;
 }
 
 .containerHeader h3 {

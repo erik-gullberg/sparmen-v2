@@ -1,7 +1,7 @@
 "use client";
 import style from "./page.module.css";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
 
@@ -9,38 +9,43 @@ export default function NewSpexPage() {
   const router = useRouter();
   const supabase = createClient();
 
-  const [spexName, setSpexName] = useState("");
+  const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isEditor, setIsEditor] = useState(false);
 
-  const buttonDisabled = !spexName;
+  const searchParams = useSearchParams();
+  const spexId = searchParams.get("spexId");
+
+  const buttonDisabled = !year;
 
   const onClick = () => {
-    const createSpex = async () => {
+    const createShow = async () => {
       try {
         const { data, error } = await supabase
-          .from("spex")
+          .from("show")
           .insert([
             {
-              name: spexName,
+              spex_id: spexId,
+              year: year,
+              year_short: year,
             },
           ])
           .select();
 
         if (error) {
-          console.error("Error creating spex:", error);
+          console.error("Error creating show:", error);
           return;
         }
 
         console.log(data);
-        router.push(`/spex/${data[0].id}`);
+        router.push(`/spex/${spexId}`);
       } catch (error) {
-        console.error("Unexpected error during spex creation:", error);
+        console.error("Unexpected error during show creation:", error);
         toast.error("Något gick fel. Försök igen senare.");
       }
     };
-    createSpex();
+    createShow();
   };
 
   useEffect(() => {
@@ -69,7 +74,7 @@ export default function NewSpexPage() {
   }, []);
 
   useEffect(() => {
-    if (!isLoading && (!isAuthenticated || !isEditor)) {
+    if (!isLoading && (!isAuthenticated || !isEditor || !spexId)) {
       router.push("/");
     }
   }, [isLoading, isAuthenticated, router, isEditor]);
@@ -82,16 +87,16 @@ export default function NewSpexPage() {
 
   return (
     <div className={style.container}>
-      <h2>Skapa nytt spex</h2>
+      <h2>Skapa ny uppsättning</h2>
 
       <section className={style.section}>
-        <h4>Spexnamn *</h4>
+        <h4>Termin *</h4>
         <input
           className={style.input}
           type="text"
-          placeholder="Namn"
-          value={spexName}
-          onChange={(e) => setSpexName(e.target.value)}
+          placeholder="Termin ex. HT22"
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
         />
       </section>
 
