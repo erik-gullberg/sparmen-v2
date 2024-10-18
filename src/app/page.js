@@ -3,7 +3,6 @@ import SpexList from "../components/SpexList/SpexList";
 import TopList from "../components/TopList/TopList";
 import { Suspense } from "react";
 import SearchBar from "@/components/SearchBar/SearchBar";
-import Link from "next/link";
 
 export default function Home() {
   return (
@@ -22,9 +21,6 @@ export default function Home() {
       <div className={styles.container}>
         <div className={styles.containerHeader}>
           <h3>Spex</h3>
-          <Link href={"/new"}>
-            <button className={styles.addButton}>Nytt +</button>
-          </Link>
         </div>
         <div>
           <Suspense fallback={<div>Laddar spex...</div>}>

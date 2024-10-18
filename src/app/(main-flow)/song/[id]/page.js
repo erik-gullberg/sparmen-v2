@@ -56,15 +56,18 @@ export default async function Page({ params }) {
     <div className={styles.container}>
       <div className={styles.containerHeader}>
         <h3>
-          {song.title ?? song.name}
+          {show.data.spex.id}.{song.number}
           {" - "}
+          {song.title ?? song.name}
+        </h3>
+        <h4>
           <Link
             className={pageStyle.spexLink}
             href={`/spex/${show.data.spex.id}?show=${show.data.id}`}
           >
             {show.data.spex.name} {show.data.year}
           </Link>
-        </h3>
+        </h4>
       </div>
       <div>
         {song.show_warning && (

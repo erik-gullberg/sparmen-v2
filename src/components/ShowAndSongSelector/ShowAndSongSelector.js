@@ -27,9 +27,9 @@ export default function ShowAndSongSelector({
           </button>
         ))}
         {user.roles?.is_editor && (
-          <Link href={"/newShow?spexId=" + spexId} className={pageStyle.tab}>
-            Nytt +
-          </Link>
+          <button className={pageStyle.tab}>
+            <Link href={"/newShow?spexId=" + spexId}>Ny uppsättning +</Link>
+          </button>
         )}
       </div>
 

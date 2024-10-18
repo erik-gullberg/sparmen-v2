@@ -1,0 +1,74 @@
+.container {
+    padding: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section {
+    padding: 1rem;
+}
+
+.input {
+    width: 25rem;
+    height: 3rem;
+    border-radius: 15px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 5px;
+    margin-top: 5px;
+    font-size: large;
+}
+
+.lyricInput {
+    width: 35rem;
+    max-width: 50rem;
+    min-width: 30rem;
+    height: 40rem;
+    border-radius: 15px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 5px;
+    margin-top: 5px;
+    font-size: large;
+}
+
+.button {
+    align-items: center;
+    background-color: #008f1f;
+    border: 1px solid #000000;
+    border-radius: 0.25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.7rem;
+    position: relative;
+    transition: all 250ms;
+}
+
+.buttonDisabled {
+    align-items: center;
+    background-color: #dedede;
+    border: 1px solid #000000;
+    border-radius: 0.25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #b8b8b8;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.7rem;
+    position: relative;
+    transition: all 250ms;
+}
+
+.button:hover {
+    color: #000000;
+    background-color: #dbb300;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    border-color: #000000;}
