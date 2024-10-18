@@ -1,6 +1,6 @@
 "use client";
 import style from "./page.module.css";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
@@ -81,27 +81,29 @@ export default function NewSpexPage() {
   }
 
   return (
-    <div className={style.container}>
-      <h2>Skapa nytt spex</h2>
+    <Suspense>
+      <div className={style.container}>
+        <h2>Skapa nytt spex</h2>
 
-      <section className={style.section}>
-        <h4>Spexnamn *</h4>
-        <input
-          className={style.input}
-          type="text"
-          placeholder="Namn"
-          value={spexName}
-          onChange={(e) => setSpexName(e.target.value)}
-        />
-      </section>
+        <section className={style.section}>
+          <h4>Spexnamn *</h4>
+          <input
+            className={style.input}
+            type="text"
+            placeholder="Namn"
+            value={spexName}
+            onChange={(e) => setSpexName(e.target.value)}
+          />
+        </section>
 
-      <button
-        className={buttonDisabled ? style.buttonDisabled : style.button}
-        disabled={buttonDisabled}
-        onClick={onClick}
-      >
-        Skapa
-      </button>
-    </div>
+        <button
+          className={buttonDisabled ? style.buttonDisabled : style.button}
+          disabled={buttonDisabled}
+          onClick={onClick}
+        >
+          Skapa
+        </button>
+      </div>
+    </Suspense>
   );
 }
