@@ -5,6 +5,7 @@ import GithubIcon from "../components/Icons/GithubIcon";
 import Link from "next/link";
 import LoginButton from "../components/LoginButton/LoginButton";
 import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +34,9 @@ export default function RootLayout({ children }) {
             <GithubIcon style={{ width: 35, height: 35 }} />
           </a>
         </div>
-        <main className={styles.main}>{children}</main>
+        <main className={styles.main}>
+          <Suspense>{children}</Suspense>
+        </main>
       </body>
     </html>
   );
