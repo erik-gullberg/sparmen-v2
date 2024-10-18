@@ -47,6 +47,16 @@ export default async function ProfilePage() {
           </div>
         )}
       </div>
+      {userData.roles?.is_editor && (
+        <>
+          <hr className={style.solidLine} />
+          <h4>Adminkontroller</h4>
+          <br />
+          <Link href={"/newSpex"}>
+            <button className={style.addButton}>Skapa nytt spex +</button>
+          </Link>
+        </>
+      )}
       <hr className={style.solidLine} />
       <div>
         <h2>Dina Favoriter</h2>

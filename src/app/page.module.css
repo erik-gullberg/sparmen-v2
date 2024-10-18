@@ -24,21 +24,36 @@
 
 .containerHeader {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 5px;
   width: 100%;
   border-top: rgb(147, 180, 0) 1px solid;
+  position: relative;
 }
+
+.addButton {
+  height: 2rem;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  border: none;
+  padding: 10px 15px;
+  background: var(--main-button-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 5px;
+  margin: 2px;
+}
+
 .containerHeader h3 {
   margin-top: 10px;
 }
 
 .synopsis {
   padding: 1rem;
-}
-
-.addButton {
-  padding: 2px;
 }
 
 .flex {

@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import SongSelector from "../SongSelector/SongSelector";
-import pageStyle from "@/app/spex/[id]/page.module.css";
+import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
+import Link from "next/link";
 
 export default function ShowAndSongSelector({
   shows,
@@ -10,7 +11,7 @@ export default function ShowAndSongSelector({
   spexId,
 }) {
   const [selectedShowId, setSelectedShowId] = useState(
-    parseInt(defaultShowId) || shows[shows.length - 1].id,
+    parseInt(defaultShowId) || shows[shows.length - 1]?.id,
   );
 
   return (
@@ -25,7 +26,13 @@ export default function ShowAndSongSelector({
             {show.year}
           </button>
         ))}
+        {user.roles?.is_editor && (
+          <button className={pageStyle.tab}>
+            <Link href={"/newShow?spexId=" + spexId}>Ny uppsättning +</Link>
+          </button>
+        )}
       </div>
+
       <SongSelector
         showId={selectedShowId}
         user={user}

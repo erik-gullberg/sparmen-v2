@@ -2,10 +2,12 @@ import styles from "./page.module.css";
 import SpexList from "../components/SpexList/SpexList";
 import TopList from "../components/TopList/TopList";
 import { Suspense } from "react";
+import SearchBar from "@/components/SearchBar/SearchBar";
 
 export default function Home() {
   return (
     <div>
+      <SearchBar />
       <div className={styles.container}>
         <div className={styles.containerHeader}>
           <h3>Top 10</h3>

@@ -3,9 +3,9 @@ import "./globals.css";
 import styles from "@/app/page.module.css";
 import GithubIcon from "../components/Icons/GithubIcon";
 import Link from "next/link";
-import SearchBar from "../components/SearchBar/SearchBar";
 import LoginButton from "../components/LoginButton/LoginButton";
 import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,8 +35,7 @@ export default function RootLayout({ children }) {
           </a>
         </div>
         <main className={styles.main}>
-          <SearchBar></SearchBar>
-          {children}
+          <Suspense>{children}</Suspense>
         </main>
       </body>
     </html>

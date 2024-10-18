@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import pageStyle from "@/app/spex/[id]/page.module.css";
+import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
 import createClient from "@/utils/supabase/browserClient";
 import SongContent from "../SongContent/page";
+import Link from "next/link";
 
 const songCache = {};
 
@@ -39,15 +40,19 @@ export default function SongSelector({ showId, user, spexId }) {
 
       {!isLoading &&
         songs?.map((song, index) => (
-          <>
-            <SongContent
-              key={song.id}
-              song={song}
-              user={user}
-              spexId={spexId}
-            ></SongContent>
-          </>
+          <SongContent
+            key={song.id}
+            song={song}
+            user={user}
+            spexId={spexId}
+          ></SongContent>
         ))}
+
+      {user.roles?.is_editor && showId && (
+        <Link href={"/newSong?showId=" + showId} className={pageStyle.tab}>
+          Ny Sång +
+        </Link>
+      )}
     </div>
   );
 }

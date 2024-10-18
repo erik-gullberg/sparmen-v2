@@ -1,5 +1,5 @@
 import styles from "@/app/page.module.css";
-import pageStyle from "@/app/spex/[id]/page.module.css";
+import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
 
 export default function Loading() {
   return (

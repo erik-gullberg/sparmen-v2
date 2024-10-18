@@ -69,3 +69,15 @@
   opacity: 1;
   transform: translateY(15px) translateX(-43px);
 }
+
+.addButton {
+  height: 2rem;
+  border: none;
+  padding: 10px 15px;
+  background: var(--main-button-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 5px;
+  margin: 2px;
+}
