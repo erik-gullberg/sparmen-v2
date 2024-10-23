@@ -36,8 +36,9 @@ function errorMessage(params) {
   return <div>Den låten hittade vi inte. id: {params.id}</div>;
 }
 
-export default async function Page({ params }) {
-  const client = createClient();
+export default async function Page(props) {
+  const params = await props.params;
+  const client = await createClient();
   const song = await fetchSong(client, params.id);
 
   if (!song) {

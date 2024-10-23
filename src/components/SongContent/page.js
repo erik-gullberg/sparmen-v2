@@ -156,7 +156,7 @@ export default function SongContent({ song, user, spexId }) {
               className={pageStyle.triggerCheck}
               id="trigger"
               type="checkbox"
-              onClick={toggleWarning(song.id)}
+              onChange={toggleWarning(song.id)}
             />
             <label htmlFor={"trigger"}>Olämplig för sittning</label>
           </div>

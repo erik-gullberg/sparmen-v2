@@ -20,7 +20,7 @@ async function getVotedSongs(supabase, userId) {
 }
 
 export default async function ProfilePage() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const userData = await fetchUser(supabase);
 
   if (userData.user === null) {

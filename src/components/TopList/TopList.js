@@ -4,7 +4,7 @@ import Link from "next/link";
 import style from "./page.module.css";
 
 async function fetchData() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase.rpc("get_top_10_songs");
 
@@ -18,21 +18,15 @@ async function fetchData() {
 export default async function Page() {
   const data = await fetchData();
   return (
-
     <ul className={styles.spexList}>
       {data?.map((song, i) => (
-        <li key={i} className={styles['song-container']}> 
+        <li key={i} className={styles["song-container"]}>
           <Link href={`/song/${song.song_id}`} passHref>
-            <div className={styles.song}>
-        
-                {song.name}
-              
-            </div>
+            <div className={styles.song}>{song.name}</div>
           </Link>
-          <div className={styles['vote-count']}>{song.vote_count}</div>
+          <div className={styles["vote-count"]}>{song.vote_count}</div>
         </li>
       ))}
     </ul>
-
   );
 }
