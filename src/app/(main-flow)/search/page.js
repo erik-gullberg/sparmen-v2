@@ -41,7 +41,9 @@ async function fetchData(query, supabase) {
   return { songs, spex };
 }
 
-export default async function Page({ params, searchParams }) {
+export default async function Page(props) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const { q } = searchParams;
   const supabase = await createClient();
 

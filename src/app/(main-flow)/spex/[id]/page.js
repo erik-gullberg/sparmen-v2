@@ -15,7 +15,9 @@ async function fetchSpexName(client, query) {
   return client.from("spex").select("name").eq("id", query);
 }
 
-export default async function Page({ params, searchParams }) {
+export default async function Page(props) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const supabase = await createClient();
   const [user, spex, shows] = await Promise.all([
     fetchUser(supabase),
