@@ -15,7 +15,8 @@ async function fetchData(query, supabase) {
   let [songs, spex] = await Promise.all([
     supabase
       .from("song")
-      .select(`
+      .select(
+        `
         name,
         id,
         show_id,
@@ -27,12 +28,12 @@ async function fetchData(query, supabase) {
             name
           )
         )
-      `)
+      `,
+      )
       .or(`name.ilike.%${query}%, lyrics.ilike.%${query}%`)
-      .order("name", { ascending: true }), 
-    supabase.from("spex").select("name, id").ilike("name", `%${query}%`)
+      .order("name", { ascending: true }),
+    supabase.from("spex").select("name, id").ilike("name", `%${query}%`),
   ]);
-
 
   songs = songs.data;
   spex = spex.data;
@@ -42,7 +43,7 @@ async function fetchData(query, supabase) {
 
 export default async function Page({ params, searchParams }) {
   const { q } = searchParams;
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const results = await fetchData(q, supabase);
 
@@ -76,9 +77,11 @@ export default async function Page({ params, searchParams }) {
           <li key={i}>
             <Link href={`/song/${song.id}`} passHref>
               <div className={styles.song}>
-                {song.name} 
-                <br/>
-                <div className={styles.songDesc}>{song.show.spex.name} - {song.show.year_short}</div>
+                {song.name}
+                <br />
+                <div className={styles.songDesc}>
+                  {song.show.spex.name} - {song.show.year_short}
+                </div>
               </div>
             </Link>
           </li>

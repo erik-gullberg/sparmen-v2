@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
 async function fetchData() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   return supabase.from("spex").select("id, name").order("id");
 }

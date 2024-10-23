@@ -37,7 +37,7 @@ function errorMessage(params) {
 }
 
 export default async function Page({ params }) {
-  const client = createClient();
+  const client = await createClient();
   const song = await fetchSong(client, params.id);
 
   if (!song) {

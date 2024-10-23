@@ -16,7 +16,7 @@ async function fetchSpexName(client, query) {
 }
 
 export default async function Page({ params, searchParams }) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const [user, spex, shows] = await Promise.all([
     fetchUser(supabase),
     fetchSpexName(supabase, params.id),
