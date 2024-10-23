@@ -4,6 +4,7 @@ import Link from "next/link";
 import style from "./page.module.css";
 import Image from "next/image";
 import fetchUser from "@/utils/fetchUserAndRoles";
+import { Suspense } from "react";
 
 async function getVotedSongs(supabase, userId) {
   const { data, error } = await supabase.rpc("get_voted_songs", {
@@ -29,7 +30,7 @@ export default async function ProfilePage() {
   const votedSongs = await getVotedSongs(supabase, userData.user.id);
 
   return (
-    <>
+    <Suspense fallback={<div>Laddar profil...</div>}>
       <div className={style.profileHeader}>
         <Image
           src={userData.user.user_metadata.picture}
@@ -60,14 +61,16 @@ export default async function ProfilePage() {
       <hr className={style.solidLine} />
       <div>
         <h2>Dina Favoriter</h2>
-        <ul>
+        <ul className={style.favouritesList}>
           {votedSongs.map((song) => (
             <Link key={song.id} href={`/song/${song.id}`}>
-              <li key={song.id}>{song.name}</li>
+              <li className={style.song} key={song.id}>
+                {song.name}
+              </li>
             </Link>
           ))}
         </ul>
       </div>
-    </>
+    </Suspense>
   );
 }

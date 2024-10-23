@@ -81,3 +81,31 @@
   border-radius: 5px;
   margin: 2px;
 }
+
+.song {
+  width: 100%;
+  transition: all 250ms;
+}
+.vote-count,
+.song {
+  margin-left: 3px;
+  padding: 5px;
+  border: 1px solid #838383;
+  border-radius: 3px;
+}
+
+.song:active,
+.song:hover {
+  color: #000000;
+  background-color: #dbb300;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  border-color: #000000;
+}
+.song:hover {
+  transform: translateY(-7px);
+}
+
+.favouritesList {
+  list-style: none;
+  margin-top: 1rem;
+}

@@ -13,9 +13,9 @@ export default async function Page() {
   return (
     <ul className={styles.spexList}>
       {data.data.map((spex, i) => (
-        <li key={i} className={styles["song-container"]}>
-          <Link href={`/spex/${spex.id}`} passHref>
-            <div className={styles.song}> 
+        <li key={i}>
+          <Link href={`/spex/${spex.id}`}>
+            <div className={styles.song}>
               {spex.id}. {spex.name}
             </div>
           </Link>
