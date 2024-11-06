@@ -76,13 +76,13 @@ export default function NewSpexPage() {
       }
     };
     checkUser();
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     if (!isLoading && (!isAuthenticated || !isEditor || !showId)) {
       router.push("/");
     }
-  }, [isLoading, isAuthenticated, router, isEditor]);
+  }, [isLoading, isAuthenticated, router, isEditor, showId]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -122,7 +122,7 @@ export default function NewSpexPage() {
             type="text"
             placeholder=" Så Lunka vi så småningom"
             value={melody}
-            onChange={(e) => setSongTitle(e.target.value)}
+            onChange={(e) => setMelody(e.target.value)}
           />
         </section>
         <section className={style.section}>
