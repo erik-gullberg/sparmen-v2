@@ -2,6 +2,7 @@ import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
+import { MelodyLink } from "@/components/MelodyLink/MelodyLink";
 
 async function fetchSong(client, id) {
   const [spexId, songNumber] = id.split(".");
@@ -77,6 +78,7 @@ export default async function Page(props) {
           </div>
         )}
       </div>
+      {song.melody && song.melody_link && <MelodyLink song={song} />}
       <div
         className={
           song.show_warning ? pageStyle.warningSongText : pageStyle.songText

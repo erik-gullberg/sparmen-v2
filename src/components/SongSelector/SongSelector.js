@@ -22,7 +22,7 @@ export default function SongSelector({ showId, user, spexId }) {
       const supabase = createClient();
       const response = await supabase
         .from("song")
-        .select("id, name, lyrics, show_warning, number")
+        .select("id, name, lyrics, show_warning, number, melody, melody_link")
         .eq("show_id", showId)
         .order("id", { ascending: true });
 

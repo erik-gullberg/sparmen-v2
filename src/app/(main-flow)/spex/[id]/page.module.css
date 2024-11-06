@@ -113,3 +113,12 @@
 .summary {
   cursor: pointer;
 }
+
+.melody {
+  padding: 20px 20px 0 20px;
+}
+
+.melodyLink {
+  color: #ff9900;
+  text-decoration: underline;
+}

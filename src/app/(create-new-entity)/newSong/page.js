@@ -11,6 +11,8 @@ export default function NewSpexPage() {
 
   const [songTitle, setSongTitle] = useState("");
   const [lyrics, setLyrics] = useState("");
+  const [melody, setMelody] = useState("");
+  const [melodyLink, setMelodyLink] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -31,6 +33,8 @@ export default function NewSpexPage() {
               show_id: showId,
               name: songTitle,
               lyrics: lyrics,
+              melody: melody,
+              melody_link: melodyLink,
             },
           ])
           .select();
@@ -87,30 +91,51 @@ export default function NewSpexPage() {
   }
 
   return (
-    <div className={style.container}>
-      <h2>Skapa ny sång</h2>
+    <>
+      <h2 style={{ marginTop: "1rem" }}>Skapa ny sång</h2>
+      <div className={style.container}>
+        <section className={style.section}>
+          <h4>Sångtitel *</h4>
+          <input
+            className={style.input}
+            type="text"
+            placeholder=""
+            value={songTitle}
+            onChange={(e) => setSongTitle(e.target.value)}
+          />
+        </section>
 
-      <section className={style.section}>
-        <h4>Sångtitel *</h4>
-        <input
-          className={style.input}
-          type="text"
-          placeholder=""
-          value={songTitle}
-          onChange={(e) => setSongTitle(e.target.value)}
-        />
-      </section>
+        <section className={style.lyricsSection}>
+          <h4>Sångtext *</h4>
+          <textarea
+            className={style.lyricInput}
+            placeholder=""
+            value={lyrics}
+            onChange={(e) => setLyrics(e.target.value)}
+          />
+        </section>
 
-      <section className={style.lyricsSection}>
-        <h4>Sångtext *</h4>
-        <textarea
-          className={style.lyricInput}
-          placeholder=""
-          value={lyrics}
-          onChange={(e) => setLyrics(e.target.value)}
-        />
-      </section>
-
+        <section className={style.section}>
+          <h4>Melodi</h4>
+          <input
+            className={style.input}
+            type="text"
+            placeholder=" Så Lunka vi så småningom"
+            value={melody}
+            onChange={(e) => setSongTitle(e.target.value)}
+          />
+        </section>
+        <section className={style.section}>
+          <h4>Melodilänk</h4>
+          <input
+            className={style.input}
+            type="url"
+            placeholder=" Länk till melodin på YouTube, Spotify etc."
+            value={melodyLink}
+            onChange={(e) => setMelodyLink(e.target.value)}
+          />
+        </section>
+      </div>
       <button
         className={buttonDisabled ? style.buttonDisabled : style.button}
         disabled={buttonDisabled}
@@ -118,6 +143,7 @@ export default function NewSpexPage() {
       >
         Skapa
       </button>
-    </div>
+      <br />
+    </>
   );
 }

@@ -4,6 +4,8 @@ import createClient from "@/utils/supabase/browserClient";
 import { useState } from "react";
 import Editor from "../Editor/Editor";
 import toast from "react-hot-toast";
+import Link from "next/link";
+import { MelodyLink } from "@/components/MelodyLink/MelodyLink";
 
 export default function SongContent({ song, user, spexId }) {
   const supabase = createClient();
@@ -170,6 +172,9 @@ export default function SongContent({ song, user, spexId }) {
           </div>
         )}
       </div>
+
+      {song.melody && song.melody_link && <MelodyLink song={song} />}
+
       {user.roles?.is_editor ? (
         <Editor
           songId={song.id}
