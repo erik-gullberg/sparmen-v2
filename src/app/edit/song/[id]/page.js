@@ -1,7 +1,7 @@
 "use client";
 import style from "./page.module.css";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
 
@@ -13,47 +13,56 @@ export default function NewSpexPage() {
   const [lyrics, setLyrics] = useState("");
   const [melody, setMelody] = useState("");
   const [melodyLink, setMelodyLink] = useState("");
-  const [id, setId] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isEditor, setIsEditor] = useState(false);
 
-  const searchParams = useSearchParams();
-  const showId = searchParams.get("showId");
+  const params = useParams();
+  const songId = params.id;
 
   const buttonDisabled = !songTitle || !lyrics;
 
-  const onClick = () => {
-    const createShow = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("song")
-          .insert([
-            {
-              show_id: showId,
-              name: songTitle,
-              lyrics: lyrics,
-              melody: melody,
-              melody_link: melodyLink,
-              created_by: id,
-            },
-          ])
-          .select();
+  async function fetchSong(client, id) {
+    if (id) {
+      const { data } = await client
+        .from("song")
+        .select("*")
+        .eq("id", id)
+        .single();
 
-        if (error) {
-          console.error("Error creating song:", error);
-          return;
-        }
+      setSongTitle(data.name ?? "");
+      setLyrics(data.lyrics ?? "");
+      setMelody(data.melody ?? "");
+      setMelodyLink(data.melody_link ?? "");
+    }
+  }
 
-        router.push(`/song/${data[0].id}`);
-      } catch (error) {
-        console.error("Unexpected error during song creation:", error);
+  async function updateSong() {
+    try {
+      const { data, error } = await supabase
+        .from("song")
+        .update({
+          name: songTitle,
+          lyrics: lyrics,
+          melody: melody,
+          melody_link: melodyLink,
+        })
+        .eq("id", songId);
+
+      if (error) {
+        console.error("Error updating song:", error);
         toast.error("Något gick fel. Försök igen senare.");
+        return;
       }
-    };
-    createShow();
-  };
+
+      toast.success("Sång uppdaterad!");
+      router.push(`/song/${songId}`);
+    } catch (error) {
+      console.error("Unexpected error during song update:", error);
+      toast.error("Något gick fel. Försök igen senare.");
+    }
+  }
 
   useEffect(() => {
     const checkUser = async () => {
@@ -69,9 +78,8 @@ export default function NewSpexPage() {
           .eq("user_id", data.user.id)
           .single();
 
-        setIsEditor(roles.data.is_editor);
+        setIsEditor(roles.data?.is_editor ?? false);
         setIsAuthenticated(data.user);
-        setId(data.user.id);
       } catch (error) {
         console.error("Unexpected error during authentication check:", error);
       } finally {
@@ -79,13 +87,14 @@ export default function NewSpexPage() {
       }
     };
     checkUser();
+    fetchSong(supabase, songId);
   }, [supabase]);
 
   useEffect(() => {
-    if (!isLoading && (!isAuthenticated || !isEditor || !showId)) {
+    if (!isLoading && (!isAuthenticated || !isEditor || !songId)) {
       router.push("/");
     }
-  }, [isLoading, isAuthenticated, router, isEditor, showId]);
+  }, [isLoading, isAuthenticated, router, isEditor, songId]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -95,7 +104,7 @@ export default function NewSpexPage() {
 
   return (
     <>
-      <h2 style={{ marginTop: "1rem" }}>Skapa ny sång</h2>
+      <h2 style={{ marginTop: "1rem" }}>Redigera sång</h2>
       <div className={style.container}>
         <section className={style.section}>
           <h4>Sångtitel *</h4>
@@ -113,7 +122,10 @@ export default function NewSpexPage() {
           <textarea
             className={style.lyricInput}
             placeholder=""
-            value={lyrics}
+            value={lyrics
+              .replace(/<p>/g, "")
+              .replace(/<\/p>/g, "\n")
+              .replace(/<br>/g, "\n")}
             onChange={(e) => setLyrics(e.target.value)}
           />
         </section>
@@ -142,9 +154,9 @@ export default function NewSpexPage() {
       <button
         className={buttonDisabled ? style.buttonDisabled : style.button}
         disabled={buttonDisabled}
-        onClick={onClick}
+        onClick={updateSong}
       >
-        Skapa
+        Spara
       </button>
       <br />
     </>

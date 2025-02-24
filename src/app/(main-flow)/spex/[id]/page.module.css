@@ -50,6 +50,10 @@
   padding: 3px;
 }
 
+.editButton {
+    padding: 3px;
+}
+
 .tabContainer {
   display: inline-block;
   justify-content: flex-start;
@@ -89,6 +93,17 @@
   border: 1px white solid;
 }
 
+.editorControls {
+  justify-content: space-evenly;
+  gap: 2rem;
+  padding-left: 1rem;
+}
+
+.editorHeader {
+  margin-top: 1rem;
+  font-size: small;
+}
+
 .warningBar {
   text-align: center;
   margin-top: 10px;
@@ -121,4 +136,40 @@
 .melodyLink {
   color: #ff9900;
   text-decoration: underline;
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 100%;
+  background: #fff;
+}
+
+.dialog h2 {
+  margin-top: 0;
+}
+
+.dialog button {
+  margin: 10px 5px 0 0;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dialog .confirmButton {
+  background-color: #d9534f;
+  color: white;
+}
+
+.dialog .cancelButton {
+  background-color: #6c757d;
+  color: white;
 }
