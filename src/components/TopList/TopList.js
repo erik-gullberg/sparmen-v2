@@ -1,11 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
-import style from "./page.module.css";
 
 async function fetchData() {
   const supabase = await createClient();
-
   const { data, error } = await supabase.rpc("get_top_10_songs");
 
   if (error) {

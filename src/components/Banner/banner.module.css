@@ -1,0 +1,11 @@
+.banner {
+    width: 35rem;
+    border: 1px solid white;
+    border-radius: 1rem;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.paragraph {
+    margin-top: 1rem;
+}

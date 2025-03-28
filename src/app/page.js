@@ -6,7 +6,13 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 
 export default function Home() {
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <SearchBar />
       <div className={styles.container}>
         <div className={styles.containerHeader}>
