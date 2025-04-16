@@ -254,6 +254,7 @@
 }
 .button:hover,
 .button:active,
+.button:focus,
 .song:active,
 .song:hover {
   color: #000000;

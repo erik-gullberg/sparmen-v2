@@ -1,4 +1,3 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import styles from "@/app/page.module.css";
 import GithubIcon from "../components/Icons/GithubIcon";
@@ -6,8 +5,12 @@ import Link from "next/link";
 import LoginButton from "../components/LoginButton/LoginButton";
 import { Toaster } from "react-hot-toast";
 import { Suspense } from "react";
+import { Noto_Sans } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const notoSans = Noto_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
 
 export const metadata = {
   title: "Spärmen",
@@ -20,7 +23,7 @@ export default function RootLayout({ children }) {
       <head>
         <title>Spärmen</title>
       </head>
-      <body className={inter.className}>
+      <body className={notoSans.className}>
         <Toaster position="bottom-right" />
         <div className={styles.navbar}>
           <LoginButton></LoginButton>
