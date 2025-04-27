@@ -30,7 +30,7 @@ function SearchBar() {
   return (
     <div className={styles.searchContainer}>
       <input
-        type="text"
+        type="search"
         className={styles.searchBar}
         placeholder="Sök sång, spex, melodi..."
         onChange={(e) => setInputValue(e.target.value)}
