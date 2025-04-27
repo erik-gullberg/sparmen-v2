@@ -268,3 +268,9 @@
 .button:hover {
   transform: translateY(-1px);
 }
+
+.link {
+  text-align: center;
+  color: #ff9900;
+  text-decoration: underline;
+}

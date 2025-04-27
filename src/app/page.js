@@ -3,6 +3,7 @@ import SpexList from "../components/SpexList/SpexList";
 import TopList from "../components/TopList/TopList";
 import { Suspense } from "react";
 import SearchBar from "@/components/SearchBar/SearchBar";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -18,11 +19,12 @@ export default function Home() {
         <div className={styles.containerHeader}>
           <h3>Top 10</h3>
         </div>
-        <div>
-          <Suspense fallback={<div>Laddar top 10...</div>}>
-            <TopList></TopList>
-          </Suspense>
-        </div>
+        <Suspense fallback={<div>Laddar top 10...</div>}>
+          <TopList></TopList>
+          <Link href={"/top-songs"} className={styles.link}>
+            Se alla
+          </Link>
+        </Suspense>
       </div>
       <div className={styles.container}>
         <div className={styles.containerHeader}>

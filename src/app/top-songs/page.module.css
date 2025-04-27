@@ -1,0 +1,26 @@
+.table {
+    border-collapse: collapse;
+    font-family: sans-serif;
+}
+
+.th,
+.td {
+    border-bottom: 1px solid azure;
+    padding: 5px
+}
+
+.tr:last-child .td {
+    border-bottom: none;
+}
+
+
+#points {
+    text-align: right;
+    border-right: 1px solid azure;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+#ratingHeader {
+    border-right: 1px solid azure;
+}
