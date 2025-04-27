@@ -22,7 +22,7 @@ export default function Home() {
         <Suspense fallback={<div>Laddar top 10...</div>}>
           <TopList></TopList>
           <Link href={"/top-songs"} className={styles.link}>
-            Se alla
+            Se fler
           </Link>
         </Suspense>
       </div>
