@@ -4,6 +4,10 @@ import TopList from "../components/TopList/TopList";
 import { Suspense } from "react";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import Link from "next/link";
+import Banner from "@/components/Banner/Banner";
+
+//Cache for 30 minutes
+export const revalidate = 1800;
 
 export default function Home() {
   return (
@@ -14,6 +18,7 @@ export default function Home() {
         alignItems: "center",
       }}
     >
+      <Banner></Banner>
       <SearchBar />
       <div className={styles.container}>
         <div className={styles.containerHeader}>

@@ -9,3 +9,9 @@
 .paragraph {
     margin-top: 1rem;
 }
+
+.link {
+    text-align: center;
+    color: #ff9900;
+    text-decoration: underline;
+}
