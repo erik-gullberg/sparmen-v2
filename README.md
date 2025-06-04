@@ -7,6 +7,8 @@ Var GladSpexarna hade under lång tid alla låtar från alla spex utskrivna på 
 Efter 20+ år av denna tradition började spärmarna falla sönder och fler och fler sidor saknades. 
 Därför har spärmen nu digitaliserats och ligger uppe som en webapplikation.
 
+Spärmens syfte är att fungera som en sångpärm men likväl som arkiv för föreningen då detta är den enda kompletta källan till alla låtar föreningen har haft.
+
 ## Struktur
 
 - Projektet är byggt med Next.js som bygger ovanpå React-ramverket.
@@ -20,6 +22,18 @@ Ordförande & Regissörsmailen har alltid adminprivilegier.
 
 Du kan se om du har adminprivilegier på profilsidan.
 
+### Lägg till nytt spex
+1. Klicka på din avatar i övre vänstra hörnet
+2. KLicka på "Skapa nytt spex"
+
+### Lägg till ny uppsättning
+1. Klicka på ett spex från listan på huvudsidan
+2. Klicka på "Ny uppsättning"
+
+### Lägg till ny sång
+1. Klicka på ett spex från listan på huvudsidan
+2. Klicka på en uppsättning
+3. Klicka på "Ny Sång"
 
 ## Bidra
 Om du vill bidra till att utveckla spärmen kan du klona detta repo och sen skapa en pull request. 
