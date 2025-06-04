@@ -6,6 +6,7 @@ import LoginButton from "../components/LoginButton/LoginButton";
 import { Toaster } from "react-hot-toast";
 import { Suspense } from "react";
 import { Noto_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
         <main className={styles.main}>
           <Suspense>{children}</Suspense>
         </main>
+        <Analytics />
       </body>
     </html>
   );
