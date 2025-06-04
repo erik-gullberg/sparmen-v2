@@ -18,14 +18,14 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <Banner></Banner>
+      {/*<Banner />*/}
       <SearchBar />
       <div className={styles.container}>
         <div className={styles.containerHeader}>
           <h3>Top 10</h3>
         </div>
-        <Suspense fallback={<div>Laddar top 10...</div>}>
-          <TopList></TopList>
+        <Suspense fallback={<small>Laddar top 10...</small>}>
+          <TopList />
           <Link href={"/top-songs"} className={styles.link}>
             Se fler
           </Link>
@@ -36,8 +36,8 @@ export default function Home() {
           <h3>Spex</h3>
         </div>
         <div>
-          <Suspense fallback={<div>Laddar spex...</div>}>
-            <SpexList></SpexList>
+          <Suspense fallback={<small>Laddar spex...</small>}>
+            <SpexList />
           </Suspense>
         </div>
       </div>
