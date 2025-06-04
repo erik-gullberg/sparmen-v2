@@ -4,7 +4,7 @@ import TopList from "../components/TopList/TopList";
 import { Suspense } from "react";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import Link from "next/link";
-import Banner from "@/components/Banner/Banner";
+//import Banner from "@/components/Banner/Banner";
 
 //Cache for 30 minutes
 export const revalidate = 1800;
