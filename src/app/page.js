@@ -1,13 +1,21 @@
 import styles from "./page.module.css";
-import SpexList from "../components/SpexList/SpexList";
-import TopList from "../components/TopList/TopList";
 import { Suspense } from "react";
-import SearchBar from "@/components/SearchBar/SearchBar";
 import Link from "next/link";
-//import Banner from "@/components/Banner/Banner";
+import dynamic from "next/dynamic";
+import SearchBar from "@/components/SearchBar/SearchBar";
 
-//Cache for 30 minutes
-export const revalidate = 1800;
+const SpexList = dynamic(() => import("../components/SpexList/SpexList"), {
+  loading: () => <small>Laddar spex...</small>,
+  ssr: true,
+});
+
+const TopList = dynamic(() => import("../components/TopList/TopList"), {
+  loading: () => <small>Laddar top 10...</small>,
+  ssr: true,
+});
+
+//Cache for 6 hours
+export const revalidate = 21600;
 
 export default function Home() {
   return (

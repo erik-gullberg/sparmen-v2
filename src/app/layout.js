@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/next";
 const notoSans = Noto_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -39,7 +40,7 @@ export default function RootLayout({ children }) {
           </a>
         </div>
         <main className={styles.main}>
-          <Suspense>{children}</Suspense>
+          <Suspense fallback={"<small>Laddar...</small>"}>{children}</Suspense>
         </main>
         <Analytics />
       </body>
