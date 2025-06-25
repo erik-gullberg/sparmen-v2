@@ -13,6 +13,8 @@ async function fetchData() {
   return data;
 }
 
+export const revalidate = 3600; // Revalidate every hour
+
 export default async function TopSongs() {
   const data = await fetchData();
   return (

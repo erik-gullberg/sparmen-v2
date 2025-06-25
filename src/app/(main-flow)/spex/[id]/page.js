@@ -15,6 +15,8 @@ async function fetchSpexName(client, query) {
   return client.from("spex").select("name").eq("id", query);
 }
 
+export const revalidate = 3600; // Revalidate every hour
+
 export default async function Page(props) {
   const searchParams = await props.searchParams;
   const params = await props.params;

@@ -50,6 +50,7 @@ export default function LoginButton() {
             alt={"User avatar"}
             width={35}
             height={35}
+            sizes="(max-width: 768px) 25vw, 35px"
           ></Image>
         </Link>
       )}

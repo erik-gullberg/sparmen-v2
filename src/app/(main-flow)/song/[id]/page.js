@@ -33,6 +33,8 @@ async function fetchShow(client, id) {
     .single();
 }
 
+export const revalidate = 3600; // Revalidate every hour
+
 function errorMessage(params) {
   return <div>Den låten hittade vi inte. id: {params.id}</div>;
 }

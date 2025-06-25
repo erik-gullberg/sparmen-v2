@@ -37,6 +37,7 @@ export default async function ProfilePage() {
           alt={"User avatar"}
           width={100}
           height={100}
+          sizes="(max-width: 768px) 50vw, 100px"
         />
         <h1>{userData.user.user_metadata.name}</h1>
         <p>Användare sedan: {userData.user.created_at.split("T")[0]}</p>
