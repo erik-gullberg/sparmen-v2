@@ -1,11 +1,11 @@
 "use client";
 import style from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
 
-export default function NewSpexPage() {
+function NewShowContent() {
   const router = useRouter();
   const supabase = createClient();
 
@@ -71,13 +71,13 @@ export default function NewSpexPage() {
       }
     };
     checkUser();
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     if (!isLoading && (!isAuthenticated || !isEditor || !spexId)) {
       router.push("/");
     }
-  }, [isLoading, isAuthenticated, router, isEditor]);
+  }, [isLoading, isAuthenticated, router, isEditor, spexId]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -108,5 +108,13 @@ export default function NewSpexPage() {
         Skapa
       </button>
     </div>
+  );
+}
+
+export default function NewSpexPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NewShowContent />
+    </Suspense>
   );
 }

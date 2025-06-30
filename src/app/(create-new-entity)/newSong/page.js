@@ -1,11 +1,11 @@
 "use client";
 import style from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
 
-export default function NewSpexPage() {
+function NewSongContent() {
   const router = useRouter();
   const supabase = createClient();
 
@@ -148,5 +148,13 @@ export default function NewSpexPage() {
       </button>
       <br />
     </>
+  );
+}
+
+export default function NewSongPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NewSongContent />
+    </Suspense>
   );
 }
