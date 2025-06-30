@@ -6,12 +6,24 @@
 }
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   background: green;
   width: 100%;
   padding: 1rem;
+}
+
+.navbar > :nth-child(1) {
+  justify-self: start;
+}
+
+.navbar > :nth-child(2) {
+  justify-self: center;
+}
+
+.navbar > :nth-child(3) {
+  justify-self: end;
 }
 
 .container {

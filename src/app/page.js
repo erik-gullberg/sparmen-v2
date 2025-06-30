@@ -3,16 +3,8 @@ import { Suspense } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import SearchBar from "@/components/SearchBar/SearchBar";
-
-const SpexList = dynamic(() => import("../components/SpexList/SpexList"), {
-  loading: () => <small>Laddar spex...</small>,
-  ssr: true,
-});
-
-const TopList = dynamic(() => import("../components/TopList/TopList"), {
-  loading: () => <small>Laddar top 10...</small>,
-  ssr: true,
-});
+import TopList from "@/components/TopList/TopList";
+import SpexList from "@/components/SpexList/SpexList";
 
 //Cache for 6 hours
 export const revalidate = 21600;
@@ -32,21 +24,17 @@ export default function Home() {
         <div className={styles.containerHeader}>
           <h3>Top 10</h3>
         </div>
-        <Suspense fallback={<small>Laddar top 10...</small>}>
-          <TopList />
-          <Link href={"/top-songs"} className={styles.link}>
-            Se fler
-          </Link>
-        </Suspense>
+        <TopList />
+        <Link href={"/top-songs"} className={styles.link}>
+          Se fler
+        </Link>
       </div>
       <div className={styles.container}>
         <div className={styles.containerHeader}>
           <h3>Spex</h3>
         </div>
         <div>
-          <Suspense fallback={<small>Laddar spex...</small>}>
-            <SpexList />
-          </Suspense>
+          <SpexList />
         </div>
       </div>
     </div>

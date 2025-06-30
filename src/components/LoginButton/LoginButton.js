@@ -1,46 +1,35 @@
 "use client";
 import createClient from "@/utils/supabase/browserClient";
 import styles from "@/app/page.module.css";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginButton() {
-  const [user, setUser] = useState(null);
+  const { user, loading } = useAuth();
   const supabase = createClient();
 
-  useEffect(() => {
-    const checkUser = async () => {
-      const data = await supabase.auth.getUser();
-      setUser(data.data.user);
-    };
-    checkUser();
-  }, [supabase.auth]);
+  const handleLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: "https://sparmen-v2.vercel.app",
+      },
+    });
+  };
+
+  if (loading) {
+    return (
+      <button className={styles.button} role="button" disabled>
+        Loggar in...
+      </button>
+    );
+  }
 
   return (
     <div>
       {!user ? (
-        <button
-          className={styles.button}
-          role="button"
-          onClick={() => {
-            const supabase = createClient();
-            supabase.auth
-              .signInWithOAuth({
-                provider: "google",
-                options: {
-                  redirectTo: "https://sparmen-v2.vercel.app",
-                },
-              })
-              .then(async (r) => {
-                const {
-                  data: { user },
-                } = await supabase.auth.getUser();
-              })
-              .catch((e) => console.error(e));
-          }}
-        >
+        <button className={styles.button} role="button" onClick={handleLogin}>
           Logga in
         </button>
       ) : (
