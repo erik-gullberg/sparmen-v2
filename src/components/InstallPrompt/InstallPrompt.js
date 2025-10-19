@@ -14,7 +14,6 @@ export default function InstallPrompt() {
       || document.referrer.includes('android-app://');
 
     if (isStandalone) {
-      // Already installed, don't show prompt
       return;
     }
 
@@ -64,7 +63,7 @@ export default function InstallPrompt() {
         <div className={styles.icon}>📱</div>
         <div className={styles.text}>
           <h3>Installera Spärmen</h3>
-          <p>Få snabbare åtkomst och använd appen offline</p>
+          <p>Snabbare och smidigare</p>
         </div>
         <div className={styles.buttons}>
           <button onClick={handleInstall} className={styles.installButton}>
