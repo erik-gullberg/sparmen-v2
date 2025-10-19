@@ -76,8 +76,8 @@ export default function Banner() {
               <p><strong>För att installera på iPhone/iPad:</strong></p>
               <ol>
                 <li>Tryck på Dela-knappen <span className={styles.icon}>⎙</span> längst ner</li>
-                <li>Scrolla ner och tryck på "Lägg till på hemskärmen"</li>
-                <li>Tryck på "Lägg till"</li>
+                <li>Scrolla ner och tryck på &quot;Lägg till på hemskärmen&quot;</li>
+                <li>Tryck på &quot;Lägg till&quot;</li>
               </ol>
             </div>
           )}
@@ -85,7 +85,7 @@ export default function Banner() {
           {showInstructions && !isIOS && !deferredPrompt && (
             <div className={styles.instructions}>
               <p><strong>För att installera:</strong></p>
-              <p>Använd din webbläsares meny och välj "Installera app" eller "Lägg till på hemskärmen"</p>
+              <p>Använd din webbläsares meny och välj &quot;Installera app&quot; eller &quot;Lägg till på hemskärmen&quot;</p>
             </div>
           )}
         </>
