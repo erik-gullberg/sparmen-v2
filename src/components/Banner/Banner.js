@@ -6,8 +6,14 @@ import styles from "./banner.module.css";
 export default function Banner() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isInstalled, setIsInstalled] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
+    // Check if iOS
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    setIsIOS(iOS);
+
     // Check if already installed
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches
       || window.navigator.standalone
@@ -15,7 +21,7 @@ export default function Banner() {
 
     setIsInstalled(isStandalone);
 
-    // Listen for the beforeinstallprompt event
+    // Listen for the beforeinstallprompt event (works on Android/Chrome)
     const handler = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
@@ -27,7 +33,17 @@ export default function Banner() {
   }, []);
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return;
+    if (isIOS) {
+      // Show iOS instructions
+      setShowInstructions(true);
+      return;
+    }
+
+    if (!deferredPrompt) {
+      // If no prompt available, show generic instructions
+      setShowInstructions(true);
+      return;
+    }
 
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
@@ -49,21 +65,35 @@ export default function Banner() {
         Spärmen finns nu som PWA app. Installera för att nå spärmen snabbt och lätt från din mobil eller dator!
       </p>
 
-      {!isInstalled && deferredPrompt && (
-        <button onClick={handleInstall} className={styles.installButton}>
-          Installera Spärmen
-        </button>
+      {!isInstalled && (
+        <>
+          <button onClick={handleInstall} className={styles.installButton}>
+            🍍 Installera Spärmen
+          </button>
+
+          {showInstructions && isIOS && (
+            <div className={styles.instructions}>
+              <p><strong>För att installera på iPhone/iPad:</strong></p>
+              <ol>
+                <li>Tryck på Dela-knappen <span className={styles.icon}>⎙</span> längst ner</li>
+                <li>Scrolla ner och tryck på "Lägg till på hemskärmen"</li>
+                <li>Tryck på "Lägg till"</li>
+              </ol>
+            </div>
+          )}
+
+          {showInstructions && !isIOS && !deferredPrompt && (
+            <div className={styles.instructions}>
+              <p><strong>För att installera:</strong></p>
+              <p>Använd din webbläsares meny och välj "Installera app" eller "Lägg till på hemskärmen"</p>
+            </div>
+          )}
+        </>
       )}
 
       {isInstalled && (
         <p className={styles.installedText}>✅ Appen är redan installerad!</p>
       )}
-
-      <hr></hr>
-      <h4>Snabbare!</h4>
-      <p className={styles.paragraph}>
-        Spärmen är nu ännu snabbare tack vare förbättrad caching och optimeringar i bakgrunden.
-      </p>
     </div>
   );
 }
