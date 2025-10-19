@@ -1,13 +1,14 @@
 import styles from "./page.module.css";
 import { Suspense } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import TopList from "@/components/TopList/TopList";
 import SpexList from "@/components/SpexList/SpexList";
 
-//Cache for 6 hours
-export const revalidate = 21600;
+// Cache for 1 hour
+export const revalidate = 3600;
+// Force static generation
+export const dynamic = "force-static";
 
 export default function Home() {
   return (
@@ -24,7 +25,9 @@ export default function Home() {
         <div className={styles.containerHeader}>
           <h3>Top 10</h3>
         </div>
-        <TopList />
+        <Suspense fallback={<div>Laddar...</div>}>
+          <TopList />
+        </Suspense>
         <Link href={"/top-songs"} className={styles.link}>
           Se fler
         </Link>
@@ -34,7 +37,9 @@ export default function Home() {
           <h3>Spex</h3>
         </div>
         <div>
-          <SpexList />
+          <Suspense fallback={<div>Laddar...</div>}>
+            <SpexList />
+          </Suspense>
         </div>
       </div>
     </div>

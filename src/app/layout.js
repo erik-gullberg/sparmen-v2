@@ -4,7 +4,6 @@ import GithubIcon from "../components/Icons/GithubIcon";
 import Link from "next/link";
 import LoginButton from "../components/LoginButton/LoginButton";
 import { Toaster } from "react-hot-toast";
-import { Suspense } from "react";
 import { Noto_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { AuthProvider } from "@/context/AuthContext";
@@ -31,7 +30,7 @@ export default function RootLayout({ children }) {
           <Toaster position="bottom-right" />
           <div className={styles.navbar}>
             <LoginButton />
-            <Link href="/">
+            <Link href="/" prefetch={true}>
               <h1>Spärmen</h1>
             </Link>
             <a
