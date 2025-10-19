@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { Noto_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { AuthProvider } from "@/context/AuthContext";
+import InstallPrompt from "@/components/InstallPrompt/InstallPrompt";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -17,6 +18,31 @@ const notoSans = Noto_Sans({
 export const metadata = {
   title: "Spärmen",
   description: "Spex lyrics database",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Spärmen",
+    startupImage: [
+      {
+        url: "/icons/icon-512x512.png",
+        media: "(device-width: 768px) and (device-height: 1024px)",
+      },
+    ],
+  },
+  applicationName: "Spärmen",
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport = {
+  themeColor: "#000000",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }) {
@@ -41,6 +67,7 @@ export default function RootLayout({ children }) {
             </a>
           </div>
           <main className={styles.main}>{children}</main>
+          <InstallPrompt />
           <Analytics />
         </AuthProvider>
       </body>
