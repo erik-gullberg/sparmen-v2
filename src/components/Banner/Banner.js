@@ -78,7 +78,7 @@ export default function Banner() {
           <div className={styles.instructions}>
             <p><strong>För att installera på iPhone/iPad:</strong></p>
             <ol>
-              <li>Tryck på Dela-knappen</li>
+              <li>Tryck på Dela-knappen i webbläsaren</li>
               <li>Scrolla ner och tryck på &quot;Lägg till på hemskärmen&quot;</li>
               <li>Tryck på &quot;Lägg till&quot;</li>
             </ol>
