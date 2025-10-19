@@ -14,3 +14,30 @@
     color: #ff9900;
     text-decoration: underline;
 }
+
+.installButton {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #ff9900;
+    color: #000;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.installButton:hover {
+    background-color: #ffaa33;
+}
+
+.installButton:active {
+    background-color: #ee8800;
+}
+
+.installedText {
+    margin-top: 1rem;
+    color: #4caf50;
+    font-weight: bold;
+}

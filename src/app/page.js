@@ -4,7 +4,7 @@ import Link from "next/link";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import TopList from "@/components/TopList/TopList";
 import SpexList from "@/components/SpexList/SpexList";
-
+import Banner from "@/components/Banner/Banner";
 // Cache for 1 hour
 export const revalidate = 3600;
 // Force static generation
@@ -19,7 +19,7 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      {/*<Banner />*/}
+      <Banner />
       <SearchBar />
       <div className={styles.container}>
         <div className={styles.containerHeader}>
