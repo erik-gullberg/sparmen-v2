@@ -2,7 +2,15 @@ import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
+import { createBuildClient } from "@/utils/supabase/buildClient";
 import { MelodyLink } from "@/components/MelodyLink/MelodyLink";
+import { notFound } from "next/navigation";
+
+// Revalidate every hour, but serve stale content while revalidating
+export const revalidate = 3600;
+
+// Force static generation when possible
+export const dynamic = "force-static";
 
 async function fetchSong(client, id) {
   const [spexId, songNumber] = id.split(".");
@@ -33,10 +41,38 @@ async function fetchShow(client, id) {
     .single();
 }
 
-export const revalidate = 3600; // Revalidate every hour
+// Pre-render the most popular songs at build time
+export async function generateStaticParams() {
+  const client = createBuildClient();
 
-function errorMessage(params) {
-  return <div>Den låten hittade vi inte. id: {params.id}</div>;
+  // Fetch top songs to pre-render
+  const { data } = await client.rpc("get_top_voted_songs").limit(50); // Pre-render top 50 songs
+
+  if (!data) return [];
+
+  return data.map((song) => ({
+    id: song.id.toString(),
+  }));
+}
+
+// Generate dynamic metadata for better SEO and caching
+export async function generateMetadata(props) {
+  const params = await props.params;
+  const client = createBuildClient();
+  const song = await fetchSong(client, params.id);
+
+  if (!song) {
+    return {
+      title: "Låt hittades inte",
+    };
+  }
+
+  const show = await fetchShow(client, song?.show_id);
+
+  return {
+    title: `${song.title ?? song.name} - ${show.data?.spex?.name ?? ""}`,
+    description: song.lyrics?.substring(0, 160) || "Spexlåt",
+  };
 }
 
 export default async function Page(props) {
@@ -45,13 +81,13 @@ export default async function Page(props) {
   const song = await fetchSong(client, params.id);
 
   if (!song) {
-    return errorMessage(params);
+    notFound();
   }
 
   const show = await fetchShow(client, song?.show_id);
 
   if (!show.data) {
-    return errorMessage(params);
+    notFound();
   }
 
   const formattedLyrics = song.lyrics.replace(/\n/g, "<br>");

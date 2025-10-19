@@ -1,7 +1,14 @@
 import styles from "@/app/page.module.css";
 import { createClient } from "@/utils/supabase/server";
+import { createBuildClient } from "@/utils/supabase/buildClient";
 import ShowAndSongSelector from "../../../../components/ShowAndSongSelector/ShowAndSongSelector";
 import fetchUser from "@/utils/fetchUserAndRoles";
+import { notFound } from "next/navigation";
+
+// Revalidate every hour
+export const revalidate = 3600;
+// Force static generation
+export const dynamic = "force-static";
 
 async function fetchShows(client, query) {
   return client
@@ -15,7 +22,18 @@ async function fetchSpexName(client, query) {
   return client.from("spex").select("name").eq("id", query);
 }
 
-export const revalidate = 3600; // Revalidate every hour
+// Pre-render all spex pages at build time
+export async function generateStaticParams() {
+  const client = createBuildClient();
+
+  const { data } = await client.from("spex").select("id");
+
+  if (!data) return [];
+
+  return data.map((spex) => ({
+    id: spex.id.toString(),
+  }));
+}
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
@@ -28,11 +46,7 @@ export default async function Page(props) {
   ]);
 
   if (spex.data?.length === 0) {
-    return (
-      <div>
-        <p>Inget spex hittat med id: {params.id}</p>
-      </div>
-    );
+    notFound();
   }
 
   return (

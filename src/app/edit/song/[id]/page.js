@@ -88,7 +88,7 @@ export default function NewSpexPage() {
     };
     checkUser();
     fetchSong(supabase, songId);
-  }, [supabase]);
+  }, [supabase, songId]);
 
   useEffect(() => {
     if (!isLoading && (!isAuthenticated || !isEditor || !songId)) {

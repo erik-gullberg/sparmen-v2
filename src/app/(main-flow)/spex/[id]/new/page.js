@@ -66,7 +66,7 @@ export default function NewSpexPage() {
       }
     };
     checkUser();
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     if (!isLoading && (!isAuthenticated || !isEditor)) {

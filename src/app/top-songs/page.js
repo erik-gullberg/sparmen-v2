@@ -14,6 +14,13 @@ async function fetchData() {
 }
 
 export const revalidate = 3600; // Revalidate every hour
+export const dynamic = "force-static"; // Force static generation
+
+// Generate metadata for better SEO
+export const metadata = {
+  title: "Toppröstade låtar",
+  description: "De mest populära spexlåtarna baserat på användarröster",
+};
 
 export default async function TopSongs() {
   const data = await fetchData();
