@@ -48,7 +48,7 @@ export default function SongSelector({ showId, user, spexId }) {
           ></SongContent>
         ))}
 
-      {user.roles?.is_editor && showId && (
+      {user?.user && user?.roles?.is_editor && showId && (
         <Link href={"/newSong?showId=" + showId} className={pageStyle.tab}>
           Ny Sång +
         </Link>
