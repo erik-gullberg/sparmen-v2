@@ -19,7 +19,7 @@ Spärmens syfte är att fungera som en sångpärm men likväl som arkiv för fö
 För att redigera i spärmen behöver din användare ha adminprivilegier som idag behöver ges ut av Erik Gullberg.
 Ordförande & Regissörsmailen har alltid adminprivilegier.
 
-Du kan se om du har adminprivilegier på profilsidan.
+Du kan se om du har adminprivilegier på profilsidan
 
 ### Lägg till nytt spex
 1. Klicka på din avatar i övre vänstra hörnet
