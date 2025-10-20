@@ -8,8 +8,15 @@ export default function Banner() {
   const [isInstalled, setIsInstalled] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
+    // Check if banner was previously dismissed
+    const dismissed = localStorage.getItem('sparmen-banner-dismissed');
+    if (dismissed) {
+      setIsDismissed(true);
+    }
+
     // Check if iOS
     const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     setIsIOS(iOS);
@@ -56,14 +63,31 @@ export default function Banner() {
     setDeferredPrompt(null);
   };
 
-  if (isInstalled) {
+  const handleDismiss = () => {
+    setIsDismissed(true);
+    localStorage.setItem('sparmen-banner-dismissed', 'true');
+  };
+
+  if (isInstalled || isDismissed) {
     return null;
   }
 
   return (
     <div className={styles.banner}>
-      <h3 className={styles.header}>Nytt i Spärmen! 🍍</h3>
-      <small>2025-10-19</small>
+      <div className={styles.bannerHeader}>
+        <div>
+          <h3 className={styles.header}>Nytt i Spärmen! 🍍</h3>
+          <small>2025-10-19</small>
+        </div>
+        <button
+          onClick={handleDismiss}
+          className={styles.dismissButton}
+          aria-label="Stäng banner"
+          title="Stäng"
+        >
+          ✕
+        </button>
+      </div>
       <h4>App!</h4>
       <p className={styles.paragraph}>
         Spärmen finns nu som PWA app. Installera för att nå spärmen snabbt och lätt från din mobil eller dator!

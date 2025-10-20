@@ -3,6 +3,29 @@
     border-radius: 1rem;
     margin: 1rem;
     padding: 1rem;
+    position: relative;
+}
+
+.bannerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.dismissButton {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 1rem;
+    transition: color 0.2s ease;
+}
+
+.dismissButton:hover {
+    color: #ff9900;
 }
 
 .paragraph {
