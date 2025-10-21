@@ -35,10 +35,14 @@ function SearchBar() {
       const randomSongId = await getRandomSongId();
       if (randomSongId) {
         router.push(`/song/${randomSongId}`);
+        // Keep loading state active during navigation
+        // It will reset when component unmounts or after a timeout
+        setTimeout(() => setIsLoadingRandom(false), 3000);
+      } else {
+        setIsLoadingRandom(false);
       }
     } catch (error) {
       console.error("Error fetching random song:", error);
-    } finally {
       setIsLoadingRandom(false);
     }
   };
