@@ -2,12 +2,11 @@ import styles from "@/app/page.module.css";
 import { createClient } from "@/utils/supabase/server";
 import { createBuildClient } from "@/utils/supabase/buildClient";
 import ShowAndSongSelector from "../../../../components/ShowAndSongSelector/ShowAndSongSelector";
-import fetchUser from "@/utils/fetchUserAndRoles";
 import { notFound } from "next/navigation";
 
 // Revalidate every hour
 export const revalidate = 3600;
-// Force static generation
+// Use static rendering for better performance
 export const dynamic = "force-static";
 
 async function fetchShows(client, query) {
@@ -39,8 +38,7 @@ export default async function Page(props) {
   const searchParams = await props.searchParams;
   const params = await props.params;
   const supabase = await createClient();
-  const [user, spex, shows] = await Promise.all([
-    fetchUser(supabase),
+  const [spex, shows] = await Promise.all([
     fetchSpexName(supabase, params.id),
     fetchShows(supabase, params.id),
   ]);
@@ -59,7 +57,6 @@ export default async function Page(props) {
         </div>
         <ShowAndSongSelector
           shows={shows.data ?? []}
-          user={user}
           defaultShowId={searchParams.show}
           spexId={params.id}
         ></ShowAndSongSelector>

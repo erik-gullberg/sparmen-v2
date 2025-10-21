@@ -1,18 +1,38 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SongSelector from "../SongSelector/SongSelector";
 import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
 import Link from "next/link";
+import createClient from "@/utils/supabase/browserClient";
 
 export default function ShowAndSongSelector({
   shows,
-  user,
   defaultShowId,
   spexId,
 }) {
   const [selectedShowId, setSelectedShowId] = useState(
     parseInt(defaultShowId) || shows[shows.length - 1]?.id,
   );
+  const [user, setUser] = useState({ roles: null });
+
+  useEffect(() => {
+    async function fetchUser() {
+      const supabase = createClient();
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+
+      if (authUser) {
+        const { data: roles } = await supabase
+          .from("role")
+          .select("is_editor")
+          .eq("user_id", authUser.id)
+          .single();
+
+        setUser({ ...authUser, roles });
+      }
+    }
+
+    fetchUser();
+  }, []);
 
   return (
     <div>
