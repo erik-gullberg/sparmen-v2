@@ -13,7 +13,7 @@ export default function ShowAndSongSelector({
   const [selectedShowId, setSelectedShowId] = useState(
     parseInt(defaultShowId) || shows[shows.length - 1]?.id,
   );
-  const [user, setUser] = useState({ roles: null });
+  const [user, setUser] = useState({ user: null, roles: null });
 
   useEffect(() => {
     async function fetchUser() {
@@ -27,7 +27,7 @@ export default function ShowAndSongSelector({
           .eq("user_id", authUser.id)
           .single();
 
-        setUser({ ...authUser, roles });
+        setUser({ user: authUser, roles });
       }
     }
 
