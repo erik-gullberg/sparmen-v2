@@ -7,18 +7,12 @@ export async function createSpex(formData) {
   const supabase = await createClient()
 
   const title = formData.get('title')
-  const year = formData.get('year')
-  const name = formData.get('name')
-
-  // Support both 'name' and 'title'+'year' formats
-  const spexName = name || `${title} (${year})`
 
   const { data, error } = await supabase
     .from('spex')
     .insert([
       {
-        name: spexName,
-        year: year ? parseInt(year) : null
+        name: title,
       }
     ])
     .select()
