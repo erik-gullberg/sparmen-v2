@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
+import { createSpex } from "@/app/actions/spexActions";
 
 function NewSpexContent() {
   const router = useRouter();
@@ -11,7 +12,6 @@ function NewSpexContent() {
 
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
-  const [id, setId] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -19,33 +19,25 @@ function NewSpexContent() {
 
   const buttonDisabled = !title || !year;
 
-  const onClick = () => {
-    const createSpex = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("spex")
-          .insert([
-            {
-              title: title,
-              year: year,
-              created_by: id,
-            },
-          ])
-          .select();
+  const onClick = async () => {
+    try {
+      const formData = new FormData()
+      formData.append('title', title)
+      formData.append('year', year)
 
-        if (error) {
-          console.error("Error creating spex:", error);
-          toast.error("Ett spex med den titeln finns redan.");
-          return;
-        }
+      const result = await createSpex(formData)
 
-        router.push(`/spex/${data[0].id}`);
-      } catch (error) {
-        console.error("Unexpected error during spex creation:", error);
-        toast.error("Något gick fel. Försök igen senare.");
+      if (result.error) {
+        console.error("Error creating spex:", result.error);
+        toast.error("Ett spex med den titeln finns redan.");
+        return;
       }
-    };
-    createSpex();
+
+      router.push(`/spex/${result.data.id}`);
+    } catch (error) {
+      console.error("Unexpected error during spex creation:", error);
+      toast.error("Något gick fel. Försök igen senare.");
+    }
   };
 
   useEffect(() => {
@@ -64,7 +56,6 @@ function NewSpexContent() {
 
         setIsEditor(roles.data.is_editor);
         setIsAuthenticated(data.user);
-        setId(data.user.id);
       } catch (error) {
         console.error("Unexpected error during authentication check:", error);
       } finally {

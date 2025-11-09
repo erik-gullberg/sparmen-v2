@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
+import { createSong } from "@/app/actions/spexActions";
 
 function NewSongContent() {
   const router = useRouter();
@@ -24,35 +25,29 @@ function NewSongContent() {
 
   const buttonDisabled = !songTitle || !lyrics;
 
-  const onClick = () => {
-    const createShow = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("song")
-          .insert([
-            {
-              show_id: showId,
-              name: songTitle,
-              lyrics: lyrics,
-              melody: melody,
-              melody_link: melodyLink,
-              created_by: id,
-            },
-          ])
-          .select();
+  const onClick = async () => {
+    try {
+      const formData = new FormData()
+      formData.append('showId', showId)
+      formData.append('name', songTitle)
+      formData.append('lyrics', lyrics)
+      formData.append('melody', melody)
+      formData.append('melodyLink', melodyLink)
+      formData.append('createdBy', id)
 
-        if (error) {
-          console.error("Error creating song:", error);
-          return;
-        }
+      const result = await createSong(formData)
 
-        router.push(`/song/${data[0].id}`);
-      } catch (error) {
-        console.error("Unexpected error during song creation:", error);
+      if (result.error) {
+        console.error("Error creating song:", result.error);
         toast.error("Något gick fel. Försök igen senare.");
+        return;
       }
-    };
-    createShow();
+
+      router.push(`/song/${result.data.id}`);
+    } catch (error) {
+      console.error("Unexpected error during song creation:", error);
+      toast.error("Något gick fel. Försök igen senare.");
+    }
   };
 
   useEffect(() => {

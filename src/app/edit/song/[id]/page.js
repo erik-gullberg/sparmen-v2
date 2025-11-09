@@ -1,9 +1,10 @@
 "use client";
 import style from "./page.module.css";
 import { useEffect, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
+import { updateSong } from "@/app/actions/spexActions";
 
 export default function NewSpexPage() {
   const router = useRouter();
@@ -38,20 +39,19 @@ export default function NewSpexPage() {
     }
   }
 
-  async function updateSong() {
+  async function updateSongData() {
     try {
-      const { data, error } = await supabase
-        .from("song")
-        .update({
-          name: songTitle,
-          lyrics: lyrics,
-          melody: melody,
-          melody_link: melodyLink,
-        })
-        .eq("id", songId);
+      const formData = new FormData()
+      formData.append('songId', songId)
+      formData.append('name', songTitle)
+      formData.append('lyrics', lyrics)
+      formData.append('melody', melody)
+      formData.append('melodyLink', melodyLink)
 
-      if (error) {
-        console.error("Error updating song:", error);
+      const result = await updateSong(formData)
+
+      if (result.error) {
+        console.error("Error updating song:", result.error);
         toast.error("Något gick fel. Försök igen senare.");
         return;
       }
@@ -154,7 +154,7 @@ export default function NewSpexPage() {
       <button
         className={buttonDisabled ? style.buttonDisabled : style.button}
         disabled={buttonDisabled}
-        onClick={updateSong}
+        onClick={updateSongData}
       >
         Spara
       </button>

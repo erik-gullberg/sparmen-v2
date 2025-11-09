@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
+import { createSpex } from "@/app/actions/spexActions";
 
 export default function NewSpexPage() {
   const router = useRouter();
@@ -16,31 +17,25 @@ export default function NewSpexPage() {
 
   const buttonDisabled = !spexName;
 
-  const onClick = () => {
-    const createSpex = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("spex")
-          .insert([
-            {
-              name: spexName,
-            },
-          ])
-          .select();
+  const onClick = async () => {
+    try {
+      const formData = new FormData()
+      formData.append('name', spexName)
 
-        if (error) {
-          console.error("Error creating spex:", error);
-          return;
-        }
+      const result = await createSpex(formData)
 
-        console.log(data);
-        router.push(`/spex/${data[0].id}`);
-      } catch (error) {
-        console.error("Unexpected error during spex creation:", error);
+      if (result.error) {
+        console.error("Error creating spex:", result.error);
         toast.error("Något gick fel. Försök igen senare.");
+        return;
       }
-    };
-    createSpex();
+
+      console.log(result.data);
+      router.push(`/spex/${result.data.id}`);
+    } catch (error) {
+      console.error("Unexpected error during spex creation:", error);
+      toast.error("Något gick fel. Försök igen senare.");
+    }
   };
 
   useEffect(() => {

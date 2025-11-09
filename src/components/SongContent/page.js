@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { MelodyLink } from "@/components/MelodyLink/MelodyLink";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { voteSong, unvoteSong, toggleSongWarning, deleteSong } from "@/app/actions/spexActions";
 
 export default function SongContent({ song, user, spexId }) {
   const supabase = createClient();
@@ -63,13 +64,14 @@ export default function SongContent({ song, user, spexId }) {
   };
 
   const handleVote = (songId) => async () => {
-    const { error } = await supabase.from("vote").insert({
-      song_id: songId,
-      user_id: user.user.id,
-    });
+    const formData = new FormData()
+    formData.append('songId', songId)
+    formData.append('userId', user.user.id)
 
-    if (error) {
-      console.error("Error voting: " + error.message);
+    const result = await voteSong(formData)
+
+    if (result.error) {
+      console.error("Error voting: " + result.error);
       return;
     }
 
@@ -78,14 +80,14 @@ export default function SongContent({ song, user, spexId }) {
   };
 
   const handleUnvote = (songId) => async () => {
-    const { error } = await supabase
-      .from("vote")
-      .delete()
-      .eq("song_id", songId)
-      .eq("user_id", user.user.id);
+    const formData = new FormData()
+    formData.append('songId', songId)
+    formData.append('userId', user.user.id)
 
-    if (error) {
-      console.error("Error unvoting: " + error.message);
+    const result = await unvoteSong(formData)
+
+    if (result.error) {
+      console.error("Error unvoting: " + result.error);
       return;
     }
 
@@ -94,13 +96,14 @@ export default function SongContent({ song, user, spexId }) {
   };
 
   const toggleWarning = (songId) => async () => {
-    const { error } = await supabase
-      .from("song")
-      .update({ show_warning: !song.show_warning })
-      .eq("id", songId);
+    const formData = new FormData()
+    formData.append('songId', songId)
+    formData.append('showWarning', showWarning.toString())
 
-    if (error) {
-      console.error("Error toggling warning: " + error.message);
+    const result = await toggleSongWarning(formData)
+
+    if (result.error) {
+      console.error("Error toggling warning: " + result.error);
       return;
     }
 
@@ -112,16 +115,20 @@ export default function SongContent({ song, user, spexId }) {
 
   const handleDelete = async () => {
     try {
-      const { error } = await supabase.from("song").delete().eq("id", song.id);
+      const formData = new FormData()
+      formData.append('songId', song.id)
+      formData.append('spexId', spexId)
 
-      if (error) {
-        console.error("Error deleting song:", error);
+      const result = await deleteSong(formData)
+
+      if (result.error) {
+        console.error("Error deleting song:", result.error);
         toast.error("Något gick fel. Försök igen senare.");
         return;
       }
 
       toast.success("Sång borttagen!");
-      window.location.reload();
+      router.push(spexId ? `/spex/${spexId}` : '/')
     } catch (error) {
       console.error("Unexpected error during song deletion:", error);
       toast.error("Något gick fel. Försök igen senare.");

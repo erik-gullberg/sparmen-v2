@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
+import { createShow } from "@/app/actions/spexActions";
 
 function NewShowContent() {
   const router = useRouter();
@@ -19,33 +20,26 @@ function NewShowContent() {
 
   const buttonDisabled = !year;
 
-  const onClick = () => {
-    const createShow = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("show")
-          .insert([
-            {
-              spex_id: spexId,
-              year: year,
-              year_short: year,
-            },
-          ])
-          .select();
+  const onClick = async () => {
+    try {
+      const formData = new FormData()
+      formData.append('spexId', spexId)
+      formData.append('year', year)
 
-        if (error) {
-          console.error("Error creating show:", error);
-          return;
-        }
+      const result = await createShow(formData)
 
-        console.log(data);
-        router.push(`/spex/${spexId}`);
-      } catch (error) {
-        console.error("Unexpected error during show creation:", error);
+      if (result.error) {
+        console.error("Error creating show:", result.error);
         toast.error("Något gick fel. Försök igen senare.");
+        return;
       }
-    };
-    createShow();
+
+      console.log(result.data);
+      router.push(`/spex/${result.spexId}`);
+    } catch (error) {
+      console.error("Unexpected error during show creation:", error);
+      toast.error("Något gick fel. Försök igen senare.");
+    }
   };
 
   useEffect(() => {
