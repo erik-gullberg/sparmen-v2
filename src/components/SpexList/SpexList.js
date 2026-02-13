@@ -13,8 +13,8 @@ export default async function Page() {
   return (
     <ul className={styles.spexList}>
       {data.data.map((spex, i) => (
-        <li key={i}>
-          <Link href={`/spex/${spex.id}`}>
+        <li key={spex.id} className={styles["song-container"]}>
+          <Link href={`/spex/${spex.id}`} style={{ width: '100%' }}>
             <div className={styles.song}>
               {spex.id}. {spex.name}
             </div>

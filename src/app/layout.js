@@ -72,6 +72,7 @@ export default function RootLayout({ children }) {
             <a
               href="https://github.com/erik-gullberg-devoteam/sparmen-v2"
               target="_blank"
+              aria-label="GitHub repository"
             >
               <GithubIcon style={{ width: 35, height: 35 }} />
             </a>

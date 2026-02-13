@@ -13,7 +13,7 @@ export default function LoginButton() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://sparmen-v2.vercel.app",
+        redirectTo: "https://xn--sprmen-mua.se",
       },
     });
   };
