@@ -13,7 +13,7 @@ export default function LoginButton() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://xn--sprmen-mua.se",
+        redirectTo: "https://xn--sprmen-cua.se",
       },
     });
   };
