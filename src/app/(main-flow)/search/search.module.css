@@ -1,0 +1,145 @@
+.searchResultsContainer {
+  width: 98vw;
+  max-width: 40rem;
+  padding: 1rem;
+}
+
+.searchHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #444;
+}
+
+.searchQuery {
+  color: #dbb300;
+  font-weight: 600;
+}
+
+.resultCount {
+  color: #888;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0 0.75rem 0;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgb(147, 180, 0);
+}
+
+.sectionTitle h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.sectionIcon {
+  font-size: 1.2rem;
+}
+
+.resultsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resultItem {
+  margin-bottom: 0.5rem;
+}
+
+.songResult {
+  display: block;
+  padding: 0.75rem;
+  border: 1px solid #838383;
+  border-radius: 5px;
+  transition: all 250ms;
+}
+
+.songResult:hover {
+  background-color: #dbb300;
+  color: #000;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.songName {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.songMeta {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.songResult:hover .songMeta {
+  color: #444;
+}
+
+.spexResult {
+  display: block;
+  padding: 0.75rem;
+  border: 1px solid #838383;
+  border-radius: 5px;
+  transition: all 250ms;
+}
+
+.spexResult:hover {
+  background-color: #dbb300;
+  color: #000;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.noResults {
+  text-align: center;
+  padding: 2rem;
+}
+
+.noResultsTitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #ff6b6b;
+}
+
+.suggestions {
+  text-align: left;
+  background: #2a2a2a;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.suggestions h4 {
+  margin-bottom: 0.5rem;
+  color: #888;
+}
+
+.suggestions ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.suggestions li {
+  margin: 0.25rem 0;
+  color: #ccc;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  color: #ff9900;
+  text-decoration: underline;
+}
+
+.backLink:hover {
+  color: #dbb300;
+}
+

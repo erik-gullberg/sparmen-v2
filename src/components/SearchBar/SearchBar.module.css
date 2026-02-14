@@ -1,0 +1,160 @@
+.searchWrapper {
+  position: relative;
+  width: 98vw;
+  max-width: 40rem;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.inputWrapper {
+  position: relative;
+  flex: 1;
+}
+
+.searchBar {
+  height: 2.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+  border: none;
+  color: black;
+  background: whitesmoke;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.searchBar:focus {
+  outline: 2px solid #008f1f;
+  outline-offset: 1px;
+}
+
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 15px;
+  right: 0;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  margin-top: 4px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 502.74px;
+}
+
+.dropdownSection {
+  padding: 8px 0;
+}
+
+.dropdownSection:not(:last-child) {
+  border-bottom: 1px solid #444;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.dropdownItem:hover,
+.dropdownItem.highlighted {
+  background: #3a3a3a;
+}
+
+.dropdownItem .icon {
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.dropdownItem .text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdownItem .subtext {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+
+.loadingSpinner {
+  padding: 12px;
+  text-align: center;
+  color: #888;
+}
+
+.noResults {
+  padding: 12px;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+.button {
+  align-items: center;
+  background-color: #008f1f;
+  border: 1px solid #000000;
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.7rem;
+  position: relative;
+  transition: all 250ms;
+  flex-shrink: 0;
+}
+
+.button:hover {
+  color: #000000;
+  background-color: #dbb300;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  border-color: #000000;
+  transform: translateY(-1px);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.keyboardHint {
+  font-size: 0.65rem;
+  color: #666;
+  background: #444;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-left: auto;
+}
+

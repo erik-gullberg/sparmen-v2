@@ -6,7 +6,12 @@ import toast from "react-hot-toast";
 import { MelodyLink } from "@/components/MelodyLink/MelodyLink";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { voteSong, unvoteSong, toggleSongWarning, deleteSong } from "@/app/actions/spexActions";
+import {
+  voteSong,
+  unvoteSong,
+  toggleSongWarning,
+  deleteSong,
+} from "@/app/actions/spexActions";
 
 export default function SongContent({ song, user, spexId }) {
   const supabase = createClient();
@@ -64,11 +69,11 @@ export default function SongContent({ song, user, spexId }) {
   };
 
   const handleVote = (songId) => async () => {
-    const formData = new FormData()
-    formData.append('songId', songId)
-    formData.append('userId', user.user.id)
+    const formData = new FormData();
+    formData.append("songId", songId);
+    formData.append("userId", user.user.id);
 
-    const result = await voteSong(formData)
+    const result = await voteSong(formData);
 
     if (result.error) {
       console.error("Error voting: " + result.error);
@@ -80,11 +85,11 @@ export default function SongContent({ song, user, spexId }) {
   };
 
   const handleUnvote = (songId) => async () => {
-    const formData = new FormData()
-    formData.append('songId', songId)
-    formData.append('userId', user.user.id)
+    const formData = new FormData();
+    formData.append("songId", songId);
+    formData.append("userId", user.user.id);
 
-    const result = await unvoteSong(formData)
+    const result = await unvoteSong(formData);
 
     if (result.error) {
       console.error("Error unvoting: " + result.error);
@@ -96,11 +101,11 @@ export default function SongContent({ song, user, spexId }) {
   };
 
   const toggleWarning = (songId) => async () => {
-    const formData = new FormData()
-    formData.append('songId', songId)
-    formData.append('showWarning', showWarning.toString())
+    const formData = new FormData();
+    formData.append("songId", songId);
+    formData.append("showWarning", showWarning.toString());
 
-    const result = await toggleSongWarning(formData)
+    const result = await toggleSongWarning(formData);
 
     if (result.error) {
       console.error("Error toggling warning: " + result.error);
@@ -115,11 +120,11 @@ export default function SongContent({ song, user, spexId }) {
 
   const handleDelete = async () => {
     try {
-      const formData = new FormData()
-      formData.append('songId', song.id)
-      formData.append('spexId', spexId)
+      const formData = new FormData();
+      formData.append("songId", song.id);
+      formData.append("spexId", spexId);
 
-      const result = await deleteSong(formData)
+      const result = await deleteSong(formData);
 
       if (result.error) {
         console.error("Error deleting song:", result.error);
@@ -128,7 +133,7 @@ export default function SongContent({ song, user, spexId }) {
       }
 
       toast.success("Sång borttagen!");
-      router.push(spexId ? `/spex/${spexId}` : '/')
+      router.push(spexId ? `/spex/${spexId}` : "/");
     } catch (error) {
       console.error("Unexpected error during song deletion:", error);
       toast.error("Något gick fel. Försök igen senare.");
@@ -173,9 +178,7 @@ export default function SongContent({ song, user, spexId }) {
               className={pageStyle.copyLink}
               onClick={() =>
                 navigator.clipboard
-                  .writeText(
-                    `https://sparmen-v2.vercel.app/song/${spexId}.${song.number}`,
-                  )
+                  .writeText(`https://spärmen.se/song/${spexId}.${song.number}`)
                   .then(() => toast.success("Länk kopierad till urklipp"))
               }
             >
