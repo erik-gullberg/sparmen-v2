@@ -41,6 +41,7 @@ export default function Banner() {
       <ul>
         <li>Spärmen bor nu på spärmen.se</li>
         <li>Man kan logga in igen</li>
+        <li>Autocomplete i söken</li>
       </ul>
       <br />
       <p>Kontakta Erik Gullberg för all support med Spärmen</p>

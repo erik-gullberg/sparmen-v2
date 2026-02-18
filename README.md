@@ -7,7 +7,7 @@ Var GladSpexarna hade under lång tid alla låtar från alla spex utskrivna på 
 Efter 20+ år av denna tradition började spärmarna falla sönder och fler och fler sidor saknades. 
 Därför har spärmen nu digitaliserats och ligger uppe som en webapplikation.
 
-Spärmens syfte är att fungera som en sångpärm men likväl som arkiv för föreningen då detta är den enda kompletta källan till alla låtar föreningen har haft.
+Spärmens syfte är att fungera som en sångpärm men likväl som arkiv för föreningen då detta är det närmaste kompletta källan till alla låtar föreningen har haft.
 
 ## Struktur
 
@@ -31,7 +31,7 @@ Du kan se om du har adminprivilegier på profilsidan.
 
 ### Lägg till ny sång
 1. Klicka på ett spex från listan på huvudsidan
-2. Klicka på en uppsättningAdd commentMore actions
+2. Klicka på en uppsättning
 3. Klicka på "Ny Sång"
 
 ## Bidra
