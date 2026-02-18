@@ -202,6 +202,78 @@ function SearchBar() {
             onFocus={() => setIsFocused(true)}
             autoComplete="off"
           />
+
+          {showDropdown && (
+            <div className={styles.dropdown} ref={dropdownRef}>
+              {/* Loading State */}
+              {isLoadingSuggestions && inputValue.length >= 2 && (
+                <div className={styles.loadingSpinner}>Söker...</div>
+              )}
+
+              {/* Song Suggestions */}
+              {!isLoadingSuggestions && suggestions.songs.length > 0 && (
+                <div className={styles.dropdownSection}>
+                  <div className={styles.sectionHeader}>
+                    <span>Sånger</span>
+                  </div>
+                  {suggestions.songs.map((song) => {
+                    const currentIndex = itemIndex++;
+                    return (
+                      <div
+                        key={song.id}
+                        className={`${styles.dropdownItem} ${highlightedIndex === currentIndex ? styles.highlighted : ""}`}
+                        onClick={() =>
+                          handleItemSelect({ type: "song", data: song })
+                        }
+                      >
+                        <span className={styles.icon}>🎵</span>
+                        <div className={styles.text}>
+                          <div>{song.name}</div>
+                          <div className={styles.subtext}>
+                            {song.show?.spex?.name} - {song.show?.year_short}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Spex Suggestions */}
+              {!isLoadingSuggestions && suggestions.spex.length > 0 && (
+                <div className={styles.dropdownSection}>
+                  <div className={styles.sectionHeader}>
+                    <span>Spex</span>
+                  </div>
+                  {suggestions.spex.map((spex) => {
+                    const currentIndex = itemIndex++;
+                    return (
+                      <div
+                        key={spex.id}
+                        className={`${styles.dropdownItem} ${highlightedIndex === currentIndex ? styles.highlighted : ""}`}
+                        onClick={() =>
+                          handleItemSelect({ type: "spex", data: spex })
+                        }
+                      >
+                        <span className={styles.icon}>🎭</span>
+                        <span className={styles.text}>{spex.name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* No Results */}
+              {!isLoadingSuggestions &&
+                inputValue.length >= 2 &&
+                suggestions.songs.length === 0 &&
+                suggestions.spex.length === 0 && (
+                  <div className={styles.noResults}>
+                    Inga förslag hittades. Tryck Enter för att söka.
+                  </div>
+                )}
+            </div>
+          )}
         </div>
         <button onClick={search} className={styles.button}>
           Sök
@@ -215,80 +287,6 @@ function SearchBar() {
           {isLoadingRandom ? "..." : "🎲"}
         </button>
       </div>
-
-      {showDropdown && (
-        <div className={styles.dropdown} ref={dropdownRef}>
-          {/* Loading State */}
-          {isLoadingSuggestions && inputValue.length >= 2 && (
-            <div className={styles.loadingSpinner}>Söker...</div>
-          )}
-
-          {/* Song Suggestions */}
-          {!isLoadingSuggestions && suggestions.songs.length > 0 && (
-            <div className={styles.dropdownSection}>
-              <div className={styles.sectionHeader}>
-                <span>Sånger</span>
-              </div>
-              {suggestions.songs.map((song) => {
-                const currentIndex = itemIndex++;
-                return (
-                  <div
-                    key={song.id}
-                    className={`${styles.dropdownItem} ${highlightedIndex === currentIndex ? styles.highlighted : ""}`}
-                    onClick={() =>
-                      handleItemSelect({ type: "song", data: song })
-                    }
-                  >
-                    <span className={styles.icon}>🎵</span>
-                    <div className={styles.text}>
-                      <div>{song.name}</div>
-                      <div className={styles.subtext}>
-                        {song.show?.spex?.name} - {song.show?.year_short}
-                      </div>
-                    </div>
-                    <span className={styles.keyboardHint}>↵</span>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Spex Suggestions */}
-          {!isLoadingSuggestions && suggestions.spex.length > 0 && (
-            <div className={styles.dropdownSection}>
-              <div className={styles.sectionHeader}>
-                <span>Spex</span>
-              </div>
-              {suggestions.spex.map((spex) => {
-                const currentIndex = itemIndex++;
-                return (
-                  <div
-                    key={spex.id}
-                    className={`${styles.dropdownItem} ${highlightedIndex === currentIndex ? styles.highlighted : ""}`}
-                    onClick={() =>
-                      handleItemSelect({ type: "spex", data: spex })
-                    }
-                  >
-                    <span className={styles.icon}>🎭</span>
-                    <span className={styles.text}>{spex.name}</span>
-                    <span className={styles.keyboardHint}>↵</span>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {/* No Results */}
-          {!isLoadingSuggestions &&
-            inputValue.length >= 2 &&
-            suggestions.songs.length === 0 &&
-            suggestions.spex.length === 0 && (
-              <div className={styles.noResults}>
-                Inga förslag hittades. Tryck Enter för att söka.
-              </div>
-            )}
-        </div>
-      )}
     </div>
   );
 }
