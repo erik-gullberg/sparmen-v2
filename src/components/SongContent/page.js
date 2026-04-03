@@ -12,13 +12,14 @@ import {
   toggleSongWarning,
   deleteSong,
 } from "@/app/actions/spexActions";
-import { Heart, Link2, ListPlus, Pencil, Trash2 } from "lucide-react";
+import { Heart, Link2, Pencil, Trash2, AlertTriangle } from "lucide-react";
 import AddToPlaylist from "@/components/AddToPlaylist/AddToPlaylist";
 
 export default function SongContent({ song, user, spexId }) {
   const supabase = createClient();
   const [count, setCount] = useState(0);
   const [hasVoted, setHasVoted] = useState(false);
+  const [voteLoading, setVoteLoading] = useState(false);
   const [showWarning, setShowWarning] = useState(song.show_warning);
   const dialogRef = useRef(null);
   const formattedLyrics = song.lyrics.replace(/\n/g, "<br>");
@@ -71,35 +72,45 @@ export default function SongContent({ song, user, spexId }) {
   };
 
   const handleVote = (songId) => async () => {
+    // Optimistic update
+    setHasVoted(true);
+    setCount((c) => c + 1);
+    setVoteLoading(true);
+
     const formData = new FormData();
     formData.append("songId", songId);
     formData.append("userId", user.user.id);
 
     const result = await voteSong(formData);
+    setVoteLoading(false);
 
     if (result.error) {
       console.error("Error voting: " + result.error);
-      return;
+      // Revert
+      setHasVoted(false);
+      setCount((c) => c - 1);
     }
-
-    setCount(count + 1);
-    setHasVoted(true);
   };
 
   const handleUnvote = (songId) => async () => {
+    // Optimistic update
+    setHasVoted(false);
+    setCount((c) => c - 1);
+    setVoteLoading(true);
+
     const formData = new FormData();
     formData.append("songId", songId);
     formData.append("userId", user.user.id);
 
     const result = await unvoteSong(formData);
+    setVoteLoading(false);
 
     if (result.error) {
       console.error("Error unvoting: " + result.error);
-      return;
+      // Revert
+      setHasVoted(true);
+      setCount((c) => c + 1);
     }
-
-    setCount(count - 1);
-    setHasVoted(false);
   };
 
   const toggleWarning = (songId) => async () => {
@@ -154,8 +165,9 @@ export default function SongContent({ song, user, spexId }) {
           {/* Rating */}
           {user.user ? (
             <button
-              className={`${pageStyle.actionButton} ${hasVoted ? pageStyle.actionButtonActive : ""}`}
+              className={`${pageStyle.actionButton} ${hasVoted ? pageStyle.actionButtonActive : ""} ${voteLoading ? pageStyle.actionButtonLoading : ""}`}
               onClick={hasVoted ? handleUnvote(song.id) : handleVote(song.id)}
+              disabled={voteLoading}
               aria-label={hasVoted ? "Ta bort röst" : "Rösta på låt"}
             >
               <Heart size={15} fill={hasVoted ? "currentColor" : "none"} strokeWidth={2} />
@@ -189,23 +201,24 @@ export default function SongContent({ song, user, spexId }) {
         {user.roles?.is_editor && (
           <>
             <p className={pageStyle.editorHeader}>Adminkontroller</p>
-            <div
-              className={`${pageStyle.statusBar} ${pageStyle.editorControls}`}
-            >
+            <div className={`${pageStyle.statusBar} ${pageStyle.editorControls}`}>
               <Link href={`/edit/song/${song.id}`}>
-                <button className={pageStyle.actionButton}><Pencil size={14} strokeWidth={2} /> Redigera</button>
+                <button className={pageStyle.actionButton}>
+                  <Pencil size={14} strokeWidth={2} /> Redigera
+                </button>
               </Link>
-              <label style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", color: "#e0e0e0", cursor: "pointer" }}>
-                <input
-                  checked={showWarning}
-                  className={pageStyle.triggerCheck}
-                  id="trigger"
-                  type="checkbox"
-                  onChange={toggleWarning(song.id)}
-                />
-                Olämplig för sittning
-              </label>
-              <button className={pageStyle.actionButton} onClick={openDialog} style={{ borderColor: "rgba(217,83,79,0.5)", color: "#d9534f" }}>
+              <button
+                className={`${pageStyle.actionButton} ${showWarning ? pageStyle.actionButtonWarning : ""}`}
+                onClick={toggleWarning(song.id)}
+              >
+                <AlertTriangle size={14} strokeWidth={2} />
+                {showWarning ? "Olämplig: På" : "Olämplig: Av"}
+              </button>
+              <button
+                className={pageStyle.actionButton}
+                onClick={openDialog}
+                style={{ borderColor: "rgba(217,83,79,0.5)", color: "#d9534f" }}
+              >
                 <Trash2 size={14} strokeWidth={2} /> Ta bort
               </button>
             </div>

@@ -7,7 +7,7 @@ export default function Banner() {
   const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
-    const dismissed = localStorage.getItem("sparmen-banner-dismissed-13-2");
+    const dismissed = localStorage.getItem("sparmen-banner-dismissed-3-4");
     if (dismissed) {
       setIsDismissed(true);
     }
@@ -15,7 +15,7 @@ export default function Banner() {
 
   const handleDismiss = () => {
     setIsDismissed(true);
-    localStorage.setItem("sparmen-banner-dismissed-13-2", "true");
+    localStorage.setItem("sparmen-banner-dismissed-3-4", "true");
   };
 
   if (isDismissed) {
@@ -26,7 +26,7 @@ export default function Banner() {
     <div className={styles.banner}>
       <div className={styles.bannerHeader}>
         <div>
-          <h3 className={styles.header}>Välkommen till en ny spextermin! 🍍</h3>
+          <h3 className={styles.header}>Spärmnytt</h3>
         </div>
         <button
           onClick={handleDismiss}
@@ -37,14 +37,11 @@ export default function Banner() {
           ✕
         </button>
       </div>
-      <p className={styles.paragraph}>Nyheter 13/2/2026</p>
+      <p className={styles.paragraph}>Nyheter 3/4/2026</p>
       <ul>
-        <li>Spärmen bor nu på spärmen.se</li>
-        <li>Man kan logga in igen</li>
-        <li>Autocomplete i söken</li>
+        <li>Lägg till låtar i spellistor</li>
+        <li>Knappar är lite större</li>
       </ul>
-      <br />
-      <p>Kontakta Erik Gullberg för all support med Spärmen</p>
     </div>
   );
 }
