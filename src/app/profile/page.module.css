@@ -113,3 +113,48 @@
   list-style: none;
   margin-top: 1rem;
 }
+
+.newPlaylistForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  max-width: 400px;
+}
+
+.newPlaylistInput {
+  padding: 10px 12px;
+  min-height: 44px;
+  background: #2a2a2a;
+  border: 1px solid #555;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.newPlaylistInput::placeholder {
+  color: #888;
+}
+
+.newPlaylistInput:focus {
+  outline: none;
+  border-color: var(--main-button-color, #888);
+}
+
+.newPlaylistButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cancelPlaylistButton {
+  height: auto;
+  min-height: 44px;
+  border: 1px solid #555;
+  padding: 10px 15px;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 5px;
+  margin: 2px;
+}

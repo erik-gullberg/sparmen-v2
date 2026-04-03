@@ -12,6 +12,8 @@ import {
   toggleSongWarning,
   deleteSong,
 } from "@/app/actions/spexActions";
+import { Heart, Link2, ListPlus, Pencil, Trash2 } from "lucide-react";
+import AddToPlaylist from "@/components/AddToPlaylist/AddToPlaylist";
 
 export default function SongContent({ song, user, spexId }) {
   const supabase = createClient();
@@ -149,41 +151,39 @@ export default function SongContent({ song, user, spexId }) {
           {song.number + "."} {song.name}
         </summary>
         <div className={pageStyle.statusBar}>
-          <div>
-            Rating:
-            {"  "}
-            {count}
-            {user.user && (
-              <>
-                {hasVoted ? (
-                  <button
-                    className={pageStyle.voteButton}
-                    onClick={handleUnvote(song.id)}
-                  >
-                    -1
-                  </button>
-                ) : (
-                  <button
-                    className={pageStyle.voteButton}
-                    onClick={handleVote(song.id)}
-                  >
-                    +1
-                  </button>
-                )}
-              </>
-            )}
-          </div>
-          <div>
+          {/* Rating */}
+          {user.user ? (
             <button
-              className={pageStyle.copyLink}
+              className={`${pageStyle.actionButton} ${hasVoted ? pageStyle.actionButtonActive : ""}`}
+              onClick={hasVoted ? handleUnvote(song.id) : handleVote(song.id)}
+              aria-label={hasVoted ? "Ta bort röst" : "Rösta på låt"}
+            >
+              <Heart size={15} fill={hasVoted ? "currentColor" : "none"} strokeWidth={2} />
+              {count}
+            </button>
+          ) : (
+            <span className={pageStyle.actionButton} style={{ cursor: "default", pointerEvents: "none" }}>
+              <Heart size={15} fill="none" strokeWidth={2} />
+              {count}
+            </span>
+          )}
+
+          {/* Divider */}
+          <span style={{ flex: 1 }} />
+
+          {/* Actions — always grouped together on the right */}
+          <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+            <button
+              className={pageStyle.actionButton}
               onClick={() =>
                 navigator.clipboard
                   .writeText(`https://spärmen.se/song/${spexId}.${song.number}`)
                   .then(() => toast.success("Länk kopierad till urklipp"))
               }
             >
-              Kopiera Länk
+              <Link2 size={15} strokeWidth={2} /> Kopiera länk
             </button>
+            <AddToPlaylist songId={song.id} buttonClassName={pageStyle.actionButton} />
           </div>
         </div>
         {user.roles?.is_editor && (
@@ -192,12 +192,10 @@ export default function SongContent({ song, user, spexId }) {
             <div
               className={`${pageStyle.statusBar} ${pageStyle.editorControls}`}
             >
-              <div>
-                <Link href={`/edit/song/${song.id}`}>
-                  <button className={pageStyle.editButton}>Redigera</button>
-                </Link>
-              </div>
-              <div>
+              <Link href={`/edit/song/${song.id}`}>
+                <button className={pageStyle.actionButton}><Pencil size={14} strokeWidth={2} /> Redigera</button>
+              </Link>
+              <label style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", color: "#e0e0e0", cursor: "pointer" }}>
                 <input
                   checked={showWarning}
                   className={pageStyle.triggerCheck}
@@ -205,13 +203,11 @@ export default function SongContent({ song, user, spexId }) {
                   type="checkbox"
                   onChange={toggleWarning(song.id)}
                 />
-                <label htmlFor={"trigger"}>Olämplig för sittning</label>
-              </div>
-              <div>
-                <button className={pageStyle.editButton} onClick={openDialog}>
-                  Ta Bort
-                </button>
-              </div>
+                Olämplig för sittning
+              </label>
+              <button className={pageStyle.actionButton} onClick={openDialog} style={{ borderColor: "rgba(217,83,79,0.5)", color: "#d9534f" }}>
+                <Trash2 size={14} strokeWidth={2} /> Ta bort
+              </button>
             </div>
           </>
         )}

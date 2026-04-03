@@ -1,0 +1,78 @@
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.meta {
+  margin: 0;
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.shareButton {
+  align-self: flex-start;
+  padding: 8px 14px;
+  min-height: 44px;
+  background: var(--main-button-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+
+.shareButton:hover {
+  opacity: 0.85;
+}
+
+.empty {
+  color: #aaa;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.songList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.songItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  min-height: 44px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.songItem:hover {
+  background: #2a2a2a;
+  transform: translateY(-2px);
+  border-color: #666;
+}
+
+.songName {
+  font-size: 1rem;
+}
+

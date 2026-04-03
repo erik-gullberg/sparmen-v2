@@ -5,6 +5,7 @@ import style from "./page.module.css";
 import Image from "next/image";
 import fetchUser from "@/utils/fetchUserAndRoles";
 import { Suspense } from "react";
+import NewPlaylistForm from "./NewPlaylistForm";
 
 async function getVotedSongs(supabase, userId) {
   const { data, error } = await supabase.rpc("get_voted_songs", {
@@ -19,6 +20,23 @@ async function getVotedSongs(supabase, userId) {
   return data;
 }
 
+async function getUserPlaylists(supabase, userId) {
+  const { data, error } = await supabase
+    .from("playlist")
+    .select(
+      "id, name, created_at, playlist_song(count)"
+    )
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching playlists:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
 export default async function ProfilePage() {
   const supabase = await createClient();
   const userData = await fetchUser(supabase);
@@ -28,6 +46,7 @@ export default async function ProfilePage() {
   }
 
   const votedSongs = await getVotedSongs(supabase, userData.user.id);
+  const playlists = await getUserPlaylists(supabase, userData.user.id);
 
   return (
     <Suspense fallback={<div>Laddar profil...</div>}>
@@ -59,6 +78,28 @@ export default async function ProfilePage() {
           </Link>
         </>
       )}
+      <hr className={style.solidLine} />
+      <div>
+        <h2>Dina Spellistor</h2>
+        <NewPlaylistForm />
+        <ul className={style.favouritesList}>
+          {playlists.length === 0 && (
+            <p style={{ color: "#aaa", marginTop: "0.5rem" }}>
+              Du har inga spellistor ännu.
+            </p>
+          )}
+          {playlists.map((pl) => (
+            <Link key={pl.id} href={`/playlist/${pl.id}`}>
+              <li className={style.song}>
+                <span>{pl.name}</span>
+                <span style={{ marginLeft: "auto", color: "#aaa", fontSize: "0.85rem" }}>
+                  {pl.playlist_song?.[0]?.count ?? 0} låtar
+                </span>
+              </li>
+            </Link>
+          ))}
+        </ul>
+      </div>
       <hr className={style.solidLine} />
       <div>
         <h2>Dina Favoriter</h2>

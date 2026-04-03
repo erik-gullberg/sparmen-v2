@@ -19,8 +19,7 @@
 
 .songText,
 .warningSongText {
-  padding: 20px;
-  margin: 10px 0;
+  padding: 10px 20px;
   width: calc(100% - 40px);
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -41,23 +40,59 @@
   height: 100vh;
 }
 
+/* ── Shared pill button used across the status bar ── */
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  min-height: 36px;
+  background: transparent;
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  letter-spacing: 0.01em;
+}
+
+.actionButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.actionButton:active {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Voted state — accent colour */
+.actionButtonActive {
+  background: rgba(255, 153, 0, 0.15);
+  border-color: #ff9900;
+  color: #ff9900;
+}
+
+.actionButtonActive:hover {
+  background: rgba(255, 153, 0, 0.25);
+  border-color: #ff9900;
+  color: #ff9900;
+}
+
+/* Keep legacy names pointing to the same shared style */
 .voteButton {
-  padding: 8px 12px;
-  min-height: 44px;
-  min-width: 44px;
-  margin-left: 5px;
+  composes: actionButton;
 }
 
 .copyLink {
-  padding: 8px 12px;
-  min-height: 44px;
-  min-width: 44px;
+  composes: actionButton;
 }
 
 .editButton {
-  padding: 8px 12px;
-  min-height: 44px;
-  min-width: 44px;
+  composes: actionButton;
 }
 
 .tabContainer {
@@ -87,28 +122,30 @@
 
 .statusBar {
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
-  gap: 1rem;
+  gap: 8px;
+  overflow-x: auto;
 
   width: 100%;
-  padding: 5px;
+  padding: 8px 4px;
   margin-top: 8px;
 
-  border-radius: 5px;
-
-  border: 1px white solid;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .editorControls {
-  justify-content: space-evenly;
-  gap: 2rem;
-  padding-left: 1rem;
+  gap: 8px;
+  padding-left: 0;
+  border-top: 1px solid rgba(255, 153, 0, 0.25);
 }
 
 .editorHeader {
   margin-top: 1rem;
-  font-size: small;
+  margin-bottom: 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .warningBar {
