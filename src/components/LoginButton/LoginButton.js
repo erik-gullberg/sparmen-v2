@@ -33,7 +33,7 @@ export default function LoginButton() {
           Logga in
         </button>
       ) : (
-        <Link href="/profile">
+        <Link href="/profile" className={styles.navIcon}>
           <Image
             src={user.user_metadata.avatar_url}
             alt={"User avatar"}

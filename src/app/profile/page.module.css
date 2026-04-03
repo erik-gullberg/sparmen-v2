@@ -71,7 +71,8 @@
 }
 
 .addButton {
-  height: 2rem;
+  height: auto;
+  min-height: 44px;
   border: none;
   padding: 10px 15px;
   background: var(--main-button-color);
@@ -85,11 +86,14 @@
 .song {
   width: 100%;
   transition: all 250ms;
+  display: flex;
+  align-items: center;
 }
 .vote-count,
 .song {
   margin-left: 3px;
-  padding: 5px;
+  padding: 10px;
+  min-height: 44px;
   border: 1px solid #838383;
   border-radius: 3px;
 }

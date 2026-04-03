@@ -19,8 +19,13 @@
     color: #ccc;
     font-size: 1.2rem;
     cursor: pointer;
-    padding: 0;
+    padding: 10px;
+    min-height: 44px;
+    min-width: 44px;
     margin-left: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: color 0.2s ease;
 }
 
@@ -41,6 +46,7 @@
 .installButton {
     margin-top: 1rem;
     padding: 0.75rem 1.5rem;
+    min-height: 44px;
     font-size: 1rem;
     font-weight: bold;
     background-color: #ff9900;

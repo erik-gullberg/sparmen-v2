@@ -61,6 +61,7 @@
   color: #000;
   border: none;
   padding: 0.625rem 1.25rem;
+  min-height: 44px;
   font-size: 0.875rem;
   font-weight: 600;
   border-radius: 6px;
@@ -82,6 +83,7 @@
   color: #999;
   border: 1px solid #333;
   padding: 0.625rem 1.25rem;
+  min-height: 44px;
   font-size: 0.875rem;
   font-weight: 500;
   border-radius: 6px;

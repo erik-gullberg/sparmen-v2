@@ -209,7 +209,9 @@
 .saveButton {
   margin-top: 10px;
   margin-bottom: 10px;
-  padding: 5px;
+  padding: 10px 16px;
+  min-height: 44px;
+  min-width: 44px;
 }
 .spexList {
   list-style: none;
@@ -221,9 +223,13 @@
   align-items: center;
   padding: 10px;
   width: 100%;
+  min-height: 44px;
 }
 .song-container a {
   width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
 }
 .spexList li {
   padding: 3px;
@@ -231,11 +237,14 @@
 .song {
   width: 100%;
   transition: all 250ms;
+  display: flex;
+  align-items: center;
 }
 .vote-count,
 .song {
   margin-left: 3px;
-  padding: 5px;
+  padding: 10px;
+  min-height: 44px;
   border: 1px solid #838383;
   border-radius: 3px;
 }
@@ -251,7 +260,9 @@
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 600;
-  padding: 0.7rem;
+  padding: 0.7rem 1rem;
+  min-height: 44px;
+  min-width: 44px;
   position: relative;
   transition: all 250ms;
 }
@@ -282,7 +293,22 @@
 }
 
 .link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px;
   text-align: center;
   color: #ff9900;
   text-decoration: underline;
 }
+
+/* Nav icon touch target (GitHub link, LoginButton) */
+.navIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+}
+

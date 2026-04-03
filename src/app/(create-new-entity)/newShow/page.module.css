@@ -34,7 +34,9 @@
     cursor: pointer;
     font-size: 0.8rem;
     font-weight: 600;
-    padding: 0.7rem;
+    padding: 0.7rem 1rem;
+    min-height: 44px;
+    min-width: 44px;
     position: relative;
     transition: all 250ms;
 }
@@ -50,7 +52,9 @@
     cursor: pointer;
     font-size: 0.8rem;
     font-weight: 600;
-    padding: 0.7rem;
+    padding: 0.7rem 1rem;
+    min-height: 44px;
+    min-width: 44px;
     position: relative;
     transition: all 250ms;
 }

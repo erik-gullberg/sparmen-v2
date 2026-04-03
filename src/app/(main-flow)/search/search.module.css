@@ -55,6 +55,7 @@
 .songResult {
   display: block;
   padding: 0.75rem;
+  min-height: 44px;
   border: 1px solid #838383;
   border-radius: 5px;
   transition: all 250ms;
@@ -84,6 +85,7 @@
 .spexResult {
   display: block;
   padding: 0.75rem;
+  min-height: 44px;
   border: 1px solid #838383;
   border-radius: 5px;
   transition: all 250ms;
@@ -135,6 +137,8 @@
   align-items: center;
   gap: 0.5rem;
   margin-top: 1.5rem;
+  min-height: 44px;
+  padding: 10px 0;
   color: #ff9900;
   text-decoration: underline;
 }

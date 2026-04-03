@@ -6,7 +6,8 @@
 .th,
 .td {
     border-bottom: 1px solid azure;
-    padding: 5px
+    padding: 12px 5px;
+    min-height: 44px;
 }
 
 .tr:last-child .td {
