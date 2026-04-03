@@ -23,9 +23,7 @@ async function getVotedSongs(supabase, userId) {
 async function getUserPlaylists(supabase, userId) {
   const { data, error } = await supabase
     .from("playlist")
-    .select(
-      "id, name, created_at, playlist_song(count)"
-    )
+    .select("id, name, created_at, playlist_song(count)")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
@@ -81,7 +79,6 @@ export default async function ProfilePage() {
       <hr className={style.solidLine} />
       <div>
         <h2>Dina Spellistor</h2>
-        <NewPlaylistForm />
         <ul className={style.favouritesList}>
           {playlists.length === 0 && (
             <p style={{ color: "#aaa", marginTop: "0.5rem" }}>
@@ -91,8 +88,14 @@ export default async function ProfilePage() {
           {playlists.map((pl) => (
             <Link key={pl.id} href={`/playlist/${pl.id}`}>
               <li className={style.song}>
-                <span>{pl.name}</span>
-                <span style={{ marginLeft: "auto", color: "#aaa", fontSize: "0.85rem" }}>
+                <span>{pl.name + " "}</span>
+                <span
+                  style={{
+                    marginLeft: "auto",
+                    color: "#aaa",
+                    fontSize: "0.85rem",
+                  }}
+                >
                   {pl.playlist_song?.[0]?.count ?? 0} låtar
                 </span>
               </li>
