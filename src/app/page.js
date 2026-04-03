@@ -19,7 +19,6 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <Banner />
       <SearchBar />
       <div className={styles.container}>
         <div className={styles.containerHeader}>
