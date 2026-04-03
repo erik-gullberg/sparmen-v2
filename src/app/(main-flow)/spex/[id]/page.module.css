@@ -82,16 +82,45 @@
   color: #ff9900;
 }
 
-/* Loading pulse — smooth amber glow while request is in flight */
-@keyframes votePulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.45; }
+/* Loading — spinning orange snake border */
+@keyframes spinSnake {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .actionButtonLoading {
-  animation: votePulse 0.9s ease-in-out infinite;
-  border-color: #ff9900;
-  color: #ff9900;
+  position: relative;
+  overflow: hidden;
+  border-color: transparent;
+}
+
+/* The spinning conic-gradient ring behind the button */
+.actionButtonLoading::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  aspect-ratio: 1;
+  background: conic-gradient(#ff9900 60deg, transparent 120deg);
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: spinSnake 0.9s linear infinite;
+  z-index: 0;
+}
+
+/* Mask the middle so only a thin border ring shows */
+.actionButtonLoading::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: rgb(66, 66, 66);
+  border-radius: 20px;
+  z-index: 1;
+}
+
+/* Keep button content above the mask */
+.actionButtonLoading > * {
+  position: relative;
+  z-index: 2;
 }
 
 /* Warning active state */
