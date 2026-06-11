@@ -41,12 +41,13 @@ async function fetchShow(client, id) {
     .single();
 }
 
-// Pre-render the most popular songs at build time
+// Pre-render the entire song catalog at build time so every song page is a
+// static CDN file. The archive is finite and changes rarely, so this keeps
+// concurrent event traffic off Supabase entirely (no on-demand renders).
 export async function generateStaticParams() {
   const client = createBuildClient();
 
-  // Fetch top songs to pre-render
-  const { data } = await client.rpc("get_top_voted_songs").limit(50); // Pre-render top 50 songs
+  const { data } = await client.from("song").select("id");
 
   if (!data) return [];
 

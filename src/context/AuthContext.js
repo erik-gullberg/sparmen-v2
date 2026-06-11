@@ -11,15 +11,19 @@ export const AuthProvider = ({ children }) => {
   const supabase = createClient();
 
   useEffect(() => {
-    const getUser = async () => {
+    // Read the session from local storage instead of validating against the
+    // Supabase Auth server. Anonymous visitors (the bulk of event traffic) then
+    // resolve instantly with no network round-trip. This only gates UI; real
+    // authorization stays server-side via the role table / RLS.
+    const getInitialUser = async () => {
       const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
+        data: { session },
+      } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
       setLoading(false);
     };
 
-    getUser();
+    getInitialUser();
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
