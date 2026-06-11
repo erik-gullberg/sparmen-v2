@@ -16,10 +16,7 @@ const nextConfig = {
   // Enable experimental features for better performance
   experimental: {
     // Enable optimized package imports
-    optimizePackageImports: [
-      "@fortawesome/react-fontawesome",
-      "@fortawesome/free-solid-svg-icons",
-    ],
+    optimizePackageImports: ["lucide-react"],
   },
   // Optimize production builds
   compress: true, // Enable gzip compression

@@ -57,10 +57,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <title>Spärmen</title>
-      </head>
+    <html lang="sv">
       <body className={notoSans.className}>
         <AuthProvider>
           <Toaster position="bottom-right" />

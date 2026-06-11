@@ -1,7 +1,6 @@
 "use client";
 import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
-import createClient from "@/utils/supabase/browserClient";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import toast from "react-hot-toast";
 import { MelodyLink } from "@/components/MelodyLink/MelodyLink";
 import Link from "next/link";
@@ -15,10 +14,15 @@ import {
 import { Heart, Link2, Pencil, Trash2, AlertTriangle } from "lucide-react";
 import AddToPlaylist from "@/components/AddToPlaylist/AddToPlaylist";
 
-export default function SongContent({ song, user, spexId }) {
-  const supabase = createClient();
-  const [count, setCount] = useState(0);
-  const [hasVoted, setHasVoted] = useState(false);
+export default function SongContent({
+  song,
+  user,
+  spexId,
+  initialCount = 0,
+  initialHasVoted = false,
+}) {
+  const [count, setCount] = useState(initialCount);
+  const [hasVoted, setHasVoted] = useState(initialHasVoted);
   const [voteLoading, setVoteLoading] = useState(false);
   const [showWarning, setShowWarning] = useState(song.show_warning);
   const dialogRef = useRef(null);
@@ -26,50 +30,17 @@ export default function SongContent({ song, user, spexId }) {
 
   const router = useRouter();
 
-  async function getVoteCount(songId) {
-    const { count, error } = await supabase
-      .from("vote")
-      .select("*", { count: "exact", head: true })
-      .eq("song_id", songId);
+  // Vote data is fetched in one batched query by SongSelector and arrives via
+  // props shortly after mount; sync it into local state. User-initiated votes
+  // mutate count/hasVoted locally and aren't clobbered since the props don't
+  // change again until the page revalidates.
+  useEffect(() => {
+    setCount(initialCount);
+  }, [initialCount]);
 
-    if (error) {
-      throw Error("Error fetching votes: " + error.message);
-    }
-
-    return count;
-  }
-
-  async function hasUserVoted(songId, userId) {
-    const { count, error } = await supabase
-      .from("vote")
-      .select("*", { count: "exact", head: true })
-      .eq("song_id", songId)
-      .eq("user_id", userId);
-
-    return !!(count > 0 || error);
-  }
-
-  const handleToggle = (song) => (event) => {
-    if (event.target.open) {
-      if (count === 0) {
-        getVoteCount(song.id)
-          .then((count) => {
-            setCount(count);
-          })
-          .catch((e) => {
-            console.error(e);
-          });
-      }
-
-      if (!user) {
-        return false;
-      }
-
-      hasUserVoted(song.id, user.user?.id).then((hasVoted) => {
-        setHasVoted(hasVoted);
-      });
-    }
-  };
+  useEffect(() => {
+    setHasVoted(initialHasVoted);
+  }, [initialHasVoted]);
 
   const handleVote = (songId) => async () => {
     // Optimistic update
@@ -157,7 +128,7 @@ export default function SongContent({ song, user, spexId }) {
 
   return (
     <>
-      <details className={pageStyle.dropDown} onToggle={handleToggle(song)}>
+      <details className={pageStyle.dropDown}>
         <summary className={pageStyle.summary}>
           {song.number + "."} {song.name}
         </summary>

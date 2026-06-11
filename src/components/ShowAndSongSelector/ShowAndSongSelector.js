@@ -4,35 +4,38 @@ import SongSelector from "../SongSelector/SongSelector";
 import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
 import Link from "next/link";
 import createClient from "@/utils/supabase/browserClient";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ShowAndSongSelector({
   shows,
+  songsByShow,
   defaultShowId,
   spexId,
 }) {
+  const { user: authUser } = useAuth();
+  const [roles, setRoles] = useState(null);
   const [selectedShowId, setSelectedShowId] = useState(
     parseInt(defaultShowId) || shows[shows.length - 1]?.id,
   );
-  const [user, setUser] = useState({ user: null, roles: null });
 
+  // Only hit the network for the editor role when someone is actually logged
+  // in. Anonymous visitors (the bulk of event traffic) skip it entirely.
   useEffect(() => {
-    async function fetchUser() {
-      const supabase = createClient();
-      const { data: { user: authUser } } = await supabase.auth.getUser();
-
-      if (authUser) {
-        const { data: roles } = await supabase
-          .from("role")
-          .select("is_editor")
-          .eq("user_id", authUser.id)
-          .single();
-
-        setUser({ user: authUser, roles });
-      }
+    if (!authUser) {
+      setRoles(null);
+      return;
     }
 
-    fetchUser();
-  }, []);
+    const supabase = createClient();
+    supabase
+      .from("role")
+      .select("is_editor")
+      .eq("user_id", authUser.id)
+      .single()
+      .then(({ data }) => setRoles(data));
+  }, [authUser]);
+
+  const user = { user: authUser, roles };
 
   return (
     <div>
@@ -46,7 +49,7 @@ export default function ShowAndSongSelector({
             {show.year}
           </button>
         ))}
-        {user.roles?.is_editor && (
+        {roles?.is_editor && (
           <button className={pageStyle.tab}>
             <Link href={"/newShow?spexId=" + spexId}>Ny uppsättning +</Link>
           </button>
@@ -54,6 +57,7 @@ export default function ShowAndSongSelector({
       </div>
 
       <SongSelector
+        songs={songsByShow[selectedShowId] ?? []}
         showId={selectedShowId}
         user={user}
         spexId={spexId}

@@ -1,5 +1,4 @@
 import styles from "@/app/page.module.css";
-import { createClient } from "@/utils/supabase/server";
 import { createBuildClient } from "@/utils/supabase/buildClient";
 import ShowAndSongSelector from "../../../../components/ShowAndSongSelector/ShowAndSongSelector";
 import { notFound } from "next/navigation";
@@ -21,6 +20,25 @@ async function fetchSpexName(client, query) {
   return client.from("spex").select("name").eq("id", query);
 }
 
+// Fetch every song for this spex's shows in a single query and group them by
+// show. Baked into the static page at build time so browsing shows/songs never
+// triggers a per-visitor query against Supabase.
+async function fetchSongsByShow(client, showIds) {
+  if (!showIds.length) return {};
+
+  const { data } = await client
+    .from("song")
+    .select("id, name, lyrics, show_warning, number, melody, melody_link, show_id")
+    .in("show_id", showIds)
+    .order("id", { ascending: true });
+
+  const byShow = {};
+  for (const song of data ?? []) {
+    (byShow[song.show_id] ??= []).push(song);
+  }
+  return byShow;
+}
+
 // Pre-render all spex pages at build time
 export async function generateStaticParams() {
   const client = createBuildClient();
@@ -37,7 +55,7 @@ export async function generateStaticParams() {
 export default async function Page(props) {
   const searchParams = await props.searchParams;
   const params = await props.params;
-  const supabase = await createClient();
+  const supabase = createBuildClient();
   const [spex, shows] = await Promise.all([
     fetchSpexName(supabase, params.id),
     fetchShows(supabase, params.id),
@@ -46,6 +64,9 @@ export default async function Page(props) {
   if (spex.data?.length === 0) {
     notFound();
   }
+
+  const showIds = (shows.data ?? []).map((show) => show.id);
+  const songsByShow = await fetchSongsByShow(supabase, showIds);
 
   return (
     <div className={styles.flex}>
@@ -57,6 +78,7 @@ export default async function Page(props) {
         </div>
         <ShowAndSongSelector
           shows={shows.data ?? []}
+          songsByShow={songsByShow}
           defaultShowId={searchParams.show}
           spexId={params.id}
         ></ShowAndSongSelector>
