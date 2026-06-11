@@ -151,6 +151,21 @@
   transform: none;
 }
 
+/* The dice mid-roll: flashing song numbers. Stable width + lit up, not dimmed. */
+.rolling {
+  min-width: 72px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background-color: #dbb300;
+  color: #000000;
+}
+
+.rolling:disabled {
+  opacity: 1;
+  cursor: progress;
+}
+
 .keyboardHint {
   font-size: 0.65rem;
   color: #666;

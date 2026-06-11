@@ -50,6 +50,7 @@ export default function DownloadOffline() {
       const urls = [
         "/",
         "/top-songs",
+        "/api/random-pool", // so the random dice works offline too
         ...(spex.data ?? []).map((s) => `/spex/${s.id}`),
         ...(songs.data ?? []).map((s) => `/song/${s.id}`),
       ];
@@ -120,7 +121,7 @@ export default function DownloadOffline() {
           <p className={styles.hint}>
             {downloaded
               ? "Nedladdad – funkar offline i källaren 🍍"
-              : "Spara hela spärmen så funkar den utan nät"}
+              : "Spara hela spärmen så funkar den offline i källaren 🍍"}
           </p>
         </>
       )}

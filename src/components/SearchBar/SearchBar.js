@@ -9,6 +9,7 @@ function SearchBar() {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const [isLoadingRandom, setIsLoadingRandom] = useState(false);
+  const [reelLabel, setReelLabel] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
   const [suggestions, setSuggestions] = useState({ songs: [], spex: [] });
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
@@ -17,6 +18,24 @@ function SearchBar() {
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
   const debounceRef = useRef(null);
+  const poolRef = useRef([]);
+  const reelTimeoutRef = useRef(null);
+
+  // Warm the random-song pool once on mount — it's tiny and heavily cached, so
+  // the dice can pick a song client-side with no server round-trip.
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/random-pool")
+      .then((res) => (res.ok ? res.json() : []))
+      .then((pool) => {
+        if (!cancelled && Array.isArray(pool)) poolRef.current = pool;
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+      if (reelTimeoutRef.current) clearTimeout(reelTimeoutRef.current);
+    };
+  }, []);
 
   // Fetch suggestions when input changes
   useEffect(() => {
@@ -163,19 +182,53 @@ function SearchBar() {
   };
 
   const handleRandomSong = async () => {
-    setIsLoadingRandom(true);
-    try {
-      const randomSongId = await getRandomSongId();
-      if (randomSongId) {
-        router.push(`/song/${randomSongId}`);
-        setTimeout(() => setIsLoadingRandom(false), 3000);
-      } else {
+    if (isLoadingRandom) return;
+
+    const pool = poolRef.current;
+
+    // Fallback: pool not loaded yet (or empty) — use the server action so the
+    // dice still works, just without the reel.
+    if (!pool || pool.length === 0) {
+      setIsLoadingRandom(true);
+      try {
+        const randomSongId = await getRandomSongId();
+        if (randomSongId) router.push(`/song/${randomSongId}`);
+      } catch (error) {
+        console.error("Error fetching random song:", error);
+      } finally {
         setIsLoadingRandom(false);
       }
-    } catch (error) {
-      console.error("Error fetching random song:", error);
-      setIsLoadingRandom(false);
+      return;
     }
+
+    const target = pool[Math.floor(Math.random() * pool.length)];
+    // Prefetch the (static) destination so navigation lands the instant the
+    // reel stops spinning.
+    router.prefetch(`/song/${target.id}`);
+    setIsLoadingRandom(true);
+
+    // Decelerating reel: fast flashes that slow into a satisfying clunk, then
+    // land on the real pick. The delay grows with each step (ease-out).
+    const totalSteps = 13;
+    let step = 0;
+    const spin = () => {
+      if (step >= totalSteps) {
+        setReelLabel(target.label);
+        reelTimeoutRef.current = setTimeout(() => {
+          router.push(`/song/${target.id}`);
+          reelTimeoutRef.current = setTimeout(() => {
+            setIsLoadingRandom(false);
+            setReelLabel(null);
+          }, 400);
+        }, 180);
+        return;
+      }
+      const flash = pool[Math.floor(Math.random() * pool.length)];
+      setReelLabel(flash.label);
+      step += 1;
+      reelTimeoutRef.current = setTimeout(spin, 25 + step * step * 0.7);
+    };
+    spin();
   };
 
   const showDropdown =
@@ -280,11 +333,11 @@ function SearchBar() {
         </button>
         <button
           onClick={handleRandomSong}
-          className={styles.button}
+          className={`${styles.button} ${isLoadingRandom ? styles.rolling : ""}`}
           disabled={isLoadingRandom}
           title="Slumpa sång"
         >
-          {isLoadingRandom ? "..." : "🎲"}
+          {isLoadingRandom ? (reelLabel ?? "🎲") : "🎲"}
         </button>
       </div>
     </div>
