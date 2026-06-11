@@ -5,7 +5,6 @@ import Link from "next/link";
 import { createBuildClient } from "@/utils/supabase/buildClient";
 import { MelodyLink } from "@/components/MelodyLink/MelodyLink";
 import WakeLock from "@/components/WakeLock/WakeLock";
-import TextSizeControl from "@/components/TextSizeControl/TextSizeControl";
 import { notFound } from "next/navigation";
 
 // Revalidate every hour, but serve stale content while revalidating
@@ -126,7 +125,6 @@ export default async function Page(props) {
         )}
       </div>
       {song.melody && song.melody_link && <MelodyLink song={song} />}
-      <TextSizeControl />
       <div
         className={
           song.show_warning ? pageStyle.warningSongText : pageStyle.songText

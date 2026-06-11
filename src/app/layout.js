@@ -59,13 +59,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="sv">
       <body className={notoSans.className}>
-        {/* Apply the saved lyrics text size before paint to avoid a flash */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{var s=localStorage.getItem('lyrics-font-size');if(s){document.documentElement.style.setProperty('--lyrics-font-size',s+'px')}}catch(e){}",
-          }}
-        />
         <AuthProvider>
           <Toaster position="bottom-right" />
           <div className={styles.navbar}>

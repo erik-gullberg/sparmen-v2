@@ -2,7 +2,6 @@ import styles from "@/app/page.module.css";
 import { createBuildClient } from "@/utils/supabase/buildClient";
 import ShowAndSongSelector from "../../../../components/ShowAndSongSelector/ShowAndSongSelector";
 import WakeLock from "@/components/WakeLock/WakeLock";
-import TextSizeControl from "@/components/TextSizeControl/TextSizeControl";
 import { notFound } from "next/navigation";
 
 // Revalidate every hour
@@ -79,7 +78,6 @@ export default async function Page(props) {
             {params.id}. {spex.data ? spex.data[0].name : ""}
           </h3>
         </div>
-        <TextSizeControl />
         <ShowAndSongSelector
           shows={shows.data ?? []}
           songsByShow={songsByShow}

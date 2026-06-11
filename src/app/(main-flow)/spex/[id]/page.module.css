@@ -23,8 +23,8 @@
   width: calc(100% - 40px);
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  /* User-adjustable via TextSizeControl; bumped from 16px for singing in dim rooms */
-  font-size: var(--lyrics-font-size, 18px);
+  /* Bumped from 16px for readability while singing in dim rooms */
+  font-size: 18px;
   line-height: 1.6;
 }
 
