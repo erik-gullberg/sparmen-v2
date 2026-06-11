@@ -1,0 +1,64 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 420px;
+  margin: 8px auto 24px;
+  text-align: center;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:active {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.hint {
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
+
+.progressBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 44px;
+  justify-content: center;
+}
+
+.progressLabel {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: #ff9900;
+  border-radius: 6px;
+  transition: width 0.2s ease;
+}

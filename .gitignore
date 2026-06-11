@@ -37,3 +37,8 @@ next-env.d.ts
 
 #intelliJ
 /.idea
+# Serwist / service worker (generated at build)
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/swe-worker-*.js

@@ -5,6 +5,7 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import TopList from "@/components/TopList/TopList";
 import SpexList from "@/components/SpexList/SpexList";
 import Banner from "@/components/Banner/Banner";
+import DownloadOffline from "@/components/DownloadOffline/DownloadOffline";
 // Cache for 1 hour
 export const revalidate = 3600;
 // Force static generation
@@ -41,6 +42,7 @@ export default function Home() {
           </Suspense>
         </div>
       </div>
+      <DownloadOffline />
     </div>
   );
 }

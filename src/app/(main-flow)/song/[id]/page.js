@@ -4,6 +4,7 @@ import styles from "@/app/page.module.css";
 import Link from "next/link";
 import { createBuildClient } from "@/utils/supabase/buildClient";
 import { MelodyLink } from "@/components/MelodyLink/MelodyLink";
+import WakeLock from "@/components/WakeLock/WakeLock";
 import { notFound } from "next/navigation";
 
 // Revalidate every hour, but serve stale content while revalidating
@@ -100,6 +101,7 @@ export default async function Page(props) {
 
   return (
     <div className={styles.container}>
+      <WakeLock />
       <div className={styles.containerHeader}>
         <h3>
           {show.spex.id}.{song.number}
