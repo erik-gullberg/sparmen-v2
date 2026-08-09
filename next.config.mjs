@@ -3,6 +3,12 @@ import withSerwistInit from "@serwist/next";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Serwist/bundle-analyzer inject a `webpack` config. Next 16 dev defaults to
+  // Turbopack; declaring an (empty) turbopack config acknowledges that and
+  // silences the "webpack config with no turbopack config" error. Production
+  // builds still run under webpack (see the `--webpack` build script) so the
+  // service worker is compiled by Serwist.
+  turbopack: {},
   images: {
     remotePatterns: [
       {
@@ -76,4 +82,12 @@ const withSerwist = withSerwistInit({
   disable: process.env.NODE_ENV === "development",
 });
 
-export default withSerwist(withBundleAnalyzer(nextConfig));
+// @next/bundle-analyzer always injects a `webpack` config, which makes Next 16's
+// default Turbopack dev server error out. Only wrap with it when actually
+// analyzing (that script runs with --webpack), so `next dev` stays on Turbopack.
+const config =
+  process.env.ANALYZE === "true"
+    ? withSerwist(withBundleAnalyzer(nextConfig))
+    : withSerwist(nextConfig);
+
+export default config;

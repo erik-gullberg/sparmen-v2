@@ -1,27 +1,24 @@
 "use client";
 import style from "./page.module.css";
-import { useEffect, useState, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
 import { createSong } from "@/app/actions/spexActions";
+import useEditorGuard from "@/utils/useEditorGuard";
 
 function NewSongContent() {
   const router = useRouter();
-  const supabase = createClient();
 
   const [songTitle, setSongTitle] = useState("");
   const [lyrics, setLyrics] = useState("");
   const [melody, setMelody] = useState("");
   const [melodyLink, setMelodyLink] = useState("");
-  const [id, setId] = useState("");
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isEditor, setIsEditor] = useState(false);
 
   const searchParams = useSearchParams();
   const showId = searchParams.get("showId");
+
+  const { isLoading, isAuthenticated, isEditor, userId } =
+    useEditorGuard(!!showId);
 
   const buttonDisabled = !songTitle || !lyrics;
 
@@ -33,7 +30,7 @@ function NewSongContent() {
       formData.append('lyrics', lyrics)
       formData.append('melody', melody)
       formData.append('melodyLink', melodyLink)
-      formData.append('createdBy', id)
+      formData.append('createdBy', userId)
 
       const result = await createSong(formData)
 
@@ -50,38 +47,6 @@ function NewSongContent() {
     }
   };
 
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const { data, error } = await supabase.auth.getUser();
-        if (error) {
-          console.error("Error fetching user data:", error);
-        }
-
-        const roles = await supabase
-          .from("role")
-          .select("is_editor")
-          .eq("user_id", data.user.id)
-          .single();
-
-        setIsEditor(roles.data.is_editor);
-        setIsAuthenticated(data.user);
-        setId(data.user.id);
-      } catch (error) {
-        console.error("Unexpected error during authentication check:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    checkUser();
-  }, [supabase]);
-
-  useEffect(() => {
-    if (!isLoading && (!isAuthenticated || !isEditor || !showId)) {
-      router.push("/");
-    }
-  }, [isLoading, isAuthenticated, router, isEditor, showId]);
-
   if (isLoading) {
     return <div>Loading...</div>;
   } else if (!isAuthenticated || !isEditor) {
@@ -93,19 +58,27 @@ function NewSongContent() {
       <h2 style={{ marginTop: "1rem" }}>Skapa ny sång</h2>
       <div className={style.container}>
         <section className={style.section}>
-          <h4>Sångtitel *</h4>
+          <label className={style.label} htmlFor="song-title">
+            Sångtitel *
+          </label>
           <input
+            id="song-title"
             className={style.input}
             type="text"
             placeholder=""
+            autoComplete="off"
+            enterKeyHint="next"
             value={songTitle}
             onChange={(e) => setSongTitle(e.target.value)}
           />
         </section>
 
         <section className={style.lyricsSection}>
-          <h4>Sångtext *</h4>
+          <label className={style.label} htmlFor="song-lyrics">
+            Sångtext *
+          </label>
           <textarea
+            id="song-lyrics"
             className={style.lyricInput}
             placeholder=""
             value={lyrics}
@@ -114,21 +87,30 @@ function NewSongContent() {
         </section>
 
         <section className={style.section}>
-          <h4>Melodi</h4>
+          <label className={style.label} htmlFor="song-melody">
+            Melodi
+          </label>
           <input
+            id="song-melody"
             className={style.input}
             type="text"
             placeholder="ex. Så Lunka vi så småningom"
+            enterKeyHint="next"
             value={melody}
             onChange={(e) => setMelody(e.target.value)}
           />
         </section>
         <section className={style.section}>
-          <h4>Melodilänk</h4>
+          <label className={style.label} htmlFor="song-melodylink">
+            Melodilänk
+          </label>
           <input
+            id="song-melodylink"
             className={style.input}
             type="url"
+            inputMode="url"
             placeholder="Länk till melodin på YouTube, Spotify etc."
+            enterKeyHint="done"
             value={melodyLink}
             onChange={(e) => setMelodyLink(e.target.value)}
           />

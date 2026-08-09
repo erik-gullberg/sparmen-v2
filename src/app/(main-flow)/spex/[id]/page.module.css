@@ -45,14 +45,16 @@
 .actionButton {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  min-height: 36px;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  min-height: 44px;
+  min-width: 44px;
   background: transparent;
   color: #e0e0e0;
   border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
-  font-size: 0.85rem;
+  border-radius: 22px;
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
@@ -114,7 +116,7 @@
   position: absolute;
   inset: 2px;
   background: rgb(66, 66, 66);
-  border-radius: 20px;
+  border-radius: 22px;
   z-index: 1;
 }
 
@@ -178,7 +180,7 @@
 .statusBar {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   overflow-x: auto;
 
   width: 100%;
@@ -197,10 +199,10 @@
 
 .editorHeader {
   margin-bottom: 0;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .warningBar {

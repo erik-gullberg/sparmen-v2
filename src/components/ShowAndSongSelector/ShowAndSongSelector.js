@@ -22,6 +22,8 @@ export default function ShowAndSongSelector({
   // in. Anonymous visitors (the bulk of event traffic) skip it entirely.
   useEffect(() => {
     if (!authUser) {
+      // Clear any previously-loaded role when the user logs out.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRoles(null);
       return;
     }

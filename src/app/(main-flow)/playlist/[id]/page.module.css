@@ -18,7 +18,7 @@
 
 .meta {
   margin: 0;
-  color: #aaa;
+  color: #c0c0c0;
   font-size: 0.95rem;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .empty {
-  color: #aaa;
+  color: #c0c0c0;
   text-align: center;
   margin-top: 2rem;
 }

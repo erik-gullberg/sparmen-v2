@@ -9,10 +9,14 @@
 
 .section {
     padding: 1rem;
+    width: 100%;
+    max-width: 27rem;
+    box-sizing: border-box;
 }
 
 .input {
-    width: 25rem;
+    width: 100%;
+    max-width: 25rem;
     height: 3rem;
     border-radius: 15px;
     padding-top: 1rem;
@@ -64,3 +68,9 @@
     background-color: #dbb300;
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
     border-color: #000000;}
+.label {
+    display: block;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+}

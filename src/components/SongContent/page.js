@@ -1,6 +1,6 @@
 "use client";
 import pageStyle from "@/app/(main-flow)/spex/[id]/page.module.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import toast from "react-hot-toast";
 import { MelodyLink } from "@/components/MelodyLink/MelodyLink";
 import Link from "next/link";
@@ -31,16 +31,21 @@ export default function SongContent({
   const router = useRouter();
 
   // Vote data is fetched in one batched query by SongSelector and arrives via
-  // props shortly after mount; sync it into local state. User-initiated votes
-  // mutate count/hasVoted locally and aren't clobbered since the props don't
-  // change again until the page revalidates.
-  useEffect(() => {
+  // props shortly after mount. Sync it into local state using React's
+  // "adjust state during render" pattern instead of an effect, avoiding an
+  // extra render pass. User-initiated votes mutate count/hasVoted locally and
+  // aren't clobbered since the props don't change again until revalidation.
+  const [syncedCount, setSyncedCount] = useState(initialCount);
+  if (initialCount !== syncedCount) {
+    setSyncedCount(initialCount);
     setCount(initialCount);
-  }, [initialCount]);
+  }
 
-  useEffect(() => {
+  const [syncedHasVoted, setSyncedHasVoted] = useState(initialHasVoted);
+  if (initialHasVoted !== syncedHasVoted) {
+    setSyncedHasVoted(initialHasVoted);
     setHasVoted(initialHasVoted);
-  }, [initialHasVoted]);
+  }
 
   const handleVote = (songId) => async () => {
     // Optimistic update

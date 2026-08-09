@@ -1,21 +1,18 @@
 "use client";
 import style from "./page.module.css";
-import { useEffect, useState, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { useRouter } from "next/navigation";
-import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
 import { createSpex } from "@/app/actions/spexActions";
+import useEditorGuard from "@/utils/useEditorGuard";
 
 function NewSpexContent() {
   const router = useRouter();
-  const supabase = createClient();
 
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isEditor, setIsEditor] = useState(false);
+  const { isLoading, isAuthenticated, isEditor } = useEditorGuard();
 
   const buttonDisabled = !title || !year;
 
@@ -40,37 +37,6 @@ function NewSpexContent() {
     }
   };
 
-  useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const { data, error } = await supabase.auth.getUser();
-        if (error) {
-          console.error("Error fetching user data:", error);
-        }
-
-        const roles = await supabase
-          .from("role")
-          .select("is_editor")
-          .eq("user_id", data.user.id)
-          .single();
-
-        setIsEditor(roles.data.is_editor);
-        setIsAuthenticated(data.user);
-      } catch (error) {
-        console.error("Unexpected error during authentication check:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    checkUser();
-  }, [supabase]);
-
-  useEffect(() => {
-    if (!isLoading && (!isAuthenticated || !isEditor)) {
-      router.push("/");
-    }
-  }, [isLoading, isAuthenticated, router, isEditor]);
-
   if (isLoading) {
     return <div>Loading...</div>;
   } else if (!isAuthenticated || !isEditor) {
@@ -82,22 +48,32 @@ function NewSpexContent() {
       <h2>Skapa nytt spex</h2>
 
       <section className={style.section}>
-        <h4>Titel *</h4>
+        <label className={style.label} htmlFor="spex-title">
+          Titel *
+        </label>
         <input
+          id="spex-title"
           className={style.input}
           type="text"
           placeholder="Titel på spexet"
+          autoComplete="off"
+          enterKeyHint="next"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </section>
 
       <section className={style.section}>
-        <h4>Årtal *</h4>
+        <label className={style.label} htmlFor="spex-year">
+          Årtal *
+        </label>
         <input
+          id="spex-year"
           className={style.input}
           type="number"
+          inputMode="numeric"
           placeholder="Året spexet sattes upp"
+          enterKeyHint="done"
           value={year}
           onChange={(e) => setYear(e.target.value)}
         />

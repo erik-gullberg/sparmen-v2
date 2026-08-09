@@ -5,22 +5,20 @@ import { useParams, useRouter } from "next/navigation";
 import createClient from "@/utils/supabase/browserClient";
 import toast from "react-hot-toast";
 import { updateSong } from "@/app/actions/spexActions";
+import useEditorGuard from "@/utils/useEditorGuard";
 
-export default function NewSpexPage() {
+export default function EditSongPage() {
   const router = useRouter();
-  const supabase = createClient();
 
   const [songTitle, setSongTitle] = useState("");
   const [lyrics, setLyrics] = useState("");
   const [melody, setMelody] = useState("");
   const [melodyLink, setMelodyLink] = useState("");
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isEditor, setIsEditor] = useState(false);
-
   const params = useParams();
   const songId = params.id;
+
+  const { isLoading, isAuthenticated, isEditor } = useEditorGuard(!!songId);
 
   const buttonDisabled = !songTitle || !lyrics;
 
@@ -65,36 +63,12 @@ export default function NewSpexPage() {
   }
 
   useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const { data, error } = await supabase.auth.getUser();
-        if (error) {
-          console.error("Error fetching user data:", error);
-        }
-
-        const roles = await supabase
-          .from("role")
-          .select("is_editor")
-          .eq("user_id", data.user.id)
-          .single();
-
-        setIsEditor(roles.data?.is_editor ?? false);
-        setIsAuthenticated(data.user);
-      } catch (error) {
-        console.error("Unexpected error during authentication check:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    checkUser();
+    const supabase = createClient();
+    // Loads existing song data into the form; state is set after an async
+    // query, not synchronously, so the cascading-render concern doesn't apply.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchSong(supabase, songId);
-  }, [supabase, songId]);
-
-  useEffect(() => {
-    if (!isLoading && (!isAuthenticated || !isEditor || !songId)) {
-      router.push("/");
-    }
-  }, [isLoading, isAuthenticated, router, isEditor, songId]);
+  }, [songId]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -107,19 +81,27 @@ export default function NewSpexPage() {
       <h2 style={{ marginTop: "1rem" }}>Redigera sång</h2>
       <div className={style.container}>
         <section className={style.section}>
-          <h4>Sångtitel *</h4>
+          <label className={style.label} htmlFor="edit-song-title">
+            Sångtitel *
+          </label>
           <input
+            id="edit-song-title"
             className={style.input}
             type="text"
             placeholder=""
+            autoComplete="off"
+            enterKeyHint="next"
             value={songTitle}
             onChange={(e) => setSongTitle(e.target.value)}
           />
         </section>
 
         <section className={style.lyricsSection}>
-          <h4>Sångtext *</h4>
+          <label className={style.label} htmlFor="edit-song-lyrics">
+            Sångtext *
+          </label>
           <textarea
+            id="edit-song-lyrics"
             className={style.lyricInput}
             placeholder=""
             value={lyrics
@@ -131,21 +113,30 @@ export default function NewSpexPage() {
         </section>
 
         <section className={style.section}>
-          <h4>Melodi</h4>
+          <label className={style.label} htmlFor="edit-song-melody">
+            Melodi
+          </label>
           <input
+            id="edit-song-melody"
             className={style.input}
             type="text"
             placeholder="ex. Så Lunka vi så småningom"
+            enterKeyHint="next"
             value={melody}
             onChange={(e) => setMelody(e.target.value)}
           />
         </section>
         <section className={style.section}>
-          <h4>Melodilänk</h4>
+          <label className={style.label} htmlFor="edit-song-melodylink">
+            Melodilänk
+          </label>
           <input
+            id="edit-song-melodylink"
             className={style.input}
             type="url"
+            inputMode="url"
             placeholder="Länk till melodin på YouTube, Spotify etc."
+            enterKeyHint="done"
             value={melodyLink}
             onChange={(e) => setMelodyLink(e.target.value)}
           />

@@ -3,19 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "SERWIST_SUPPRESS_TURBOPACK_WARNING=1 next dev",
+    "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "analyze": "ANALYZE=true next build --webpack"
   },
   "dependencies": {
     "@serwist/next": "^9.5.11",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.44.2",
-    "@tiptap/pm": "^2.3.1",
-    "@tiptap/react": "^2.3.1",
-    "@tiptap/starter-kit": "^2.3.1",
     "@vercel/analytics": "^1.5.0",
     "lucide-react": "^1.7.0",
     "next": "16.2.3",
@@ -26,7 +23,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^15.3.4",
     "eslint": "9.26.0",
-    "eslint-config-next": "15.0.0",
+    "eslint-config-next": "^16.2.12",
     "prettier": "^3.2.5",
     "serwist": "^9.5.11"
   }

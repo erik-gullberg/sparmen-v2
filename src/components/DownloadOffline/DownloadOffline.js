@@ -24,6 +24,9 @@ export default function DownloadOffline() {
       typeof navigator !== "undefined" &&
       "serviceWorker" in navigator &&
       "caches" in window;
+    // Reads browser-only capabilities/localStorage that aren't available during
+    // SSR, so this must run in a mount effect rather than a lazy initializer.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSupported(ok);
     setDownloaded(Boolean(localStorage.getItem(STORAGE_KEY)));
   }, []);
@@ -120,8 +123,8 @@ export default function DownloadOffline() {
           </button>
           <p className={styles.hint}>
             {downloaded
-              ? "Nedladdad – funkar offline i källaren 🍍"
-              : "Spara hela spärmen så funkar den offline i källaren 🍍"}
+              ? "Nedladdad – funkar offline"
+              : "Spara hela spärmen så funkar den offline eller med dålig täckning"}
           </p>
         </>
       )}

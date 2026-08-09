@@ -63,8 +63,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 4px 12px;
-  font-size: 0.75rem;
-  color: #888;
+  font-size: 0.8rem;
+  color: #b0b0b0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -100,21 +100,21 @@
 }
 
 .dropdownItem .subtext {
-  font-size: 0.75rem;
-  color: #888;
+  font-size: 0.8rem;
+  color: #b0b0b0;
 }
 
 
 .loadingSpinner {
   padding: 12px;
   text-align: center;
-  color: #888;
+  color: #b0b0b0;
 }
 
 .noResults {
   padding: 12px;
   text-align: center;
-  color: #888;
+  color: #b0b0b0;
   font-style: italic;
 }
 
@@ -167,8 +167,8 @@
 }
 
 .keyboardHint {
-  font-size: 0.65rem;
-  color: #666;
+  font-size: 0.75rem;
+  color: #999;
   background: #444;
   padding: 2px 6px;
   border-radius: 3px;

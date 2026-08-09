@@ -33,7 +33,8 @@ async function fetchData(query, supabase) {
       `,
       )
       .ilike("name", `%${query}%`)
-      .order("name", { ascending: true }),
+      .order("name", { ascending: true })
+      .limit(50),
     // Songs where the lyrics contain the query but name doesn't
     supabase
       .from("song")
@@ -54,8 +55,13 @@ async function fetchData(query, supabase) {
       )
       .ilike("lyrics", `%${query}%`)
       .not("name", "ilike", `%${query}%`)
-      .order("name", { ascending: true }),
-    supabase.from("spex").select("name, id").ilike("name", `%${query}%`),
+      .order("name", { ascending: true })
+      .limit(50),
+    supabase
+      .from("spex")
+      .select("name, id")
+      .ilike("name", `%${query}%`)
+      .limit(50),
   ]);
 
   // Combine results: name matches first, then lyrics matches

@@ -52,7 +52,7 @@
 .closeButton {
   background: none;
   border: none;
-  color: #aaa;
+  color: #c0c0c0;
   font-size: 1.1rem;
   cursor: pointer;
   min-height: 44px;
@@ -67,7 +67,7 @@
 
 .message {
   padding: 1rem 1.25rem;
-  color: #aaa;
+  color: #c0c0c0;
   font-size: 0.95rem;
 }
 
@@ -140,7 +140,7 @@
 
 .newLabel {
   font-size: 0.85rem;
-  color: #aaa;
+  color: #c0c0c0;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;

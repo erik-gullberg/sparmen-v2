@@ -2,16 +2,22 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: center;
+    width: 100%;
+    max-width: 52rem;
+    box-sizing: border-box;
 }
 
 .section {
-    padding: 1rem 1rem 1rem 0
+    padding: 1rem 1rem 1rem 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .input {
-    width: 35rem;
+    width: 100%;
+    max-width: 35rem;
     height: 3rem;
     border-radius: 15px;
     padding-top: 1rem;
@@ -22,9 +28,8 @@
 }
 
 .lyricInput {
-    width: 35rem;
+    width: 100%;
     max-width: 50rem;
-    min-width: 30rem;
     height: 40rem;
     border-radius: 15px;
     padding-top: 1rem;
@@ -75,3 +80,9 @@
     background-color: #dbb300;
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
     border-color: #000000;}
+.label {
+    display: block;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+}

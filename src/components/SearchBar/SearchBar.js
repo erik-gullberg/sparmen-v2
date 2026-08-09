@@ -44,6 +44,8 @@ function SearchBar() {
     }
 
     if (inputValue.length < 2) {
+      // Clear stale suggestions immediately for short input (before debounce).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSuggestions({ songs: [], spex: [] });
       return;
     }
@@ -76,6 +78,7 @@ function SearchBar() {
 
   // Reset highlight when dropdown content changes
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHighlightedIndex(-1);
   }, [inputValue, isFocused]);
 
@@ -249,6 +252,17 @@ function SearchBar() {
             type="search"
             className={styles.searchBar}
             placeholder="Sök sång, spex, melodi..."
+            aria-label="Sök efter sång, spex eller melodi"
+            role="combobox"
+            aria-expanded={showDropdown}
+            aria-controls="search-suggestions"
+            aria-autocomplete="list"
+            aria-activedescendant={
+              showDropdown && highlightedIndex >= 0
+                ? `search-option-${highlightedIndex}`
+                : undefined
+            }
+            enterKeyHint="search"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -257,10 +271,18 @@ function SearchBar() {
           />
 
           {showDropdown && (
-            <div className={styles.dropdown} ref={dropdownRef}>
+            <div
+              className={styles.dropdown}
+              ref={dropdownRef}
+              id="search-suggestions"
+              role="listbox"
+              aria-label="Sökförslag"
+            >
               {/* Loading State */}
               {isLoadingSuggestions && inputValue.length >= 2 && (
-                <div className={styles.loadingSpinner}>Söker...</div>
+                <div className={styles.loadingSpinner} role="status">
+                  Söker...
+                </div>
               )}
 
               {/* Song Suggestions */}
@@ -274,12 +296,17 @@ function SearchBar() {
                     return (
                       <div
                         key={song.id}
+                        id={`search-option-${currentIndex}`}
+                        role="option"
+                        aria-selected={highlightedIndex === currentIndex}
                         className={`${styles.dropdownItem} ${highlightedIndex === currentIndex ? styles.highlighted : ""}`}
                         onClick={() =>
                           handleItemSelect({ type: "song", data: song })
                         }
                       >
-                        <span className={styles.icon}>🎵</span>
+                        <span className={styles.icon} aria-hidden="true">
+                          🎵
+                        </span>
                         <div className={styles.text}>
                           <div>{song.name}</div>
                           <div className={styles.subtext}>
@@ -303,12 +330,17 @@ function SearchBar() {
                     return (
                       <div
                         key={spex.id}
+                        id={`search-option-${currentIndex}`}
+                        role="option"
+                        aria-selected={highlightedIndex === currentIndex}
                         className={`${styles.dropdownItem} ${highlightedIndex === currentIndex ? styles.highlighted : ""}`}
                         onClick={() =>
                           handleItemSelect({ type: "spex", data: spex })
                         }
                       >
-                        <span className={styles.icon}>🎭</span>
+                        <span className={styles.icon} aria-hidden="true">
+                          🎭
+                        </span>
                         <span className={styles.text}>{spex.name}</span>
                       </div>
                     );
@@ -321,7 +353,7 @@ function SearchBar() {
                 inputValue.length >= 2 &&
                 suggestions.songs.length === 0 &&
                 suggestions.spex.length === 0 && (
-                  <div className={styles.noResults}>
+                  <div className={styles.noResults} role="status">
                     Inga förslag hittades. Tryck Enter för att söka.
                   </div>
                 )}
@@ -335,6 +367,7 @@ function SearchBar() {
           onClick={handleRandomSong}
           className={`${styles.button} ${isLoadingRandom ? styles.rolling : ""}`}
           disabled={isLoadingRandom}
+          aria-label="Slumpa fram en slumpmässig sång"
           title="Slumpa sång"
         >
           {isLoadingRandom ? (reelLabel ?? "🎲") : "🎲"}

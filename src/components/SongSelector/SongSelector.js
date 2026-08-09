@@ -17,11 +17,10 @@ export default function SongSelector({ songs, showId, user, spexId }) {
   // runtime — but batched into a single query for the whole show instead of one
   // count() per expanded song.
   useEffect(() => {
-    if (songIds.length === 0) {
-      setVoteCounts({});
-      setVotedSongIds(new Set());
-      return;
-    }
+    // Derive the id list from the stable string key so the effect depends only
+    // on primitives (songIdsKey/userId) and never on a fresh array reference.
+    const ids = songIdsKey ? songIdsKey.split(",").map(Number) : [];
+    if (ids.length === 0) return;
 
     let cancelled = false;
     const supabase = createClient();
@@ -30,7 +29,7 @@ export default function SongSelector({ songs, showId, user, spexId }) {
       const { data: votes } = await supabase
         .from("vote")
         .select("song_id")
-        .in("song_id", songIds);
+        .in("song_id", ids);
 
       if (cancelled) return;
 
@@ -49,7 +48,7 @@ export default function SongSelector({ songs, showId, user, spexId }) {
         .from("vote")
         .select("song_id")
         .eq("user_id", userId)
-        .in("song_id", songIds);
+        .in("song_id", ids);
 
       if (!cancelled) {
         setVotedSongIds(new Set((mine ?? []).map((vote) => vote.song_id)));
@@ -60,7 +59,6 @@ export default function SongSelector({ songs, showId, user, spexId }) {
     return () => {
       cancelled = true;
     };
-    // songIdsKey captures the set of songs; userId re-runs when auth resolves.
   }, [songIdsKey, userId]);
 
   return (

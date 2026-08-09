@@ -43,8 +43,10 @@ export default async function ProfilePage() {
     redirect("/");
   }
 
-  const votedSongs = await getVotedSongs(supabase, userData.user.id);
-  const playlists = await getUserPlaylists(supabase, userData.user.id);
+  const [votedSongs, playlists] = await Promise.all([
+    getVotedSongs(supabase, userData.user.id),
+    getUserPlaylists(supabase, userData.user.id),
+  ]);
 
   return (
     <Suspense fallback={<div>Laddar profil...</div>}>
@@ -81,7 +83,7 @@ export default async function ProfilePage() {
         <h2>Dina Spellistor</h2>
         <ul className={style.favouritesList}>
           {playlists.length === 0 && (
-            <p style={{ color: "#aaa", marginTop: "0.5rem" }}>
+            <p style={{ color: "#c0c0c0", marginTop: "0.5rem" }}>
               Du har inga spellistor ännu.
             </p>
           )}
@@ -92,7 +94,7 @@ export default async function ProfilePage() {
                 <span
                   style={{
                     marginLeft: "auto",
-                    color: "#aaa",
+                    color: "#c0c0c0",
                     fontSize: "0.85rem",
                   }}
                 >
