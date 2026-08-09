@@ -1,0 +1,36 @@
+.footer {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.latest {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  max-width: 40rem;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 4px;
+  color: #c0c0c0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.label {
+  color: #e0e0e0;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.cta {
+  color: #ff9900;
+  white-space: nowrap;
+  margin-left: auto;
+}
