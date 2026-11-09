@@ -9,18 +9,16 @@ export async function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
-        get(name) {
-          return cookieStore.get(name)?.value;
+        getAll() {
+          return cookieStore.getAll();
         },
-        set(name, value, options) {
+        setAll(cookiesToSet) {
+          // Server Components can't write cookies; the middleware refreshes the session instead.
           try {
-            cookieStore.set({ name, value, ...options });
-          } catch (error) {}
-        },
-        remove(name, options) {
-          try {
-            cookieStore.set({ name, value: "", ...options });
-          } catch (error) {}
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options),
+            );
+          } catch {}
         },
       },
     },

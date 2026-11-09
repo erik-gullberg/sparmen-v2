@@ -56,16 +56,16 @@ SearchBar supports `{spexId}.{songNumber}` pattern (e.g., "3.5") for direct song
 ### Authentication & Authorization
 - `AuthContext` provides `useAuth()` hook for client components
 - `fetchUserAndRoles.js` checks `is_editor` role from `role` table
-- Middleware protects `/profile` and `/edit` routes
+- `proxy.ts` (Next 16's renamed middleware) refreshes the Supabase session on `/profile` and `/edit` routes
 - Admin features gated by `is_editor` boolean
 
 ### Component Conventions
 - CSS Modules: `ComponentName.module.css` alongside `ComponentName.js`
 - Client components marked with `"use client"` directive
 - Toast notifications via `react-hot-toast`
-- Rich text editing with TipTap (`@tiptap/react`)
 
 ## Development Commands
+Requires Node 26 (`engines` in `package.json`, `.nvmrc`).
 ```bash
 npm run dev      # Start dev server
 npm run build    # Production build
