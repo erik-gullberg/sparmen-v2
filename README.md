@@ -7,7 +7,7 @@ Var GladSpexarna hade under lång tid alla låtar från alla spex utskrivna på 
 Efter 20+ år av denna tradition började spärmarna falla sönder och fler och fler sidor saknades. 
 Därför har spärmen nu digitaliserats och ligger uppe som en webapplikation.
 
-Spärmens syfte är att fungera som en sångpärm men likväl som arkiv för föreningen då detta är det närmaste kompletta källan till alla låtar föreningen har haft.
+Spärmens syfte är att fungera som en sångpärm men likväl som arkiv för föreningen då detta är den närmaste kompletta källan till alla låtar föreningen har haft.
 
 ## Struktur
 
