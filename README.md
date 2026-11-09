@@ -23,7 +23,7 @@ Du kan se om du har adminprivilegier på profilsidan.
 
 ### Lägg till nytt spex
 1. Klicka på din avatar i övre vänstra hörnet
-2. KLicka på "Skapa nytt spex"
+2. Klicka på "Skapa nytt spex"
 
 ### Lägg till ny uppsättning
 1. Klicka på ett spex från listan på huvudsidan
