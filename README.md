@@ -17,7 +17,7 @@ Spärmens syfte är att fungera som en sångpärm men likväl som arkiv för fö
 
 ## Lägga till / Redigera
 För att redigera i spärmen behöver din användare ha adminprivilegier som idag behöver ges ut av Erik Gullberg.
-Ordförande & Regissörsmailen har alltid adminprivilegier.
+Ordförande, Producent och Regissörsmailen har alltid adminprivilegier.
 
 Du kan se om du har adminprivilegier på profilsidan.
 
